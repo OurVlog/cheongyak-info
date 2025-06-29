@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>동백호수공원 두산위브더제니스 | 인터랙티브 청약 가이드</title>
+    <meta name="description" content="용인 동백호수공원 두산위브더제니스 조합원 취소분(줍줍) 청약 정보를 확인하세요. 비규제지역 혜택, 분양가, 타입별 정보, 청약 자격, 주요 일정 등 모든 정보를 인터랙티브 가이드로 제공합니다.">
+    <meta name="keywords" content="동백호수공원 두산위브더제니스, 용인 줍줍, 용인 청약, 동백동 아파트, 비규제지역 청약, 두산위브더제니스, 청약 정보">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="동백호수공원 두산위브더제니스 | 청약 완벽 분석 가이드">
+    <meta property="og:description" content="비규제지역, 6개월 전매제한! 분양가부터 청약 자격, 주요 일정까지. 동백호수공원 두산위브더제니스의 모든 것을 한눈에 확인하세요.">
+    <meta property="og:image" content="https://placehold.co/1200x630/4338CA/FFFFFF?text=동백호수공원+두산위브더제니스">
+    <meta property="og:url" content="https://your-page-url.com">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://your-page-url.com">
+    <meta property="twitter:title" content="동백호수공원 두산위브더제니스 | 청약 완벽 분석 가이드">
+    <meta property="twitter:description" content="비규제지역, 6개월 전매제한! 분양가부터 청약 자격, 주요 일정까지. 동백호수공원 두산위브더제니스의 모든 것을 한눈에 확인하세요.">
+    <meta property="twitter:image" content="https://placehold.co/1200x630/4338CA/FFFFFF?text=동백호수공원+두산위브더제니스">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MET2FR8C3B"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-MET2FR8C3B');
+    </script>
+  
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2621906042965502"
+     crossorigin="anonymous"></script>
+  
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Elegant Neutrals with Deep Indigo Accent (From Dongtan Paragon example) -->
+    <!-- Application Structure Plan: A single-page, scrolling application. The sticky top navigation has been removed as per user request. The information remains divided into logical, full-width sections ('핵심 요약', '가격 정보', '입지 분석', '청약 자격', '주요 일정'). This top-down narrative flow guides the user through the 'Dongbaek Doosan We've the Zenith' content logically, from a high-level summary to specific details, making it easier to build a comprehensive understanding of the offering. -->
+    <!-- Visualization & Content Choices: 
+        - 가격 정보 (Price Info): Report Info -> Sales price data per unit type for 'Dongbaek Doosan We've the Zenith'. Goal -> Allow easy comparison of sales prices and payment schedules. Viz/Method -> A vertical bar chart for quick visual comparison, paired with an interactive info card. Interaction -> Clicking buttons for each unit type updates the card with detailed payment schedules (deposit, interim, balance) and highlights the corresponding bar in the chart. Justification -> This proven UI pattern effectively separates high-level comparison (chart) from on-demand details (card). Library -> Chart.js.
+        - 청약 자격 (Eligibility): Report Info -> Complex conditions for general and special supply for a non-regulated zone. Goal -> Clearly separate and explain eligibility rules. Viz/Method -> A visually distinct accordion. Interaction -> Clicking a category expands to show detailed, updated information for each supply type, including specific deposit amounts and detailed special supply criteria. Justification -> The accordion effectively manages cognitive load by hiding less relevant information and now provides the user-requested level of detail. Method -> JS-driven class toggling.
+        - 주요 일정 (Schedule): Report Info -> Key dates for the 'Dongbaek' application process. Goal -> Clearly present a sequence of events. Viz/Method -> A vertical timeline with alternating content alignment. Interaction -> None. Justification -> A visually structured timeline is more engaging and easier to parse than a simple list. Method -> Custom HTML/Tailwind CSS.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .tab-button.active {
+            background-color: #312e81; /* indigo-900 */
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .tab-button {
+            transition: all 0.3s ease-in-out;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        .accordion-header.open + .accordion-content {
+            max-height: 800px; /* Increased max-height for more detailed content */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-sm sticky top-0 z-20">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+            <a href="#" class="flex items-center space-x-2">
+                <span class="text-2xl">🏠</span>
+                <span class="text-xl font-bold text-gray-800">청약 정보 알리미</span>
+            </a>
+            <a href="https://woolog.co.kr/" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-indigo-800 hover:text-indigo-600 transition-colors">
+                우리의 일상로그
+            </a>
+        </div>
+    </header>
+
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+
+        <header class="text-center my-12 md:my-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-indigo-900 mb-4">동백호수공원 두산위브더제니스</h1>
+            <p class="text-xl text-gray-600">인터랙티브 청약 가이드</p>
+            <p class="mt-3 text-gray-500">어려운 조합원 취소분 공고, 핵심만 쉽게 확인하세요.</p>
+        </header>
+
+        <main class="space-y-20 md:space-y-24">
+
+            <section id="summary" class="bg-white p-8 rounded-2xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-2 text-center">🏠 핵심 요약</h2>
+                <p class="text-center text-gray-600 mb-8">가장 중요한 정보만 모아 한눈에 확인하세요.</p>
+                <div class="bg-indigo-50 p-6 rounded-lg text-center mb-8">
+                    <p class="text-lg text-indigo-900 leading-relaxed">
+                        '동백호수공원 두산위브더제니스'는 용인 기흥구 핵심 입지에 위치한 **조합원 취소분(줍줍)** 아파트입니다.
+                        <br>비규제지역으로 청약 조건이 완화되었으며, **전매제한 6개월, 실거주 의무가 없는** 것이 특징입니다.
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6 text-gray-700">
+                    <div class="border border-gray-200 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg mb-3">사업 개요</h3>
+                        <ul class="space-y-2">
+                            <li><strong>단지명:</strong> 동백호수공원 두산위브더제니스</li>
+                            <li><strong>위치:</strong> 경기도 용인시 기흥구 동백동 478-10 일원</li>
+                            <li><strong>공급 규모:</strong> 총 378세대 중 **18세대**</li>
+                            <li><strong>입주 예정:</strong> **2025년 11월**</li>
+                        </ul>
+                    </div>
+                    <div class="border border-gray-200 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg mb-3">주요 특징 및 규제</h3>
+                        <ul class="space-y-2">
+                            <li><strong>규제 지역:</strong> 비규제지역</li>
+                            <li><strong>전매 제한:</strong> 당첨자 발표일로부터 **6개월**</li>
+                            <li><strong>재당첨 제한:</strong> <span class="text-green-600 font-semibold">없음</span></li>
+                            <li><strong>실거주 의무:</strong> <span class="text-green-600 font-semibold">없음</span></li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="mt-10 text-center">
+                    <a href="https://www.applyhome.co.kr/" target="_blank" rel="noopener noreferrer" class="inline-block bg-indigo-800 text-white font-bold text-lg py-3 px-8 rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all transform hover:scale-105">
+                        청약홈 바로가기
+                    </a>
+                </div>
+            </section>
+
+            <section id="price" class="bg-white p-8 rounded-2xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-2 text-center">💰 가격 정보</h2>
+                <p class="text-center text-gray-600 mb-8">타입별 분양가를 비교하고 상세 납부 일정을 확인하세요.</p>
+                <div class="flex flex-wrap justify-center gap-3 mb-8">
+                    <button class="tab-button px-5 py-2 rounded-full font-semibold text-gray-700 shadow-sm border border-gray-300" data-type="61A">61A㎡</button>
+                    <button class="tab-button px-5 py-2 rounded-full font-semibold text-gray-700 shadow-sm border border-gray-300" data-type="75A">75A㎡</button>
+                    <button class="tab-button px-5 py-2 rounded-full font-semibold text-gray-700 shadow-sm border border-gray-300" data-type="77B">77B㎡</button>
+                    <button class="tab-button px-5 py-2 rounded-full font-semibold text-gray-700 shadow-sm border border-gray-300" data-type="84A">84A㎡</button>
+                </div>
+                <div class="grid md:grid-cols-5 gap-8 items-center">
+                    <div id="price-info-card" class="md:col-span-2 bg-gray-50 p-6 rounded-lg transition-all duration-300 border border-gray-200"></div>
+                    <div class="chart-container md:col-span-3">
+                        <canvas id="priceChart"></canvas>
+                    </div>
+                </div>
+                 <p class="text-center text-sm text-gray-500 mt-4">⚠️ 분양가에는 발코니 확장 비용이 포함되어 있습니다. 유상옵션은 별도이며, 기존 조합원 선택을 승계합니다.</p>
+            </section>
+
+            <section id="location" class="bg-white p-8 rounded-2xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-2 text-center">🗺️ 입지 분석</h2>
+                <p class="text-center text-gray-600 mb-8">교통, 교육, 생활 인프라 관점에서 입지의 장단점을 확인해보세요.</p>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="border border-gray-200 p-6 rounded-lg text-center">
+                        <h3 class="font-bold text-2xl mb-4">🚇</h3>
+                        <h4 class="font-bold text-xl mb-3">교통</h4>
+                        <ul class="space-y-3 text-gray-700 text-left">
+                            <li class="flex items-start"><span class="text-green-500 mr-2 mt-1">✓</span> <strong>에버라인 어정역</strong> 인접, 수인분당선 환승</li>
+                            <li class="flex items-start"><span class="text-green-500 mr-2 mt-1">✓</span> <strong>동백죽전대로</strong> 통한 광역도로망 접근 용이</li>
+                            <li class="flex items-start"><span class="text-blue-600 font-bold mr-2 mt-1">✨</span> 향후 <strong>GTX-A 용인역</strong> 개통 시 강남 접근성 UP!</li>
+                        </ul>
+                    </div>
+                    <div class="border border-gray-200 p-6 rounded-lg text-center">
+                        <h3 class="font-bold text-2xl mb-4">🏫</h3>
+                        <h4 class="font-bold text-xl mb-3">교육 및 생활</h4>
+                        <ul class="space-y-3 text-gray-700 text-left">
+                           <li class="flex items-start"><span class="text-green-500 mr-2 mt-1">✓</span> <strong>어정초등학교</strong> 인접, 안전한 통학 환경</li>
+                           <li class="flex items-start"><span class="text-green-500 mr-2 mt-1">✓</span> <strong>동백호수공원, 이마트, 쥬네브 상가</strong> 등 인프라 풍부</li>
+                           <li class="flex items-start"><span class="text-red-500 mr-2 mt-1">⚠️</span> 중/고등학교는 학군 내 배정 확인 필요</li>
+                        </ul>
+                    </div>
+                    <div class="border border-gray-200 p-6 rounded-lg text-center">
+                        <h3 class="font-bold text-2xl mb-4">🌳</h3>
+                        <h4 class="font-bold text-xl mb-3">주변 환경</h4>
+                        <ul class="space-y-3 text-gray-700 text-left">
+                            <li class="flex items-start"><span class="text-green-500 mr-2 mt-1">✓</span> <strong>동백호수공원</strong> 바로 앞의 쾌적한 자연</li>
+                            <li class="flex items-start"><span class="text-green-500 mr-2 mt-1">✓</span> 인근 <strong>용인 플랫폼시티</strong> 개발 호재</li>
+                            <li class="flex items-start"><span class="text-red-500 mr-2 mt-1">⚠️</span> 단지 주변 도로 소음 발생 가능성</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="eligibility" class="bg-white p-8 rounded-2xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-2 text-center">🙋 청약 자격</h2>
+                <p class="text-center text-gray-600 mb-8">가장 중요한 청약 자격, 해당하는 공급 유형을 눌러 상세 조건을 확인하세요.</p>
+                <div class="space-y-4 max-w-3xl mx-auto">
+                    <div class="accordion-item border-2 border-indigo-800 rounded-lg">
+                        <button class="accordion-header w-full p-5 text-left font-bold text-xl flex justify-between items-center bg-indigo-800 text-white">
+                            <span>일반공급 (12세대) ✨</span>
+                            <span class="transform transition-transform duration-300 text-2xl">+</span>
+                        </button>
+                        <div class="accordion-content bg-indigo-50">
+                            <div class="p-6 border-t border-indigo-200">
+                                <p class="font-semibold text-lg text-indigo-700 mb-3">비규제지역으로 1순위 조건이 완화되었습니다.</p>
+                                <ul class="space-y-3 text-gray-700">
+                                    <li class="flex flex-col sm:flex-row"><span class="w-full sm:w-28 font-medium shrink-0">✅ 거주지</span><span>용인시 또는 수도권(서울, 인천, 경기) 거주자 (경쟁 시 용인시 거주자 우선 공급)</span></li>
+                                    <li class="flex flex-col sm:flex-row"><span class="w-full sm:w-28 font-medium shrink-0">✅ 주택 소유</span><span class="font-bold">1주택 이상 소유자도 1순위 청약 가능</span></li>
+                                    <li class="flex flex-col sm:flex-row"><span class="w-full sm:w-28 font-medium shrink-0">✅ 세대주 여부</span><span class="font-bold">세대주, 세대원 모두 청약 가능</span></li>
+                                    <li class="flex flex-col sm:flex-row"><span class="w-full sm:w-28 font-medium shrink-0">✅ 청약통장</span>
+                                        <div>
+                                            <span>가입 기간 12개월 이상 경과 및 아래의 지역별 예치금액 충족</span>
+                                            <table class="w-full mt-2 text-sm border text-center">
+                                                <thead class="bg-gray-200">
+                                                    <tr>
+                                                        <th class="p-2 border">거주지</th>
+                                                        <th class="p-2 border">예치금 (전용 85㎡ 이하)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="bg-white">
+                                                    <tr><td class="p-2 border">용인시 및 경기도</td><td class="p-2 border">200만원</td></tr>
+                                                    <tr><td class="p-2 border">서울특별시</td><td class="p-2 border">300만원</td></tr>
+                                                    <tr><td class="p-2 border">인천광역시</td><td class="p-2 border">250만원</td></tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border border-gray-300 rounded-lg">
+                        <button class="accordion-header w-full p-5 text-left font-bold text-xl flex justify-between items-center bg-gray-100">
+                            <span>특별공급 (6세대)</span>
+                            <span class="transform transition-transform duration-300 text-2xl">+</span>
+                        </button>
+                        <div class="accordion-content bg-gray-50">
+                            <div class="p-6 border-t space-y-4">
+                                <p class="text-gray-700">무주택세대구성원 요건을 기본으로 하며, 각 유형별 아래의 핵심 조건을 충족해야 합니다.</p>
+                                <div>
+                                    <h4 class="font-bold text-indigo-800">기관추천 (1세대)</h4>
+                                    <ul class="list-disc list-inside text-sm text-gray-600 mt-1 ml-2">
+                                        <li>대상: 장애인 등 해당 기관의 추천을 받은 자</li>
+                                        <li>청약통장: 6개월 이상 (단, 장애인 등 일부 유형은 불필요)</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-indigo-800">다자녀가구 (1세대)</h4>
+                                    <ul class="list-disc list-inside text-sm text-gray-600 mt-1 ml-2">
+                                        <li>자녀: 만 19세 미만 자녀 2명 이상 (태아, 입양 포함)</li>
+                                        <li>청약통장: 6개월 이상, 예치금 충족</li>
+                                        <li>선정방식: 다자녀가구 배점 기준표에 따라 선정</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-indigo-800">신혼부부 (3세대)</h4>
+                                    <ul class="list-disc list-inside text-sm text-gray-600 mt-1 ml-2">
+                                        <li>자격: 혼인 기간 7년 이내 또는 예비 신혼부부</li>
+                                        <li>소득/자산: 정해진 소득 및 자산 기준 충족</li>
+                                        <li>청약통장: 6개월 이상, 예치금 충족</li>
+                                        <li>선정방식: 소득, 순위, 자녀 수 등에 따라 추첨</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-indigo-800">생애최초 (1세대)</h4>
+                                    <ul class="list-disc list-inside text-sm text-gray-600 mt-1 ml-2">
+                                        <li>자격: 세대원 전원 과거 주택 소유 사실이 없는 분</li>
+                                        <li>기본조건: 1순위 자격 + 혼인 중이거나 미혼 자녀가 있는 분</li>
+                                        <li>소득/자산: 정해진 소득 및 자산 기준 충족</li>
+                                        <li>기타: 과거 5년간 소득세 납부 사실 증명</li>
+                                        <li>청약통장: 12개월 이상, 예치금 충족</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="schedule" class="bg-white p-8 rounded-2xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-2 text-center">🗓️ 주요 일정</h2>
+                <p class="text-center text-gray-600 mb-12">청약은 타이밍! 중요한 날짜를 달력에 꼭 표시해두세요.</p>
+                <div class="relative max-w-xl mx-auto">
+                    <div class="absolute left-4 md:left-1/2 h-full w-0.5 bg-gray-200"></div>
+                    <div id="timeline-container" class="space-y-12"></div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-24 py-8 border-t border-gray-200">
+            <p class="text-sm text-gray-500">본 페이지는 '동백호수공원 두산위브더제니스 입주자모집공고'를 바탕으로 제작되었습니다.</p>
+            <p class="text-xs text-gray-400 mt-2">청약 신청 전 반드시 원본 공고문을 재확인하시기 바라며, 본 자료는 참고용으로만 활용해 주십시오.</p>
+        </footer>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const priceData = {
+        '61A': { label: '61A㎡', price: 579800000, units: '총 7세대 (특공 4, 일반 3)', payment: { contract: '5,798만원', midterm: '3억 4,788만원', final: '1억 7,394만원' }},
+        '75A': { label: '75A㎡', price: 705600000, units: '총 5세대 (특공 1, 일반 4)', payment: { contract: '7,056만원', midterm: '4억 2,336만원', final: '2억 1,168만원' }},
+        '77B': { label: '77B㎡', price: 841800000, units: '총 4세대 (특공 1, 일반 3)', payment: { contract: '8,418만원', midterm: '5억 508만원', final: '2억 5,254만원' }},
+        '84A': { label: '84A㎡', price: 751560000, units: '총 2세대 (일반 2)', payment: { contract: '7,516만원', midterm: '4억 5,093만원', final: '2억 2,547만원' }}
+    };
+
+    const scheduleData = [
+        { date: '2025.06.20', event: '모집공고' },
+        { date: '2025.06.30', event: '특별공급 접수' },
+        { date: '2025.07.01', event: '일반공급 1순위' },
+        { date: '2025.07.08', event: '당첨자 발표' },
+        { date: '2025.07.21 ~ 23', event: '계약 체결' }
+    ];
+
+    const priceInfoCard = document.getElementById('price-info-card');
+    const tabButtons = document.querySelectorAll('.tab-button');
+    let priceChart;
+
+    function formatCurrency(amount) {
+        const billion = Math.floor(amount / 100000000);
+        const million = Math.floor((amount % 100000000) / 10000);
+        let result = '';
+        if (billion > 0) result += `${billion}억 `;
+        if (million > 0) result += `${million.toLocaleString()}만원`;
+        return result.trim();
+    }
+
+    function updatePriceInfo(type) {
+        const data = priceData[type];
+        if (!data) return;
+
+        priceInfoCard.innerHTML = `
+            <h3 class="font-bold text-xl mb-4 text-center text-indigo-900">${data.label} 정보</h3>
+            <div class="space-y-4">
+                <div class="flex justify-between items-baseline">
+                    <span class="text-gray-600 font-medium">최고 분양가:</span>
+                    <span class="font-bold text-2xl text-indigo-700">${formatCurrency(data.price)}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600 font-medium">공급 세대수:</span>
+                    <span class="font-semibold">${data.units}</span>
+                </div>
+                <div class="pt-4 mt-4 border-t border-gray-300">
+                    <h4 class="font-semibold mb-2 text-center">납부 일정 (10% - 60% - 30%)</h4>
+                    <div class="text-sm space-y-1">
+                        <div class="flex justify-between"><span>계약금:</span> <strong>${data.payment.contract}</strong></div>
+                        <div class="flex justify-between"><span>중도금:</span> <strong>${data.payment.midterm}</strong></div>
+                        <div class="flex justify-between"><span>잔금:</span> <strong>${data.payment.final}</strong></div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        tabButtons.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.type === type);
+        });
+
+        if (priceChart) {
+            priceChart.data.datasets[0].backgroundColor = priceChart.data.labels.map(label => {
+                return label.startsWith(data.label) ? '#4338ca' : '#d1d5db';
+            });
+            priceChart.data.datasets[0].borderColor = priceChart.data.labels.map(label => {
+                return label.startsWith(data.label) ? '#312e81' : '#9ca3af';
+            });
+            priceChart.update();
+        }
+    }
+
+    function createPriceChart() {
+        const ctx = document.getElementById('priceChart').getContext('2d');
+        const labels = Object.values(priceData).map(d => d.label);
+        const prices = Object.values(priceData).map(d => d.price / 10000);
+
+        priceChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '최고 분양가 (만원)',
+                    data: prices,
+                    backgroundColor: '#d1d5db',
+                    borderColor: '#9ca3af',
+                    borderWidth: 1,
+                    borderRadius: 5,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => `${context.dataset.label}: ${new Intl.NumberFormat('ko-KR').format(context.parsed.y)} 만원`
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        title: { display: true, text: '최고 분양가 (만원)' },
+                        ticks: {
+                            callback: (value) => (value / 10000).toLocaleString() + '억'
+                        }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    }
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => updatePriceInfo(button.dataset.type));
+    });
+
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('span:last-child');
+            const isOpen = header.classList.contains('open');
+
+            document.querySelectorAll('.accordion-header').forEach(h => {
+                if (h !== header) {
+                    h.classList.remove('open');
+                    h.nextElementSibling.style.maxHeight = null;
+                    h.querySelector('span:last-child').textContent = '+';
+                }
+            });
+
+            header.classList.toggle('open', !isOpen);
+            arrow.textContent = isOpen ? '+' : '−';
+            
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    });
+
+    const timelineContainer = document.getElementById('timeline-container');
+    scheduleData.forEach((item, index) => {
+        const sideClass = index % 2 === 0 ? 'md:flex-row-reverse text-right md:text-left pr-8 md:pr-0 md:pl-8' : 'pl-8';
+        const justifyClass = index % 2 === 0 ? 'justify-end md:justify-normal' : 'justify-start md:justify-normal';
+
+        const eventEl = document.createElement('div');
+        eventEl.className = `relative flex items-center ${justifyClass}`;
+        eventEl.innerHTML = `
+            <div class="w-full md:w-5/12 ${sideClass}">
+                <p class="font-bold text-lg text-indigo-900">${item.event}</p>
+                <p class="text-gray-600">${item.date}</p>
+            </div>
+            <div class="absolute left-4 md:left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-indigo-600 border-4 border-white"></div>
+        `;
+        timelineContainer.appendChild(eventEl);
+    });
+
+    createPriceChart();
+    updatePriceInfo('61A');
+});
+</script>
+</body>
+</html>
