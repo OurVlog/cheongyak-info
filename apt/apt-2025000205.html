@@ -29,24 +29,24 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-    
+
       gtag('config', 'G-MET2FR8C3B');
     </script>
-  
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2621906042965502"
      crossorigin="anonymous"></script>
-  
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Elegant Neutrals with Deep Indigo Accent (From Dongtan Paragon example) -->
-    <!-- Application Structure Plan: A single-page, scrolling application. The sticky top navigation has been removed as per user request. The information remains divided into logical, full-width sections ('핵심 요약', '가격 정보', '입지 분석', '청약 자격', '주요 일정'). This top-down narrative flow guides the user through the 'Dongbaek Doosan We've the Zenith' content logically, from a high-level summary to specific details, making it easier to build a comprehensive understanding of the offering. -->
+    <!-- Chosen Palette: Elegant Neutrals with Deep Indigo Accent -->
+    <!-- Application Structure Plan: A single-page, scrolling application. A new 'Self-Diagnosis' interactive section has been added within the 'Eligibility' section to allow users to input their own data and receive immediate feedback on their 1st-priority eligibility. This enhances user engagement and provides personalized, actionable information. -->
     <!-- Visualization & Content Choices: 
-        - 가격 정보 (Price Info): Report Info -> Sales price data per unit type for 'Dongbaek Doosan We've the Zenith'. Goal -> Allow easy comparison of sales prices and payment schedules. Viz/Method -> A vertical bar chart for quick visual comparison, paired with an interactive info card. Interaction -> Clicking buttons for each unit type updates the card with detailed payment schedules (deposit, interim, balance) and highlights the corresponding bar in the chart. Justification -> This proven UI pattern effectively separates high-level comparison (chart) from on-demand details (card). Library -> Chart.js.
-        - 청약 자격 (Eligibility): Report Info -> Complex conditions for general and special supply for a non-regulated zone. Goal -> Clearly separate and explain eligibility rules. Viz/Method -> A visually distinct accordion. Interaction -> Clicking a category expands to show detailed, updated information for each supply type, including specific deposit amounts and detailed special supply criteria. Justification -> The accordion effectively manages cognitive load by hiding less relevant information and now provides the user-requested level of detail. Method -> JS-driven class toggling.
-        - 주요 일정 (Schedule): Report Info -> Key dates for the 'Dongbaek' application process. Goal -> Clearly present a sequence of events. Viz/Method -> A vertical timeline with alternating content alignment. Interaction -> None. Justification -> A visually structured timeline is more engaging and easier to parse than a simple list. Method -> Custom HTML/Tailwind CSS.
+        - 청약 자격 자가진단 (Eligibility Self-Diagnosis): Report Info -> 1st priority eligibility rules (residency, bankbook period, deposit amount). Goal -> Provide a personalized eligibility check. Viz/Method -> An interactive HTML form. Interaction -> User inputs their data (residency, deposit, etc.), and a JS function evaluates it against the rules, displaying a clear, color-coded result. Justification -> This feature transforms the static eligibility information into a dynamic tool, offering direct value and clarity to the user. Method -> JS-driven form validation and result display.
+        - 가격 정보 (Price Info): Report Info -> Sales price data. Goal -> Compare prices. Viz/Method -> Bar chart and info card. Interaction -> Click to update. Justification -> Effective pattern for comparison and detail. Library -> Chart.js.
+        - 청약 자격 (Eligibility): Report Info -> Supply types and conditions. Goal -> Explain rules. Viz/Method -> Accordion. Interaction -> Click to expand. Justification -> Manages complexity. Method -> JS toggle.
         - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         html { scroll-behavior: smooth; }
@@ -63,10 +63,10 @@
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease-out;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
         }
         .accordion-header.open + .accordion-content {
-            max-height: 800px; /* Increased max-height for more detailed content */
+            max-height: 1200px; /* Increased max-height for more detailed content */
         }
         .chart-container {
             position: relative;
@@ -81,6 +81,14 @@
             .chart-container {
                 height: 350px;
             }
+        }
+        .form-input {
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .form-input:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+            outline: none;
         }
     </style>
 </head>
@@ -206,86 +214,77 @@
             
             <section id="eligibility" class="bg-white p-8 rounded-2xl shadow-lg">
                 <h2 class="text-3xl font-bold mb-2 text-center">🙋 청약 자격</h2>
-                <p class="text-center text-gray-600 mb-8">가장 중요한 청약 자격, 해당하는 공급 유형을 눌러 상세 조건을 확인하세요.</p>
+                <p class="text-center text-gray-600 mb-8">아래에서 정보를 확인하고, 직접 내 자격을 진단해보세요.</p>
                 <div class="space-y-4 max-w-3xl mx-auto">
-                    <div class="accordion-item border-2 border-indigo-800 rounded-lg">
-                        <button class="accordion-header w-full p-5 text-left font-bold text-xl flex justify-between items-center bg-indigo-800 text-white">
-                            <span>일반공급 (12세대) ✨</span>
-                            <span class="transform transition-transform duration-300 text-2xl">+</span>
-                        </button>
-                        <div class="accordion-content bg-indigo-50">
-                            <div class="p-6 border-t border-indigo-200">
-                                <p class="font-semibold text-lg text-indigo-700 mb-3">비규제지역으로 1순위 조건이 완화되었습니다.</p>
-                                <ul class="space-y-3 text-gray-700">
-                                    <li class="flex flex-col sm:flex-row"><span class="w-full sm:w-28 font-medium shrink-0">✅ 거주지</span><span>용인시 또는 수도권(서울, 인천, 경기) 거주자 (경쟁 시 용인시 거주자 우선 공급)</span></li>
-                                    <li class="flex flex-col sm:flex-row"><span class="w-full sm:w-28 font-medium shrink-0">✅ 주택 소유</span><span class="font-bold">1주택 이상 소유자도 1순위 청약 가능</span></li>
-                                    <li class="flex flex-col sm:flex-row"><span class="w-full sm:w-28 font-medium shrink-0">✅ 세대주 여부</span><span class="font-bold">세대주, 세대원 모두 청약 가능</span></li>
-                                    <li class="flex flex-col sm:flex-row"><span class="w-full sm:w-28 font-medium shrink-0">✅ 청약통장</span>
-                                        <div>
-                                            <span>가입 기간 12개월 이상 경과 및 아래의 지역별 예치금액 충족</span>
-                                            <table class="w-full mt-2 text-sm border text-center">
-                                                <thead class="bg-gray-200">
-                                                    <tr>
-                                                        <th class="p-2 border">거주지</th>
-                                                        <th class="p-2 border">예치금 (전용 85㎡ 이하)</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="bg-white">
-                                                    <tr><td class="p-2 border">용인시 및 경기도</td><td class="p-2 border">200만원</td></tr>
-                                                    <tr><td class="p-2 border">서울특별시</td><td class="p-2 border">300만원</td></tr>
-                                                    <tr><td class="p-2 border">인천광역시</td><td class="p-2 border">250만원</td></tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item border border-gray-300 rounded-lg">
+                    <div class="accordion-item border-2 border-gray-200 rounded-lg">
                         <button class="accordion-header w-full p-5 text-left font-bold text-xl flex justify-between items-center bg-gray-100">
-                            <span>특별공급 (6세대)</span>
+                            <span>자격 조건 알아보기</span>
                             <span class="transform transition-transform duration-300 text-2xl">+</span>
                         </button>
                         <div class="accordion-content bg-gray-50">
-                            <div class="p-6 border-t space-y-4">
-                                <p class="text-gray-700">무주택세대구성원 요건을 기본으로 하며, 각 유형별 아래의 핵심 조건을 충족해야 합니다.</p>
-                                <div>
-                                    <h4 class="font-bold text-indigo-800">기관추천 (1세대)</h4>
-                                    <ul class="list-disc list-inside text-sm text-gray-600 mt-1 ml-2">
-                                        <li>대상: 장애인 등 해당 기관의 추천을 받은 자</li>
-                                        <li>청약통장: 6개월 이상 (단, 장애인 등 일부 유형은 불필요)</li>
-                                    </ul>
+                            <div class="p-6 border-t space-y-6">
+                                <div class="bg-indigo-50 p-4 rounded-lg">
+                                     <h4 class="font-bold text-indigo-800 text-lg">일반공급 (12세대)</h4>
+                                     <ul class="list-disc list-inside text-sm text-gray-700 mt-2 ml-2 space-y-1">
+                                        <li><span class="font-semibold">거주지:</span> 용인시 또는 수도권(서울, 인천, 경기) 거주자</li>
+                                        <li><span class="font-semibold">주택소유:</span> 1주택 이상 소유자도 1순위 가능</li>
+                                        <li><span class="font-semibold">세대주여부:</span> 세대주, 세대원 모두 청약 가능</li>
+                                        <li><span class="font-semibold">청약통장:</span> 가입 12개월 이상, 지역별 예치금 충족</li>
+                                     </ul>
                                 </div>
-                                <div>
-                                    <h4 class="font-bold text-indigo-800">다자녀가구 (1세대)</h4>
-                                    <ul class="list-disc list-inside text-sm text-gray-600 mt-1 ml-2">
-                                        <li>자녀: 만 19세 미만 자녀 2명 이상 (태아, 입양 포함)</li>
-                                        <li>청약통장: 6개월 이상, 예치금 충족</li>
-                                        <li>선정방식: 다자녀가구 배점 기준표에 따라 선정</li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-indigo-800">신혼부부 (3세대)</h4>
-                                    <ul class="list-disc list-inside text-sm text-gray-600 mt-1 ml-2">
-                                        <li>자격: 혼인 기간 7년 이내 또는 예비 신혼부부</li>
-                                        <li>소득/자산: 정해진 소득 및 자산 기준 충족</li>
-                                        <li>청약통장: 6개월 이상, 예치금 충족</li>
-                                        <li>선정방식: 소득, 순위, 자녀 수 등에 따라 추첨</li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-indigo-800">생애최초 (1세대)</h4>
-                                    <ul class="list-disc list-inside text-sm text-gray-600 mt-1 ml-2">
-                                        <li>자격: 세대원 전원 과거 주택 소유 사실이 없는 분</li>
-                                        <li>기본조건: 1순위 자격 + 혼인 중이거나 미혼 자녀가 있는 분</li>
-                                        <li>소득/자산: 정해진 소득 및 자산 기준 충족</li>
-                                        <li>기타: 과거 5년간 소득세 납부 사실 증명</li>
-                                        <li>청약통장: 12개월 이상, 예치금 충족</li>
-                                    </ul>
-                                </div>
+                                 <div class="bg-blue-50 p-4 rounded-lg">
+                                     <h4 class="font-bold text-blue-800 text-lg">특별공급 (6세대)</h4>
+                                     <ul class="list-disc list-inside text-sm text-gray-700 mt-2 ml-2 space-y-1">
+                                        <li><span class="font-semibold">공통:</span> 무주택세대구성원 요건 충족</li>
+                                        <li><span class="font-semibold">신혼부부(3):</span> 혼인 7년 이내, 소득/자산 기준 충족, 통장 6개월 이상</li>
+                                        <li><span class="font-semibold">생애최초(1):</span> 생애 첫 주택, 1순위, 소득/자산 기준 충족, 5년 간 소득세 납부</li>
+                                        <li><span class="font-semibold">다자녀가구(1):</span> 만 19세 미만 자녀 2명 이상, 통장 6개월 이상</li>
+                                        <li><span class="font-semibold">기관추천(1):</span> 해당 기관 추천자, 통장 6개월 이상 (일부 제외)</li>
+                                     </ul>
+                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- 자가진단 폼 -->
+                <div class="mt-12 max-w-3xl mx-auto border-2 border-indigo-800 rounded-lg">
+                    <div class="p-5 bg-indigo-800 text-white rounded-t-lg">
+                         <h3 class="font-bold text-xl text-center">일반공급 1순위 자격 자가진단 ✨</h3>
+                    </div>
+                    <div id="eligibility-form" class="p-6 space-y-4 bg-indigo-50">
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="residence" class="block text-sm font-medium text-gray-700 mb-1">거주지</label>
+                                <select id="residence" class="form-input w-full p-2 border border-gray-300 rounded-md">
+                                    <option value="yongin">용인시</option>
+                                    <option value="gyeonggi">경기도 (용인 외)</option>
+                                    <option value="seoul">서울특별시</option>
+                                    <option value="incheon">인천광역시</option>
+                                    <option value="other">기타 (수도권 외)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="bankbook-period" class="block text-sm font-medium text-gray-700 mb-1">청약통장 가입기간 (개월)</label>
+                                <input type="number" id="bankbook-period" placeholder="예: 12" class="form-input w-full p-2 border border-gray-300 rounded-md">
+                            </div>
+                        </div>
+                        <div>
+                             <label for="bankbook-deposit" class="block text-sm font-medium text-gray-700 mb-1">청약통장 예치금 (원)</label>
+                             <input type="number" id="bankbook-deposit" placeholder="예: 2000000" class="form-input w-full p-2 border border-gray-300 rounded-md">
+                        </div>
+                        <div class="flex items-start">
+                             <input id="is-adult" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded mt-1 focus:ring-indigo-500">
+                             <label for="is-adult" class="ml-2 block text-sm text-gray-900">모집공고일 기준 만 19세 이상입니다.</label>
+                        </div>
+
+                        <button id="check-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-md hover:bg-indigo-700 transition-colors">
+                            진단하기
+                        </button>
+                    </div>
+                    <div id="result-container" class="p-6 bg-white rounded-b-lg hidden">
+                        <h4 id="result-title" class="font-bold text-xl text-center mb-4"></h4>
+                        <ul id="result-list" class="space-y-2 text-sm"></ul>
                     </div>
                 </div>
             </section>
@@ -431,14 +430,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const arrow = header.querySelector('span:last-child');
             const isOpen = header.classList.contains('open');
 
-            document.querySelectorAll('.accordion-header').forEach(h => {
-                if (h !== header) {
-                    h.classList.remove('open');
-                    h.nextElementSibling.style.maxHeight = null;
-                    h.querySelector('span:last-child').textContent = '+';
-                }
-            });
-
             header.classList.toggle('open', !isOpen);
             arrow.textContent = isOpen ? '+' : '−';
             
@@ -466,6 +457,59 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
         timelineContainer.appendChild(eventEl);
     });
+
+    function checkEligibility() {
+        const residence = document.getElementById('residence').value;
+        const period = parseInt(document.getElementById('bankbook-period').value, 10) || 0;
+        const deposit = parseInt(document.getElementById('bankbook-deposit').value, 10) || 0;
+        const isAdult = document.getElementById('is-adult').checked;
+
+        let requiredDeposit = 0;
+        if (residence === 'yongin' || residence === 'gyeonggi') {
+            requiredDeposit = 2000000;
+        } else if (residence === 'seoul') {
+            requiredDeposit = 3000000;
+        } else if (residence === 'incheon') {
+            requiredDeposit = 2500000;
+        }
+        
+        const conditions = {
+            isAdult: isAdult,
+            isCapitalArea: residence !== 'other',
+            isPeriodMet: period >= 12,
+            isDepositMet: deposit >= requiredDeposit
+        };
+
+        const resultContainer = document.getElementById('result-container');
+        const resultTitle = document.getElementById('result-title');
+        const resultList = document.getElementById('result-list');
+        resultList.innerHTML = '';
+
+        const allMet = Object.values(conditions).every(Boolean);
+
+        if (allMet) {
+            resultTitle.textContent = "🎉 1순위 청약 가능 🎉";
+            resultTitle.className = "font-bold text-xl text-center mb-4 text-green-600";
+        } else {
+            resultTitle.textContent = "😥 1순위 청약 불가 😥";
+            resultTitle.className = "font-bold text-xl text-center mb-4 text-red-600";
+        }
+
+        const createListItem = (text, met) => {
+            const icon = met ? '✅' : '❌';
+            const color = met ? 'text-green-700' : 'text-red-700';
+            return `<li class="flex items-center ${color}"><span class="mr-2">${icon}</span>${text}</li>`;
+        };
+        
+        resultList.innerHTML += createListItem(`만 19세 이상: ${isAdult ? '충족' : '미충족'}`, conditions.isAdult);
+        resultList.innerHTML += createListItem(`수도권 거주: ${conditions.isCapitalArea ? '충족' : '미충족'}`, conditions.isCapitalArea);
+        resultList.innerHTML += createListItem(`청약통장 가입기간 12개월 이상: ${period}개월 ${conditions.isPeriodMet ? '(충족)' : '(미충족)'}`, conditions.isPeriodMet);
+        resultList.innerHTML += createListItem(`지역별 예치금 충족 (기준: ${formatCurrency(requiredDeposit*10000)}): ${formatCurrency(deposit*10000)} ${conditions.isDepositMet ? '(충족)' : '(미충족)'}`, conditions.isDepositMet);
+
+        resultContainer.classList.remove('hidden');
+    }
+
+    document.getElementById('check-btn').addEventListener('click', checkEligibility);
 
     createPriceChart();
     updatePriceInfo('61A');
