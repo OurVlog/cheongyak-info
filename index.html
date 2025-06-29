@@ -51,6 +51,12 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- 현재 서울특별시 공고는 비어 있습니다. -->
                 </div>
+                 <!-- 전체보기 링크 -->
+                <div class="text-center mt-8 view-more-container">
+                    <a href="list-seoul.html" class="view-more-btn bg-white text-indigo-600 font-semibold py-3 px-8 rounded-lg border border-indigo-200 hover:bg-indigo-50 transition-colors">
+                        서울특별시 공고 전체보기
+                    </a>
+                </div>
             </section>
             
             <!-- 경기도 섹션 -->
@@ -73,7 +79,7 @@
                     </div>
                 </div>
                 <!-- 전체보기 링크 -->
-                <div class="text-center mt-8">
+                <div class="text-center mt-8 view-more-container">
                     <a href="list-gyeonggi.html" class="view-more-btn bg-white text-indigo-600 font-semibold py-3 px-8 rounded-lg border border-indigo-200 hover:bg-indigo-50 transition-colors">
                         경기도 공고 전체보기
                     </a>
@@ -85,6 +91,30 @@
     <footer class="text-center py-6 mt-8 text-gray-500 text-sm">
         <p>&copy; 2025 청약 정보 알리미. All rights reserved.</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 모든 지역 섹션을 찾습니다.
+            const regionSections = document.querySelectorAll('.region-section');
+    
+            regionSections.forEach(section => {
+                // 각 섹션의 카드와 '전체보기' 링크 컨테이너를 찾습니다.
+                const cards = section.querySelectorAll('.announcement-card');
+                const viewMoreContainer = section.querySelector('.view-more-container');
+                const maxItems = 6; // '전체보기'를 표시하는 기준 카드 수
+    
+                // '전체보기' 컨테이너가 존재할 경우에만 로직을 실행합니다.
+                if (viewMoreContainer) {
+                    // 카드 수가 기준보다 많을 경우에만 '전체보기' 링크를 표시합니다.
+                    if (cards.length > maxItems) {
+                        viewMoreContainer.style.display = 'block';
+                    } else {
+                        viewMoreContainer.style.display = 'none';
+                    }
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
