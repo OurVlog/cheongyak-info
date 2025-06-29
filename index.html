@@ -63,15 +63,16 @@
             <section class="region-section" data-region-link="list-gyeonggi.html">
                 <h2 class="text-2xl font-bold text-gray-800 border-b-2 border-indigo-500 pb-2 mb-8">경기도</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- 동탄 파라곤 3차 카드 -->
-                    <div class="announcement-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                    <!-- 동탄 파라곤 3차 카드 (날짜 데이터 수정 및 발표일 추가) -->
+                    <div class="announcement-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300" data-start-date="2025-06-30" data-end-date="2025-06-30">
                         <div class="p-6">
                             <div class="flex justify-between items-start mb-2">
                                 <h3 class="text-2xl font-bold text-gray-900">동탄 파라곤 3차</h3>
-                                <span class="bg-yellow-200 text-yellow-800 text-xs font-semibold px-2.5 py-1 rounded-full">청약 예정</span>
+                                <span class="status-badge text-xs font-semibold px-2.5 py-1 rounded-full"></span>
                             </div>
-                            <p class="text-gray-600 mb-4">화성시 | 1,247세대</p>
-                            <p class="text-sm text-gray-700"><span class="font-semibold">접수:</span> 2025.06.30 ~</p>
+                            <p class="text-gray-600 mb-2">화성시 | 1,247세대</p>
+                            <p class="application-period text-sm text-gray-700"><span class="font-semibold">접수:</span> </p>
+                            <p class="announcement-date text-sm text-gray-700"><span class="font-semibold">발표:</span> 2025.07.03</p>
                         </div>
                         <div class="bg-gray-50 px-6 py-4">
                             <a href="apt/apt-2025850014.html" class="w-full text-center block bg-indigo-500 text-white font-semibold py-2 rounded-lg hover:bg-indigo-600 transition-colors">자세히 보기</a>
@@ -94,18 +95,50 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // 모든 지역 섹션을 찾습니다.
+            // --- 청약 상태 자동 업데이트 스크립트 ---
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // 시간 정보를 제거하여 날짜만 비교
+
+            const allCards = document.querySelectorAll('.announcement-card');
+
+            allCards.forEach(card => {
+                const startDateStr = card.dataset.startDate;
+                const endDateStr = card.dataset.endDate;
+
+                if (!startDateStr || !endDateStr) return;
+
+                const startDate = new Date(startDateStr);
+                const endDate = new Date(endDateStr);
+                
+                const statusBadge = card.querySelector('.status-badge');
+                const periodText = card.querySelector('.application-period');
+
+                // 접수 기간 텍스트 업데이트
+                periodText.innerHTML = `<span class="font-semibold">접수:</span> ${startDateStr.replace(/-/g, '.')} ~ ${endDateStr.replace(/-/g, '.')}`;
+
+                // 상태 및 스타일 업데이트
+                if (today < startDate) {
+                    statusBadge.textContent = '청약 예정';
+                    statusBadge.className = 'status-badge bg-yellow-200 text-yellow-800 text-xs font-semibold px-2.5 py-1 rounded-full';
+                } else if (today >= startDate && today <= endDate) {
+                    statusBadge.textContent = '청약 중';
+                    statusBadge.className = 'status-badge bg-green-200 text-green-800 text-xs font-semibold px-2.5 py-1 rounded-full';
+                } else {
+                    statusBadge.textContent = '청약 마감';
+                    statusBadge.className = 'status-badge bg-gray-200 text-gray-800 text-xs font-semibold px-2.5 py-1 rounded-full';
+                }
+            });
+
+
+            // --- '전체보기' 버튼 조건부 표시 스크립트 ---
             const regionSections = document.querySelectorAll('.region-section');
     
             regionSections.forEach(section => {
-                // 각 섹션의 카드와 '전체보기' 링크 컨테이너를 찾습니다.
                 const cards = section.querySelectorAll('.announcement-card');
                 const viewMoreContainer = section.querySelector('.view-more-container');
-                const maxItems = 6; // '전체보기'를 표시하는 기준 카드 수
+                const maxItems = 6;
     
-                // '전체보기' 컨테이너가 존재할 경우에만 로직을 실행합니다.
                 if (viewMoreContainer) {
-                    // 카드 수가 기준보다 많을 경우에만 '전체보기' 링크를 표시합니다.
                     if (cards.length > maxItems) {
                         viewMoreContainer.style.display = 'block';
                     } else {
