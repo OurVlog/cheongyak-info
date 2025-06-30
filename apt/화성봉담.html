@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
+    <title>화성 봉담·남양 10년 공공임대 | 대화형 청약 정보</title>
+    <meta name="description" content="용인 동백호수공원 두산위브더제니스 조합원 취소분(줍줍) 청약 정보를 확인하세요. 비규제지역 혜택, 분양가, 타입별 정보, 청약 자격, 주요 일정 등 모든 정보를 인터랙티브 가이드로 제공합니다.">
+    <meta name="keywords" content="동백호수공원 두산위브더제니스, 용인 줍줍, 용인 청약, 동백동 아파트, 비규제지역 청약, 두산위브더제니스, 청약 정보">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="동백호수공원 두산위브더제니스 | 청약 완벽 분석 가이드">
+    <meta property="og:description" content="비규제지역, 6개월 전매제한! 분양가부터 청약 자격, 주요 일정까지. 동백호수공원 두산위브더제니스의 모든 것을 한눈에 확인하세요.">
+    <meta property="og:image" content="https://placehold.co/1200x630/4338CA/FFFFFF?text=동백호수공원+두산위브더제니스">
+    <meta property="og:url" content="https://your-page-url.com">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://your-page-url.com">
+    <meta property="twitter:title" content="동백호수공원 두산위브더제니스 | 청약 완벽 분석 가이드">
+    <meta property="twitter:description" content="비규제지역, 6개월 전매제한! 분양가부터 청약 자격, 주요 일정까지. 동백호수공원 두산위브더제니스의 모든 것을 한눈에 확인하세요.">
+    <meta property="twitter:image" content="https://placehold.co/1200x630/4338CA/FFFFFF?text=동백호수공원+두산위브더제니스">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MET2FR8C3B"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-MET2FR8C3B');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2621906042965502"
+     crossorigin="anonymous"></script>
+  
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: The application is designed as a task-oriented dashboard. The primary interaction is selecting between the two housing complexes (Bongdam vs. Namyang) via prominent buttons at the top. This choice acts as a global filter, dynamically updating all subsequent sections: Key Info, Rent Calculator, and Location Analysis. This structure prevents information overload by presenting data for only one complex at a time. The centerpiece is the interactive 'Rent Calculator,' which allows users to simulate their monthly payments by adjusting the deposit, making the most complex data point in the report easily understandable. Navigation is handled by a sticky header for quick access to different analysis sections. This user-flow—Select, Analyze, Simulate, Decide—was chosen to guide the user logically from a high-level comparison to a detailed financial decision, maximizing usability for prospective tenants. -->
+    <!-- Visualization & Content Choices: 
+    - Report Info: Complex selection (Bongdam vs. Namyang). Goal: Clear comparison. Viz: Large, clickable card-style buttons. Interaction: Click to update the entire page's data context. Justification: Intuitive and isolates information for clarity. Library/Method: Vanilla JS DOM manipulation.
+    - Report Info: Rental costs (deposit, monthly rent, conversion options). Goal: Simplify financial planning. Viz: Interactive slider for deposit adjustment, a bar chart for visual comparison. Interaction: Drag slider to see real-time updates on rent and chart values. Justification: Transforms static tables into a dynamic, personalized tool, which is the most engaging way to present this critical data. Library/Method: Chart.js (Canvas) and Vanilla JS.
+    - Report Info: Key application dates. Goal: Action-oriented timeline. Viz: Step-by-step horizontal timeline graphic. Interaction: Static, visual guide. Justification: More scannable and memorable than a text list. Library/Method: HTML/CSS with Tailwind.
+    - Report Info: Location/amenities. Goal: Contextual understanding. Viz: Themed content cards with icons. Interaction: Static content display. Justification: Organizes qualitative information into digestible thematic chunks. Library/Method: HTML/CSS with Tailwind.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 350px; max-height: 400px; }
+        @media (max-width: 768px) { .chart-container { height: 300px; } }
+        .tab-button { transition: all 0.3s ease-in-out; }
+        .tab-button.active-bongdam { background-color: #dbeafe; border-color: #60a5fa; }
+        .tab-button.active-namyang { background-color: #dcfce7; border-color: #4ade80; }
+        .section-fade-in { animation: fadeIn 0.8s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; background: #1e3a8a; cursor: pointer; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.3); }
+        input[type=range]::-moz-range-thumb { width: 24px; height: 24px; background: #1e3a8a; cursor: pointer; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.3); }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <!-- 헤더 영역 -->
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- 사이트 로고 및 이름 -->
+                <a href="/index.html" class="flex items-center space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    <span class="text-xl font-bold text-gray-800">청약 정보 알리미</span>
+                </a>
+                <!-- 팀 이름 링크 -->
+                <div class="text-right">
+                    <a href="https://blog.naver.com/weekendonly" target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors">
+                        우리의 일상로그
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <section class="text-center mb-12 md:mb-16">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-blue-900 mb-4">화성 봉담 & 남양 10년 공공임대</h1>
+            <p class="text-lg md:text-xl text-stone-600 max-w-3xl mx-auto">
+                청약통장, 소득, 자산 조건 없이! 수도권 무주택자라면 누구나 신청 가능한 10년 분양전환 공공임대주택의 모든 것을 분석해 드립니다.
+            </p>
+        </section>
+        
+        <nav class="mb-12 md:mb-16">
+            <div class="flex flex-wrap justify-center gap-2 md:gap-4">
+                <a href="#section-compare" class="bg-white shadow-md hover:bg-blue-50 text-blue-800 font-medium py-2 px-5 rounded-full transition-colors duration-200">단지 선택</a>
+                <a href="#section-calculator" class="bg-white shadow-md hover:bg-blue-50 text-blue-800 font-medium py-2 px-5 rounded-full transition-colors duration-200">임대료 계산</a>
+                <a href="#section-location" class="bg-white shadow-md hover:bg-blue-50 text-blue-800 font-medium py-2 px-5 rounded-full transition-colors duration-200">입지 분석</a>
+                <a href="#section-apply" class="bg-white shadow-md hover:bg-blue-50 text-blue-800 font-medium py-2 px-5 rounded-full transition-colors duration-200">신청 자격</a>
+            </div>
+        </nav>
+
+        <section id="section-compare" class="mb-12 md:mb-16 section-fade-in">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">먼저, 관심있는 단지를 선택하세요 👇</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <button id="btn-bongdam" class="tab-button w-full text-left p-6 bg-white rounded-2xl shadow-lg border-2 border-transparent hover:border-blue-400 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                    <h3 class="text-2xl font-bold text-blue-900">화성봉담2 S-1BL</h3>
+                    <p class="text-stone-600 mt-1">그랑드비체 5단지</p>
+                    <p class="mt-4 text-sm bg-blue-100 text-blue-800 font-semibold inline-block px-3 py-1 rounded-full">총 1,456세대 대단지</p>
+                </button>
+                <button id="btn-namyang" class="tab-button w-full text-left p-6 bg-white rounded-2xl shadow-lg border-2 border-transparent hover:border-green-400 focus:outline-none focus:ring-4 focus:ring-green-300">
+                    <h3 class="text-2xl font-bold text-green-900">화성남양뉴타운 B-6BL</h3>
+                    <p class="text-stone-600 mt-1">루나포레 1단지</p>
+                    <p class="mt-4 text-sm bg-green-100 text-green-800 font-semibold inline-block px-3 py-1 rounded-full">총 486세대</p>
+                </button>
+            </div>
+        </section>
+
+        <div id="content-area" class="space-y-12 md:space-y-16">
+            
+            <section id="section-info" class="bg-white p-6 md:p-8 rounded-2xl shadow-lg section-fade-in">
+                <h2 class="text-2xl md:text-3xl font-bold mb-6 flex items-center">
+                    <span id="info-icon" class="w-10 h-10 rounded-full flex items-center justify-center mr-4 text-white"></span>
+                    <span id="info-title">단지를 선택해주세요</span>
+                </h2>
+                <p class="mb-6 text-stone-600">선택한 단지의 공급 대상, 주택형 별 임대 조건 및 모집 예비자 수를 확인하실 수 있습니다. 모든 주택형은 발코니 확장이 포함된 금액입니다.</p>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-stone-100">
+                            <tr>
+                                <th class="p-4 font-semibold">주택형</th>
+                                <th class="p-4 font-semibold">기본 임대 보증금</th>
+                                <th class="p-4 font-semibold">월 임대료</th>
+                                <th class="p-4 font-semibold">모집 예비자 수</th>
+                            </tr>
+                        </thead>
+                        <tbody id="info-table-body">
+                           <tr><td colspan="4" class="p-8 text-center text-stone-500">위에서 단지를 선택하면 정보가 표시됩니다.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="section-calculator" class="bg-white p-6 md:p-8 rounded-2xl shadow-lg section-fade-in">
+                <h2 class="text-2xl md:text-3xl font-bold mb-2">나만의 임대료 플랜 만들기 🛠️</h2>
+                <p class="mb-6 text-stone-600">보증금을 조절하여 월 임대료를 낮춰보세요. 나에게 맞는 최적의 자금 계획을 세울 수 있습니다.</p>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <div class="mb-4">
+                            <label for="type-selector" class="block text-sm font-medium text-stone-700 mb-1">주택형 선택</label>
+                            <select id="type-selector" class="w-full p-3 border border-stone-300 rounded-lg bg-stone-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <option>단지를 먼저 선택해주세요</option>
+                            </select>
+                        </div>
+                        
+                        <div id="calculator-ui" class="hidden">
+                            <div class="mb-4">
+                                <label for="deposit-slider" class="block text-sm font-medium text-stone-700 mb-1">임대 보증금 조절</label>
+                                <input type="range" id="deposit-slider" class="w-full h-3 bg-stone-200 rounded-lg appearance-none cursor-pointer">
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 text-center">
+                                <div class="bg-stone-100 p-4 rounded-lg">
+                                    <p class="text-sm text-stone-500">조정된 보증금</p>
+                                    <p id="adjusted-deposit" class="text-2xl font-bold text-blue-900">0원</p>
+                                </div>
+                                <div class="bg-stone-100 p-4 rounded-lg">
+                                    <p class="text-sm text-stone-500">예상 월 임대료</p>
+                                    <p id="adjusted-rent" class="text-2xl font-bold text-red-600">0원</p>
+                                </div>
+                            </div>
+                            <p id="conversion-info" class="text-xs text-center mt-2 text-stone-500"></p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="rent-chart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-location" class="section-fade-in">
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">입지 환경 심층 분석 🗺️</h2>
+                <div id="location-content" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col items-center text-center">
+                        <p class="text-5xl mb-4">🚗</p>
+                        <h3 class="text-xl font-bold mb-2">교통 환경</h3>
+                        <p id="location-transport" class="text-stone-600">단지를 선택해주세요.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col items-center text-center">
+                        <p class="text-5xl mb-4">🏫</p>
+                        <h3 class="text-xl font-bold mb-2">학군 및 인프라</h3>
+                        <p id="location-infra" class="text-stone-600">단지를 선택해주세요.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col items-center text-center">
+                         <p class="text-5xl mb-4">🌳</p>
+                        <h3 class="text-xl font-bold mb-2">주변 환경 및 호재</h3>
+                        <p id="location-dev" class="text-stone-600">단지를 선택해주세요.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="section-apply" class="bg-white p-6 md:p-8 rounded-2xl shadow-lg section-fade-in">
+                <h2 class="text-2xl md:text-3xl font-bold mb-6">신청 자격 및 주요 일정 확인하기 ✅</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">이것만 충족하면 신청 가능!</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-3 mt-1">✔️</span>
+                                <div><strong class="text-blue-900">수도권 거주:</strong> 공고일(2025.06.17) 기준 서울, 인천, 경기도에 거주하는 만 19세 이상 성년자</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-3 mt-1">✔️</span>
+                                <div><strong class="text-blue-900">무주택세대구성원:</strong> 신청자 본인과 세대원 전원이 무주택자</div>
+                            </li>
+                             <li class="flex items-start">
+                                <span class="text-green-500 mr-3 mt-1">✔️</span>
+                                <div><strong class="text-blue-900">자격 조건 없음:</strong> 청약통장, 소득, 자산 기준 전혀 보지 않습니다!</div>
+                            </li>
+                        </ul>
+                         <div class="mt-6 p-4 bg-red-50 text-red-800 rounded-lg">
+                            <p class="font-bold">🚨 중요 규제사항</p>
+                            <p class="text-sm mt-2">계약 체결 시 <strong>3년간 재당첨 제한</strong>이 적용됩니다. 또한, 10년 후 우선 분양전환을 받으려면 분양 시점까지 무주택 요건을 유지해야 합니다.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">신청 주요 일정</h3>
+                        <ol class="relative border-l border-stone-300">                  
+                            <li class="mb-8 ml-6">            
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-200 rounded-full -left-3 ring-8 ring-white">
+                                    1
+                                </span>
+                                <h4 class="flex items-center mb-1 text-lg font-semibold text-stone-900">모집 공고</h4>
+                                <time class="block mb-2 text-sm font-normal leading-none text-stone-500">2025년 6월 17일 (화)</time>
+                                <p class="text-base font-normal text-stone-600">모든 청약 자격의 판단 기준일입니다.</p>
+                            </li>
+                            <li class="mb-8 ml-6">
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-200 rounded-full -left-3 ring-8 ring-white">
+                                    2
+                                </span>
+                                <h4 class="mb-1 text-lg font-semibold text-stone-900">청약 접수 (단 하루!)</h4>
+                                <time class="block mb-2 text-sm font-normal leading-none text-stone-500">2025년 7월 1일 (화) 10:00 ~ 17:00</time>
+                                <p class="text-base font-normal text-stone-600">LH청약플러스(PC/모바일)에서 인터넷 접수만 가능합니다.</p>
+                            </li>
+                            <li class="mb-8 ml-6">
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-200 rounded-full -left-3 ring-8 ring-white">
+                                    3
+                                </span>
+                                <h4 class="mb-1 text-lg font-semibold text-stone-900">당첨자 발표</h4>
+                                <time class="block mb-2 text-sm font-normal leading-none text-stone-500">2025년 7월 7일 (월) 14:00 이후</time>
+                                <p class="text-base font-normal text-stone-600">서류제출 대상자를 발표합니다.</p>
+                            </li>
+                             <li class="ml-6">
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-200 rounded-full -left-3 ring-8 ring-white">
+                                    4
+                                </span>
+                                <h4 class="mb-1 text-lg font-semibold text-stone-900">계약 체결</h4>
+                                <time class="block mb-2 text-sm font-normal leading-none text-stone-500">예비 순번 도래 시 개별 통보</time>
+                                <p class="text-base font-normal text-stone-600">최종 자격 검증 후 계약을 진행합니다.</p>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-blue-900 text-white mt-16">
+        <div class="container mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
+            <p>본 페이지는 '화성봉담2, 남양뉴타운 10년 공공임대주택 예비입주자 모집공고'를 기반으로 제작된 비공식 정보제공용 웹페이지입니다.</p>
+            <p class="text-sm text-blue-200 mt-2">정확한 내용은 반드시 LH청약플러스 홈페이지의 공식 공고문을 확인하시기 바랍니다.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const housingData = {
+                bongdam: {
+                    name: "화성봉담2 S-1BL (그랑드비체)",
+                    icon: 'B',
+                    iconBg: 'bg-blue-800',
+                    types: [
+                        { id: '51', name: '51A/B', deposit: 36645000, rent: 366450, recruit: 70, maxAddDeposit: 43000000, minReduceDeposit: 26000000 },
+                        { id: '59', name: '59A/B/C/D', deposit: 46068000, rent: 429270, recruit: 60, maxAddDeposit: 51000000, minReduceDeposit: 33000000 },
+                        { id: '74', name: '74A/B/C/D', deposit: 64914000, rent: 492090, recruit: 25, maxAddDeposit: 59000000, minReduceDeposit: 49000000 },
+                        { id: '84', name: '84A', deposit: 79572000, rent: 523500, recruit: 10, maxAddDeposit: 62000000, minReduceDeposit: 62000000 }
+                    ],
+                    location: {
+                        transport: "봉담IC가 인접하여 수도권제2순환, 평택파주고속도로 이용이 편리합니다. 자차를 통한 경기 남부권 이동이 자유로우며, 수인분당선 오목천역/고색역을 이용할 수 있습니다.",
+                        infra: "봉담2지구는 계획된 택지지구로, 단지 인근에 초/중학교가 위치하고 이마트 봉담점 등 상업시설이 잘 갖춰져 있어 생활이 편리합니다.",
+                        dev: "GTX-A 노선 개통의 간접 수혜와 지속적인 산업단지 개발로 장기적인 도시 성장 가능성이 높은 지역입니다."
+                    },
+                    conversionRates: { add: 0.06, reduce: 0.035 }
+                },
+                namyang: {
+                    name: "화성남양뉴타운 B-6BL (루나포레)",
+                    icon: 'N',
+                    iconBg: 'bg-green-800',
+                    types: [
+                        { id: '69', name: '69A/B/C', deposit: 62820000, rent: 408330, recruit: 75, maxAddDeposit: 48000000, minReduceDeposit: 49000000 },
+                        { id: '84', name: '84A', deposit: 85854000, rent: 460680, recruit: 25, maxAddDeposit: 55000000, minReduceDeposit: 69000000 }
+                    ],
+                    location: {
+                        transport: "서해안고속도로 비봉IC 및 평택시흥고속도로 이용이 용이합니다. 특히 서해선 화성시청역 개통으로 향후 여의도 등 서울 서부권 접근성이 크게 개선될 전망입니다.",
+                        infra: "신도시로 조성되어 주거 환경이 쾌적하며, 초/중/고가 모두 인접하여 도보 통학이 가능합니다. 화성시청이 가까워 행정 인프라 이용도 편리합니다.",
+                        dev: "현대기아차 남양연구소 등 직주근접 수요가 탄탄하며, 송산그린시티 등 대규모 개발 계획과 연계되어 있어 미래 가치가 기대되는 곳입니다."
+                    },
+                    conversionRates: { add: 0.06, reduce: 0.035 }
+                }
+            };
+
+            let activeComplex = null;
+            let activeType = null;
+            let chart = null;
+
+            const btnBongdam = document.getElementById('btn-bongdam');
+            const btnNamyang = document.getElementById('btn-namyang');
+            const typeSelector = document.getElementById('type-selector');
+            const depositSlider = document.getElementById('deposit-slider');
+
+            btnBongdam.addEventListener('click', () => selectComplex('bongdam'));
+            btnNamyang.addEventListener('click', () => selectComplex('namyang'));
+            typeSelector.addEventListener('change', selectType);
+            depositSlider.addEventListener('input', updateCalculator);
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(this.getAttribute('href'));
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            function selectComplex(complexKey) {
+                activeComplex = housingData[complexKey];
+                
+                btnBongdam.classList.toggle('active-bongdam', complexKey === 'bongdam');
+                btnNamyang.classList.toggle('active-namyang', complexKey === 'namyang');
+
+                renderInfoSection();
+                populateTypeSelector();
+                renderLocationSection();
+                document.getElementById('calculator-ui').classList.add('hidden');
+                if (chart) chart.destroy();
+                chart = null;
+                document.getElementById('adjusted-deposit').textContent = "0원";
+                document.getElementById('adjusted-rent').textContent = "0원";
+            }
+
+            function renderInfoSection() {
+                const infoTitle = document.getElementById('info-title');
+                const infoIcon = document.getElementById('info-icon');
+                const tableBody = document.getElementById('info-table-body');
+                
+                infoTitle.textContent = activeComplex.name;
+                infoIcon.textContent = activeComplex.icon;
+                infoIcon.className = `w-10 h-10 rounded-full flex items-center justify-center mr-4 text-white ${activeComplex.iconBg}`;
+
+                tableBody.innerHTML = activeComplex.types.map(type => `
+                    <tr class="border-b border-stone-200 hover:bg-stone-50">
+                        <td class="p-4 font-medium">${type.name}</td>
+                        <td class="p-4">${type.deposit.toLocaleString()}원</td>
+                        <td class="p-4">${type.rent.toLocaleString()}원</td>
+                        <td class="p-4">${type.recruit} 세대</td>
+                    </tr>
+                `).join('');
+            }
+            
+            function renderLocationSection() {
+                document.getElementById('location-transport').textContent = activeComplex.location.transport;
+                document.getElementById('location-infra').textContent = activeComplex.location.infra;
+                document.getElementById('location-dev').textContent = activeComplex.location.dev;
+            }
+
+            function populateTypeSelector() {
+                typeSelector.innerHTML = '<option value="">주택형을 선택하세요</option>';
+                activeComplex.types.forEach(type => {
+                    const option = document.createElement('option');
+                    option.value = type.id;
+                    option.textContent = type.name;
+                    typeSelector.appendChild(option);
+                });
+            }
+
+            function selectType() {
+                const selectedTypeId = typeSelector.value;
+                if (!selectedTypeId) {
+                    document.getElementById('calculator-ui').classList.add('hidden');
+                    if (chart) chart.destroy();
+                    chart = null;
+                    return;
+                };
+
+                activeType = activeComplex.types.find(t => t.id === selectedTypeId);
+                document.getElementById('calculator-ui').classList.remove('hidden');
+                setupSlider();
+                updateCalculator();
+                createOrUpdateChart();
+            }
+
+            function setupSlider() {
+                const totalRange = activeType.maxAddDeposit + activeType.minReduceDeposit;
+                depositSlider.min = -activeType.minReduceDeposit;
+                depositSlider.max = activeType.maxAddDeposit;
+                depositSlider.value = 0;
+                depositSlider.step = 1000000;
+            }
+
+            function updateCalculator() {
+                if (!activeType) return;
+                
+                const sliderValue = parseInt(depositSlider.value);
+                let adjustedDeposit = activeType.deposit + sliderValue;
+                let adjustedRent = activeType.rent;
+
+                if(sliderValue > 0) { // 보증금 증액
+                    adjustedRent -= (sliderValue * activeComplex.conversionRates.add) / 12;
+                } else if (sliderValue < 0) { // 보증금 감액
+                    adjustedRent -= (sliderValue * activeComplex.conversionRates.reduce) / 12; // sliderValue가 음수이므로 빼기 연산
+                }
+
+                document.getElementById('adjusted-deposit').textContent = `${adjustedDeposit.toLocaleString()}원`;
+                document.getElementById('adjusted-rent').textContent = `${Math.round(adjustedRent).toLocaleString()}원`;
+                
+                const addRate = activeComplex.conversionRates.add * 100;
+                const reduceRate = activeComplex.conversionRates.reduce * 100;
+                document.getElementById('conversion-info').textContent = `* 보증금 증액 시 연 ${addRate}%, 감액 시 연 ${reduceRate}% 이율 적용`;
+
+                if (chart) {
+                    chart.data.datasets[0].data[0] = activeType.deposit;
+                    chart.data.datasets[0].data[1] = adjustedDeposit;
+                    chart.data.datasets[1].data[0] = activeType.rent;
+                    chart.data.datasets[1].data[1] = Math.round(adjustedRent);
+                    chart.update();
+                }
+            }
+
+            function createOrUpdateChart() {
+                const ctx = document.getElementById('rent-chart').getContext('2d');
+                if (chart) {
+                    chart.destroy();
+                }
+                chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['기본 조건', '조정 후 조건'],
+                        datasets: [
+                            {
+                                label: '임대 보증금',
+                                data: [0, 0],
+                                backgroundColor: 'rgba(59, 130, 246, 0.6)',
+                                borderColor: 'rgba(59, 130, 246, 1)',
+                                borderWidth: 1,
+                                yAxisID: 'y'
+                            },
+                            {
+                                label: '월 임대료',
+                                data: [0, 0],
+                                backgroundColor: 'rgba(239, 68, 68, 0.6)',
+                                borderColor: 'rgba(239, 68, 68, 1)',
+                                borderWidth: 1,
+                                yAxisID: 'y1'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            mode: 'index',
+                            intersect: false,
+                        },
+                        scales: {
+                            y: {
+                                type: 'linear',
+                                display: true,
+                                position: 'left',
+                                title: {
+                                    display: true,
+                                    text: '보증금 (원)'
+                                },
+                                ticks: {
+                                    callback: function(value, index, values) {
+                                        return (value / 10000000).toFixed(1) + '천만';
+                                    }
+                                }
+                            },
+                            y1: {
+                                type: 'linear',
+                                display: true,
+                                position: 'right',
+                                title: {
+                                    display: true,
+                                    text: '월 임대료 (원)'
+                                },
+                                grid: {
+                                    drawOnChartArea: false,
+                                },
+                                ticks: {
+                                    callback: function(value, index, values) {
+                                        return (value / 10000).toFixed(0) + '만';
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            label += new Intl.NumberFormat('ko-KR').format(context.parsed.y) + '원';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+                updateCalculator();
+            }
+        });
+    </script>
+</body>
+</html>
