@@ -11,14 +11,14 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://YOUR_SITE_URL/list.html">
+    <meta property="og:url" content="https://ourvlog.github.io/index.html">
     <meta property="og:title" content="지역별 청약 공고 | 청약 정보 알리미">
     <meta property="og:description" content="서울, 경기도 등 전국 지역별 최신 아파트 청약 공고 목록을 확인해보세요.">
     <meta property="og:image" content="https://placehold.co/1200x630/4F46E5/FFFFFF?text=지역별+청약+공고">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://YOUR_SITE_URL/list.html">
+    <meta property="twitter:url" content="https://ourvlog.github.io/index.html">
     <meta property="twitter:title" content="지역별 청약 공고 | 청약 정보 알리미">
     <meta property="twitter:description" content="서울, 경기도 등 전국 지역별 최신 아파트 청약 공고 목록을 확인해보세요.">
     <meta property="twitter:image" content="https://placehold.co/1200x630/4F46E5/FFFFFF?text=지역별+청약+공고">
@@ -29,7 +29,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-MET2FR8C3B');
     </script>
 
@@ -37,7 +36,6 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2621906042965502"
      crossorigin="anonymous"></script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -81,11 +79,11 @@
             <!-- 서울특별시 섹션 -->
             <section class="region-section">
                 <h2 class="text-2xl font-bold text-gray-800 border-b-2 border-indigo-500 pb-2 mb-8">서울특별시</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- 현재 서울특별시 공고는 비어 있습니다. -->
+                <div id="seoul-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- 서울특별시 공고가 여기에 동적으로 추가됩니다. -->
                 </div>
                  <!-- 전체보기 링크 -->
-                <div class="text-center mt-8 view-more-container">
+                <div class="text-center mt-8 view-more-container" style="display: none;">
                     <a href="list-seoul.html" class="view-more-btn bg-white text-indigo-600 font-semibold py-3 px-8 rounded-lg border border-indigo-200 hover:bg-indigo-50 transition-colors">
                         서울특별시 공고 전체보기
                     </a>
@@ -93,75 +91,13 @@
             </section>
             
             <!-- 경기도 섹션 -->
-            <section class="region-section" data-region-link="list-gyeonggi.html">
+            <section class="region-section">
                 <h2 class="text-2xl font-bold text-gray-800 border-b-2 border-indigo-500 pb-2 mb-8">경기도</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- 신규 추가: 화성 봉담 10년 공공임대 -->
-                    <div class="announcement-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300" data-start-date="2025-07-01" data-end-date="2025-07-01">
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-2xl font-bold text-gray-900">화성 봉담 10년 공공임대</h3>
-                                <span class="status-badge text-xs font-semibold px-2.5 py-1 rounded-full"></span>
-                            </div>
-                            <p class="text-gray-600 mb-2">화성시 | 165세대 (예비)</p>
-                            <p class="application-period text-sm text-gray-700"><span class="font-semibold">접수:</span> </p>
-                            <p class="announcement-date text-sm text-gray-700"><span class="font-semibold">발표:</span> 2025.07.07</p>
-                        </div>
-                        <div class="bg-gray-50 px-6 py-4">
-                            <a href="apt/화성봉담.html" class="w-full text-center block bg-indigo-500 text-white font-semibold py-2 rounded-lg hover:bg-indigo-600 transition-colors">자세히 보기</a>
-                        </div>
-                    </div>
-
-                    <!-- 신규 추가: 과천 그랑레브데시앙 -->
-                    <div class="announcement-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300" data-start-date="2025-07-09" data-end-date="2025-07-10">
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-2xl font-bold text-gray-900">과천 그랑레브데시앙</h3>
-                                <span class="status-badge text-xs font-semibold px-2.5 py-1 rounded-full"></span>
-                            </div>
-                            <p class="text-gray-600 mb-2">과천시 | 10세대 (예비)</p>
-                            <p class="application-period text-sm text-gray-700"><span class="font-semibold">접수:</span> </p>
-                            <p class="announcement-date text-sm text-gray-700"><span class="font-semibold">발표:</span> 2025.07.15</p>
-                        </div>
-                        <div class="bg-gray-50 px-6 py-4">
-                            <a href="apt/0626과천S-7공임예비(수정).html" class="w-full text-center block bg-indigo-500 text-white font-semibold py-2 rounded-lg hover:bg-indigo-600 transition-colors">자세히 보기</a>
-                        </div>
-                    </div>
-
-                    <!-- 신규 추가: 동백호수공원 두산위브더제니스 -->
-                    <div class="announcement-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300" data-start-date="2025-06-30" data-end-date="2025-07-01">
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-2xl font-bold text-gray-900">동백호수공원 두산위브더제니스</h3>
-                                <span class="status-badge text-xs font-semibold px-2.5 py-1 rounded-full"></span>
-                            </div>
-                            <p class="text-gray-600 mb-2">용인시 | 18세대</p>
-                            <p class="application-period text-sm text-gray-700"><span class="font-semibold">접수:</span> </p>
-                            <p class="announcement-date text-sm text-gray-700"><span class="font-semibold">발표:</span> 2025.07.08</p>
-                        </div>
-                        <div class="bg-gray-50 px-6 py-4">
-                            <a href="apt/apt-2025000205.html" class="w-full text-center block bg-indigo-500 text-white font-semibold py-2 rounded-lg hover:bg-indigo-600 transition-colors">자세히 보기</a>
-                        </div>
-                    </div>
-
-                    <!-- 기존 카드: 동탄 파라곤 3차 -->
-                    <div class="announcement-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300" data-start-date="2025-06-30" data-end-date="2025-06-30">
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-2xl font-bold text-gray-900">동탄 파라곤 3차</h3>
-                                <span class="status-badge text-xs font-semibold px-2.5 py-1 rounded-full"></span>
-                            </div>
-                            <p class="text-gray-600 mb-2">화성시 | 1,247세대</p>
-                            <p class="application-period text-sm text-gray-700"><span class="font-semibold">접수:</span> </p>
-                            <p class="announcement-date text-sm text-gray-700"><span class="font-semibold">발표:</span> 2025.07.03</p>
-                        </div>
-                        <div class="bg-gray-50 px-6 py-4">
-                            <a href="apt/apt-2025850014.html" class="w-full text-center block bg-indigo-500 text-white font-semibold py-2 rounded-lg hover:bg-indigo-600 transition-colors">자세히 보기</a>
-                        </div>
-                    </div>
+                <div id="gyeonggi-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- 경기도 공고가 여기에 동적으로 추가됩니다. -->
                 </div>
                 <!-- 전체보기 링크 -->
-                <div class="text-center mt-8 view-more-container">
+                <div class="text-center mt-8 view-more-container" style="display: none;">
                     <a href="list-gyeonggi.html" class="view-more-btn bg-white text-indigo-600 font-semibold py-3 px-8 rounded-lg border border-indigo-200 hover:bg-indigo-50 transition-colors">
                         경기도 공고 전체보기
                     </a>
@@ -175,13 +111,79 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // --- 청약 상태 자동 업데이트 스크립트 ---
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // --- 1. JSON 데이터 로드 및 카드 동적 생성 ---
+        fetch('listings.json')
+            .then(response => {
+                // fetch가 성공했는지 확인 (e.g. 404 Not Found 에러)
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(listings => {
+                const seoulGrid = document.getElementById('seoul-grid');
+                const gyeonggiGrid = document.getElementById('gyeonggi-grid');
+                
+                // 최신순으로 정렬 (접수 시작일 기준 내림차순)
+                listings.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+
+                listings.forEach(listing => {
+                    const cardHtml = `
+                    <div class="announcement-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300" data-start-date="${listing.startDate}" data-end-date="${listing.endDate}">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-2xl font-bold text-gray-900">${listing.title}</h3>
+                                <span class="status-badge text-xs font-semibold px-2.5 py-1 rounded-full"></span>
+                            </div>
+                            <p class="text-gray-600 mb-2">${listing.city} | ${listing.units}</p>
+                            <p class="application-period text-sm text-gray-700"><span class="font-semibold">접수:</span> </p>
+                            <p class="announcement-date text-sm text-gray-700"><span class="font-semibold">발표:</span> ${listing.announcementDate}</p>
+                        </div>
+                        <div class="bg-gray-50 px-6 py-4">
+                            <a href="${listing.url}" class="w-full text-center block bg-indigo-500 text-white font-semibold py-2 rounded-lg hover:bg-indigo-600 transition-colors">자세히 보기</a>
+                        </div>
+                    </div>`;
+
+                    // 지역에 따라 적절한 그리드에 카드 추가
+                    if (listing.region === '서울특별시') {
+                        seoulGrid.innerHTML += cardHtml;
+                    } else if (listing.region === '경기도') {
+                        gyeonggiGrid.innerHTML += cardHtml;
+                    }
+                });
+                
+                // 각 지역별로 공고가 없는 경우 메시지 표시
+                if (seoulGrid.children.length === 0) {
+                     seoulGrid.innerHTML = '<p class="text-gray-500 col-span-full">현재 등록된 공고가 없습니다.</p>';
+                }
+                if (gyeonggiGrid.children.length === 0) {
+                     gyeonggiGrid.innerHTML = '<p class="text-gray-500 col-span-full">현재 등록된 공고가 없습니다.</p>';
+                }
+
+                // --- 2. 동적으로 생성된 모든 카드에 상태 업데이트 적용 ---
+                updateAllCardStatuses();
+                
+                // --- 3. '전체보기' 버튼 조건부 표시 ---
+                updateViewMoreButtons();
+            })
+            .catch(error => {
+                console.error('청약 정보 로드 중 오류 발생:', error);
+                // 사용자에게 오류 메시지 표시
+                const gyeonggiGrid = document.getElementById('gyeonggi-grid');
+                const seoulGrid = document.getElementById('seoul-grid');
+                const errorMessage = '<p class="text-red-500 col-span-full">공고를 불러오는 데 실패했습니다. 파일 경로를 확인하거나 잠시 후 다시 시도해 주세요.</p>';
+                gyeonggiGrid.innerHTML = errorMessage;
+                seoulGrid.innerHTML = errorMessage;
+            });
+
+        // --- 청약 상태 자동 업데이트 함수 ---
+        function updateAllCardStatuses() {
             const today = new Date();
-            today.setHours(0, 0, 0, 0); // 시간 정보를 제거하여 날짜만 비교
+            today.setHours(0, 0, 0, 0); // 날짜만 비교하기 위해 시간 정보 초기화
 
             const allCards = document.querySelectorAll('.announcement-card');
-
             allCards.forEach(card => {
                 const startDateStr = card.dataset.startDate;
                 const endDateStr = card.dataset.endDate;
@@ -194,13 +196,13 @@
                 const statusBadge = card.querySelector('.status-badge');
                 const periodText = card.querySelector('.application-period');
 
-                // 접수 기간 텍스트 업데이트
+                // 접수 기간 텍스트 설정
                 periodText.innerHTML = `<span class="font-semibold">접수:</span> ${startDateStr.replace(/-/g, '.')} ~ ${endDateStr.replace(/-/g, '.')}`;
 
-                // 상태 및 스타일 업데이트
+                // 상태에 따라 뱃지 스타일 및 텍스트 변경
                 if (today < startDate) {
                     statusBadge.textContent = '청약 예정';
-                    statusBadge.className = 'status-badge bg-yellow-200 text-yellow-800 text-xs font-semibold px-2.5 py-1 rounded-full';
+                    statusBadge.className = 'status-badge bg-blue-200 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full';
                 } else if (today >= startDate && today <= endDate) {
                     statusBadge.textContent = '청약 중';
                     statusBadge.className = 'status-badge bg-green-200 text-green-800 text-xs font-semibold px-2.5 py-1 rounded-full';
@@ -209,25 +211,30 @@
                     statusBadge.className = 'status-badge bg-gray-200 text-gray-800 text-xs font-semibold px-2.5 py-1 rounded-full';
                 }
             });
+        }
 
-
-            // --- '전체보기' 버튼 조건부 표시 스크립트 ---
+        // --- '전체보기' 버튼 조건부 표시 함수 ---
+        function updateViewMoreButtons() {
             const regionSections = document.querySelectorAll('.region-section');
-    
             regionSections.forEach(section => {
                 const cards = section.querySelectorAll('.announcement-card');
                 const viewMoreContainer = section.querySelector('.view-more-container');
-                const maxItems = 6;
-    
+                const maxItems = 6; // 메인에 보여줄 최대 카드 수
+        
                 if (viewMoreContainer) {
                     if (cards.length > maxItems) {
                         viewMoreContainer.style.display = 'block';
+                        // maxItems 개수만큼만 카드를 보여줌
+                        for(let i = maxItems; i < cards.length; i++) {
+                            cards[i].style.display = 'none';
+                        }
                     } else {
                         viewMoreContainer.style.display = 'none';
                     }
                 }
             });
-        });
+        }
+    });
     </script>
 
 </body>
