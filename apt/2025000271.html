@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>해링턴플레이스 풍무 | 청약 정보 분석 (2025000271)</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="해링턴플레이스 풍무 아파트 청약 정보를 인터랙티브 대시보드로 확인하세요. 분양가, 공급세대수, 입지, 청약 자격을 한눈에 분석하고 자격 여부를 직접 확인해볼 수 있습니다.">
+    <meta name="keywords" content="해링턴플레이스 풍무, 김포 풍무, 아파트 청약, 분양 정보, 청약 자격, 분양가, 2025000271, 우리의 일상로그">
+    <meta name="author" content="우리의 일상로그">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="해링턴플레이스 풍무 | 인터랙티브 청약 정보">
+    <meta property="og:description" content="김포 풍무지구의 새로운 중심, 해링턴플레이스 풍무의 모든 청약 정보를 한눈에 확인하고 나의 청약 자격을 진단해보세요.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ourvlog.github.io/apt/2025000271.html">
+    <meta property="og:image" content="https://placehold.co/1200x630/efebe9/4a3933?text=해링턴플레이스+풍무">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: A single-page dashboard with a sticky side navigation for quick jumps. The structure prioritizes user tasks: 1. Quick Overview (Hero with Countdown), 2. Supply & Price Analysis (Interactive Charts), 3. Location Assessment (Schematic Map), 4. Eligibility Check (Interactive Form). This task-oriented flow is more intuitive for potential buyers than the linear structure of the original report, allowing them to quickly find answers to their most pressing questions (How much? Where is it? Can I apply?). -->
+    <!-- Visualization & Content Choices: 1. Countdown Timer (Inform/Engage): Creates urgency for key dates. Implemented with vanilla JS. 2. Key Info Cards (Inform): Uses HTML/Tailwind for a quick, scannable summary. 3. Interactive Bar & Doughnut Charts (Compare/Analyze): Users select a unit type to dynamically update charts showing price breakdown and supply ratios. Implemented with Chart.js. 4. Schematic Location Map (Organize/Explore): HTML/Tailwind icons for key locations. Clicking reveals tooltips with details. 5. Interactive Eligibility Form (Engage/Inform): Replaces static text with a form where users input their data to get immediate feedback on their 1st priority eligibility. This is a significant usability improvement. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8f7f4;
+            color: #333;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        .nav-link.active {
+            background-color: #eaddd7;
+            color: #4a3933;
+            border-left-color: #a88b8d;
+        }
+        .section-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+        }
+        .btn-type {
+            transition: all 0.2s ease-in-out;
+        }
+        .btn-type.active {
+            background-color: #8c6d62;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid #dcd0c8;
+            background-color: #f5f1ee;
+        }
+        .result-box {
+            display: none;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+        }
+        .result-box.success {
+            background-color: #e6f4ea;
+            color: #1e4620;
+            border: 1px solid #bcf0da;
+        }
+        .result-box.fail {
+            background-color: #fde2e2;
+            color: #5b2121;
+            border: 1px solid #f9bdbb;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="header-placeholder"></div>
+
+    <div class="flex flex-col lg:flex-row min-h-screen">
+        <aside class="w-full lg:w-64 bg-[#efebe9] lg:h-screen lg:sticky top-0 p-4 lg:p-6 shadow-md z-20">
+            <h1 class="text-2xl font-bold text-[#4a3933] mb-8">해링턴플레이스 풍무</h1>
+            <nav id="nav-menu" class="space-y-2">
+                <a href="#section-summary" class="nav-link block p-3 rounded-lg font-semibold text-[#5d4037] hover:bg-[#eaddd7]">📊 핵심 요약</a>
+                <a href="#section-schedule" class="nav-link block p-3 rounded-lg font-semibold text-[#5d4037] hover:bg-[#eaddd7]">🗓️ 청약 일정</a>
+                <a href="#section-price" class="nav-link block p-3 rounded-lg font-semibold text-[#5d4037] hover:bg-[#eaddd7]">💰 공급 및 분양가</a>
+                <a href="#section-location" class="nav-link block p-3 rounded-lg font-semibold text-[#5d4037] hover:bg-[#eaddd7]">🗺️ 입지 분석</a>
+                <a href="#section-eligibility" class="nav-link block p-3 rounded-lg font-semibold text-[#5d4037] hover:bg-[#eaddd7]">✅ 청약 자격 진단</a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-4 md:p-8 lg:p-12 overflow-y-auto">
+            <div class="max-w-7xl mx-auto space-y-12">
+                
+                <section id="section-summary" class="section-card p-6 md:p-8">
+                    <div class="flex flex-wrap justify-between items-start">
+                        <div>
+                            <h2 class="text-3xl font-bold mb-2 text-[#4a3933]">김포의 새로운 중심, 해링턴플레이스 풍무</h2>
+                            <p class="text-lg text-gray-600 mb-6">복잡한 모집공고, 핵심만 뽑아 정리했습니다. 인터랙티브 차트와 지도로 한눈에 파악하세요.</p>
+                        </div>
+                        <a href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2025000271&pblancNo=2025000271" target="_blank" class="bg-[#8c6d62] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#795548] transition-colors whitespace-nowrap">
+                            청약 공고 보러가기 🚀
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mt-4">
+                        <div class="bg-stone-100 p-6 rounded-lg">
+                            <span class="text-4xl">💰</span>
+                            <h3 class="text-xl font-bold mt-2 mb-1">최고 7.7억</h3>
+                            <p class="text-gray-600">84타입 기준 합리적 분양가</p>
+                        </div>
+                        <div class="bg-stone-100 p-6 rounded-lg">
+                            <span class="text-4xl">📝</span>
+                            <h3 class="text-xl font-bold mt-2 mb-1">규제 완화</h3>
+                            <p class="text-gray-600">전매 6개월, 실거주 의무 없음</p>
+                        </div>
+                        <div class="bg-stone-100 p-6 rounded-lg">
+                            <span class="text-4xl">🚆</span>
+                            <h3 class="text-xl font-bold mt-2 mb-1">역세권 & 호재</h3>
+                            <p class="text-gray-600">풍무역 인접, GTX-D 기대</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="section-schedule" class="section-card p-6 md:p-8">
+                    <h2 class="text-2xl font-bold mb-4 text-[#4a3933]">주요 청약 일정</h2>
+                    <div class="bg-[#f5f1ee] p-6 rounded-lg">
+                        <p class="text-center text-lg font-semibold text-gray-700 mb-2">특별공급 접수까지 남은 시간</p>
+                        <div id="countdown" class="text-3xl md:text-4xl font-bold text-center text-[#8c6d62] flex justify-center space-x-2 md:space-x-4">
+                            <div><span id="days"></span><span class="block text-sm font-normal">일</span></div>
+                            <div><span id="hours"></span><span class="block text-sm font-normal">시간</span></div>
+                            <div><span id="minutes"></span><span class="block text-sm font-normal">분</span></div>
+                            <div><span id="seconds"></span><span class="block text-sm font-normal">초</span></div>
+                        </div>
+                    </div>
+                    <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                        <div class="p-4 bg-stone-50 rounded-lg border"><strong>모집공고</strong><p>2025.07.04 (금)</p></div>
+                        <div class="p-4 bg-blue-50 rounded-lg border border-blue-200"><strong>특별공급</strong><p>2025.07.14 (월)</p></div>
+                        <div class="p-4 bg-green-50 rounded-lg border border-green-200"><strong>1순위 공급</strong><p>2025.07.15 (화)</p></div>
+                        <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200"><strong>당첨발표</strong><p>2025.07.23 (수)</p></div>
+                    </div>
+                </section>
+
+                <section id="section-price" class="section-card p-6 md:p-8">
+                    <h2 class="text-2xl font-bold mb-2 text-[#4a3933]">공급 및 분양가 분석</h2>
+                    <p class="text-gray-600 mb-6">궁금한 타입을 클릭하여 분양가와 공급 세대수 비율을 확인해보세요.</p>
+                    <div id="type-selector" class="flex flex-wrap gap-2 mb-6">
+                        <button class="btn-type px-4 py-2 bg-stone-200 text-stone-700 font-semibold rounded-lg" data-type="74A">74A</button>
+                        <button class="btn-type px-4 py-2 bg-stone-200 text-stone-700 font-semibold rounded-lg" data-type="74B">74B</button>
+                        <button class="btn-type px-4 py-2 bg-stone-200 text-stone-700 font-semibold rounded-lg" data-type="74C">74C</button>
+                        <button class="btn-type px-4 py-2 bg-stone-200 text-stone-700 font-semibold rounded-lg" data-type="84A">84A</button>
+                        <button class="btn-type px-4 py-2 bg-stone-200 text-stone-700 font-semibold rounded-lg" data-type="84B">84B</button>
+                        <button class="btn-type px-4 py-2 bg-stone-200 text-stone-700 font-semibold rounded-lg" data-type="84C">84C</button>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-lg font-bold text-center mb-2">분양가 구성 (<span id="price-chart-title"></span>)</h3>
+                             <p class="text-center text-xs text-gray-500 mb-2">최고가 기준, 발코니 확장비 별도</p>
+                            <div class="chart-container">
+                                <canvas id="priceChart"></canvas>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-center mb-2">공급 세대수 (<span id="supply-chart-title"></span>)</h3>
+                            <p class="text-center text-xs text-gray-500 mb-2">총 <span id="total-units"></span>세대</p>
+                            <div class="chart-container">
+                                <canvas id="supplyChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="section-location" class="section-card p-6 md:p-8">
+                    <h2 class="text-2xl font-bold mb-2 text-[#4a3933]">입지 분석</h2>
+                    <p class="text-gray-600 mb-6">주요 시설 아이콘을 클릭하여 상세 정보를 확인하세요.</p>
+                    <div class="relative bg-stone-100 p-8 rounded-lg w-full max-w-4xl mx-auto aspect-video flex items-center justify-center">
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center bg-white p-6 rounded-full shadow-lg border-2 border-amber-800">
+                            <p class="text-xl font-bold text-amber-900">해링턴플레이스 풍무</p>
+                        </div>
+                        
+                        <div class="location-item absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2" data-info="김포골드라인 풍무역 인접, 김포공항 2정거장. 5,9,공항철도 환승으로 서울 핵심 업무지구 접근 용이.">
+                            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-3xl cursor-pointer hover:scale-110 transition-transform">🚆</div>
+                            <p class="text-center font-semibold mt-1 text-sm">풍무역</p>
+                        </div>
+                        <div class="location-item absolute bottom-1/4 left-1/4 -translate-x-1/2 translate-y-1/2" data-info="풍무초등학교 배정 예정. 인근에 풍무중, 양도중 등 위치.">
+                             <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-3xl cursor-pointer hover:scale-110 transition-transform">🏫</div>
+                             <p class="text-center font-semibold mt-1 text-sm">학군</p>
+                        </div>
+                        <div class="location-item absolute top-1/4 right-1/4 translate-x-1/2 -translate-y-1/2" data-info="차량 5분 거리 이마트 트레이더스, 홈플러스. 풍무역 중심상권에 병원, 은행, 학원가 밀집.">
+                            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center text-3xl cursor-pointer hover:scale-110 transition-transform">🛒</div>
+                            <p class="text-center font-semibold mt-1 text-sm">생활 인프라</p>
+                        </div>
+                        <div class="location-item absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2" data-info="단지 남측 풍무국민체육센터 및 근린공원 인접. 쾌적한 주거환경.">
+                            <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center text-3xl cursor-pointer hover:scale-110 transition-transform">🌳</div>
+                            <p class="text-center font-semibold mt-1 text-sm">공원/녹지</p>
+                        </div>
+                         <div id="location-tooltip" class="absolute hidden bg-black bg-opacity-70 text-white text-sm rounded-lg px-3 py-2 z-10"></div>
+                    </div>
+                </section>
+                
+                <section id="section-eligibility" class="section-card p-6 md:p-8">
+                    <h2 class="text-2xl font-bold mb-4 text-[#4a3933]">나의 청약 자격 진단하기 (일반공급 1순위)</h2>
+                    <p class="text-gray-600 mb-6">아래 정보를 입력하고 1순위 청약 자격 여부를 확인해보세요.</p>
+                    <div id="eligibility-form" class="space-y-4">
+                        <div>
+                            <label for="residence" class="font-semibold block mb-2">거주지</label>
+                            <select id="residence" class="form-input">
+                                <option value="gimpo">경기도 김포시</option>
+                                <option value="seoul">서울특별시</option>
+                                <option value="incheon">인천광역시</option>
+                                <option value="gyeonggi">기타 경기도</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="subscription-period" class="font-semibold block mb-2">청약통장 가입 기간 (개월)</label>
+                            <input type="number" id="subscription-period" class="form-input" placeholder="예: 24">
+                        </div>
+                        <div>
+                            <p class="font-semibold block mb-2">무주택 여부</p>
+                            <div class="flex flex-wrap gap-4">
+                                <label class="flex items-center"><input type="radio" name="housing-status" value="none" class="mr-2" checked> 무주택</label>
+                                <label class="flex items-center"><input type="radio" name="housing-status" value="one" class="mr-2"> 1주택 소유</label>
+                                <label class="flex items-center"><input type="radio" name="housing-status" value="multiple" class="mr-2"> 2주택 이상 소유</label>
+                            </div>
+                        </div>
+                        <button id="check-eligibility-btn" class="w-full bg-[#8c6d62] text-white font-bold py-3 px-4 rounded-lg hover:bg-[#795548] transition-colors text-lg">
+                            자격 확인하기
+                        </button>
+                    </div>
+                    <div id="eligibility-result" class="result-box"></div>
+                </section>
+            </div>
+            <footer class="text-center text-gray-500 mt-12 text-sm">
+                <p>본 정보는 해링턴플레이스 풍무(1BL) 입주자모집공고를 바탕으로 제작되었으며, 참고용으로만 활용하시기 바랍니다.</p>
+                <p>정확한 내용은 반드시 공식 입주자모집공고문을 확인해주십시오. (분양문의: 1877-9877)</p>
+            </footer>
+        </main>
+    </div>
+
+    <div id="footer-placeholder"></div>
+    <script src="/js/common.js" defer></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const data = {
+            '74A': { price: [69800, 3490, 41880, 24430], supply: [51, 43], total: 94 },
+            '74B': { price: [68700, 3435, 41220, 24045], supply: [27, 22], total: 49 },
+            '74C': { price: [68000, 3400, 40800, 23800], supply: [26, 20], total: 46 },
+            '84A': { price: [77000, 3850, 46200, 26950], supply: [147, 119], total: 266 },
+            '84B': { price: [75800, 3790, 45480, 26530], supply: [67, 57], total: 124 },
+            '84C': { price: [75400, 3770, 45240, 26390], supply: [49, 42], total: 91 },
+        };
+
+        let priceChart, supplyChart;
+
+        function formatCurrency(value) {
+            if (value >= 10000) { return (value / 10000).toFixed(1) + '억'; }
+            return value.toLocaleString() + '만';
+        }
+        
+        function createPriceChart(type) {
+            const ctx = document.getElementById('priceChart').getContext('2d');
+            if (priceChart) { priceChart.destroy(); }
+            priceChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['분양가', '계약금(5%)', '중도금(60%)', '잔금(35%)'],
+                    datasets: [{
+                        label: '분양가(만원)',
+                        data: data[type].price,
+                        backgroundColor: ['#a88b8d', '#c5a8a4', '#dcd0c8', '#efebe9'],
+                        borderColor: '#8c6d62',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) { label += ': '; }
+                                    if (context.parsed.x !== null) { label += context.parsed.x.toLocaleString() + '만원'; }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: { x: { beginAtZero: true, ticks: { callback: function(value) { return formatCurrency(value); } } } }
+                }
+            });
+        }
+        
+        function createSupplyChart(type) {
+            const ctx = document.getElementById('supplyChart').getContext('2d');
+            if (supplyChart) { supplyChart.destroy(); }
+            supplyChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['특별공급', '일반공급'],
+                    datasets: [{ data: data[type].supply, backgroundColor: ['#a88b8d', '#dcd0c8'], hoverOffset: 4 }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) { label += ': '; }
+                                    if (context.parsed !== null) { label += context.parsed.toLocaleString() + '세대'; }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function updateCharts(type) {
+            createPriceChart(type);
+            createSupplyChart(type);
+            document.getElementById('price-chart-title').textContent = type + ' 타입';
+            document.getElementById('supply-chart-title').textContent = type + ' 타입';
+            document.getElementById('total-units').textContent = data[type].total;
+            document.querySelectorAll('.btn-type').forEach(button => {
+                button.classList.toggle('active', button.dataset.type === type);
+            });
+        }
+
+        document.getElementById('type-selector').addEventListener('click', function (e) {
+            if (e.target.matches('button.btn-type')) {
+                updateCharts(e.target.dataset.type);
+            }
+        });
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('main section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').substring(1) === entry.target.id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: '-30% 0px -70% 0px' });
+        sections.forEach(section => observer.observe(section));
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        function setupCountdown() {
+            const countdownDate = new Date("July 14, 2025 09:00:00").getTime();
+            const interval = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = countdownDate - now;
+                if (distance < 0) {
+                    clearInterval(interval);
+                    document.getElementById("countdown").innerHTML = "접수가 시작되었습니다!";
+                    return;
+                }
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                document.getElementById("days").textContent = String(days).padStart(2, '0');
+                document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+                document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+                document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
+            }, 1000);
+        }
+
+        function setupLocationTooltips() {
+            const items = document.querySelectorAll('.location-item');
+            const tooltip = document.getElementById('location-tooltip');
+            items.forEach(item => {
+                const div = item.querySelector('div');
+                div.addEventListener('mouseenter', (e) => {
+                    tooltip.textContent = item.dataset.info;
+                    tooltip.style.display = 'block';
+                    const rect = div.getBoundingClientRect();
+                    const containerRect = tooltip.parentElement.getBoundingClientRect();
+                    
+                    let top = rect.top - containerRect.top - tooltip.offsetHeight - 10;
+                    let left = rect.left - containerRect.left + (rect.width / 2) - (tooltip.offsetWidth / 2);
+                    
+                    tooltip.style.transform = `translate(${left}px, ${top}px)`;
+                });
+                div.addEventListener('mouseleave', () => {
+                    tooltip.style.display = 'none';
+                });
+            });
+        }
+        
+        function checkEligibility() {
+            const residence = document.getElementById('residence').value;
+            const period = parseInt(document.getElementById('subscription-period').value, 10);
+            const housingStatus = document.querySelector('input[name="housing-status"]:checked').value;
+            const resultBox = document.getElementById('eligibility-result');
+            
+            let messages = [];
+            let isEligible = true;
+
+            if (isNaN(period) || period < 12) {
+                messages.push("❌ 청약통장 가입 기간이 12개월 미만으로 1순위 조건에 미달합니다.");
+                isEligible = false;
+            }
+
+            if (isEligible) {
+                messages.push("✅ 1순위 청약 기본 자격(기간)을 만족합니다!");
+                if (residence === 'gimpo') {
+                    messages.push("- 김포시 거주자로, 경쟁 시 100% 우선 공급 대상입니다.");
+                } else {
+                    messages.push("- 수도권 거주자로, 김포시 마감 시 후순위로 배정됩니다.");
+                }
+
+                if (housingStatus === 'none') {
+                    messages.push("- 무주택자로 가점제(40%)와 추첨제(60%) 모두 청약 가능합니다.");
+                } else if (housingStatus === 'one') {
+                    messages.push("- 1주택 소유자로 추첨제(60%) 물량에 청약 가능합니다.");
+                } else {
+                    messages.push("- 다주택자로 추첨제 일부 물량에 도전할 수 있으나 당첨 확률이 낮습니다.");
+                }
+                messages.push("<br>💡 <strong>참고:</strong> 거주지별 예치금액 기준을 충족해야 최종 1순위 자격이 부여됩니다.");
+            }
+            
+            resultBox.innerHTML = messages.join('<br>');
+            resultBox.classList.remove('success', 'fail');
+            resultBox.classList.add(isEligible ? 'success' : 'fail');
+            resultBox.style.display = 'block';
+        }
+
+        document.getElementById('check-eligibility-btn').addEventListener('click', checkEligibility);
+        
+        updateCharts('84A');
+        setupCountdown();
+        setupLocationTooltips();
+        document.querySelector('.nav-link').classList.add('active');
+    });
+</script>
+</body>
+</html>
