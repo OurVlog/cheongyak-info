@@ -48,28 +48,48 @@
 
             <!-- 서울특별시 섹션 -->
             <section class="region-section">
-                <h2 class="text-2xl font-bold text-gray-800 border-b-2 border-indigo-500 pb-2 mb-8">서울특별시</h2>
+                <!-- Section Header with Title and '+' button -->
+                <div class="flex justify-between items-center border-b-2 border-indigo-500 pb-2 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800">서울특별시</h2>
+                    <!-- Always visible '+' button -->
+                    <a href="list-seoul.html" title="서울 전체보기" class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-200 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+                <!-- Grid for listings -->
                 <div id="seoul-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- 서울특별시 공고가 여기에 동적으로 추가됩니다. -->
                 </div>
-                 <!-- 전체보기 링크 -->
+                <!-- Conditional "View all" button at the bottom -->
                 <div class="text-center mt-8 view-more-container" style="display: none;">
                     <a href="list-seoul.html" class="view-more-btn bg-white text-indigo-600 font-semibold py-3 px-8 rounded-lg border border-indigo-200 hover:bg-indigo-50 transition-colors">
-                        서울특별시 공고 전체보기
+                        전체 공고 보기
                     </a>
                 </div>
             </section>
             
             <!-- 경기도 섹션 -->
             <section class="region-section">
-                <h2 class="text-2xl font-bold text-gray-800 border-b-2 border-indigo-500 pb-2 mb-8">경기도</h2>
+                <!-- Section Header with Title and '+' button -->
+                <div class="flex justify-between items-center border-b-2 border-indigo-500 pb-2 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800">경기도</h2>
+                    <!-- Always visible '+' button -->
+                    <a href="list-gyeonggi.html" title="경기 전체보기" class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 hover:bg-indigo-200 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+                <!-- Grid for listings -->
                 <div id="gyeonggi-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- 경기도 공고가 여기에 동적으로 추가됩니다. -->
                 </div>
-                <!-- 전체보기 링크 -->
+                <!-- Conditional "View all" button at the bottom -->
                 <div class="text-center mt-8 view-more-container" style="display: none;">
                     <a href="list-gyeonggi.html" class="view-more-btn bg-white text-indigo-600 font-semibold py-3 px-8 rounded-lg border border-indigo-200 hover:bg-indigo-50 transition-colors">
-                        경기도 공고 전체보기
+                        전체 공고 보기
                     </a>
                 </div>
             </section>
@@ -84,7 +104,6 @@
         // --- 1. JSON 데이터 로드 및 카드 동적 생성 ---
         fetch('listings.json')
             .then(response => {
-                // fetch가 성공했는지 확인 (e.g. 404 Not Found 에러)
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -94,7 +113,6 @@
                 const seoulGrid = document.getElementById('seoul-grid');
                 const gyeonggiGrid = document.getElementById('gyeonggi-grid');
                 
-                // 최신순으로 정렬 (접수 시작일 기준 내림차순)
                 listings.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
 
                 listings.forEach(listing => {
@@ -110,11 +128,10 @@
                             <p class="announcement-date text-sm text-gray-700"><span class="font-semibold">발표:</span> ${listing.announcementDate}</p>
                         </div>
                         <div class="bg-gray-50 px-6 py-4">
-                            <a href="${listing.url}" class="w-full text-center block bg-indigo-500 text-white font-semibold py-2 rounded-lg hover:bg-indigo-600 transition-colors">자세히 보기</a>
+                            <a href="${listing.url}" target="_blank" class="w-full text-center block bg-indigo-500 text-white font-semibold py-2 rounded-lg hover:bg-indigo-600 transition-colors">자세히 보기</a>
                         </div>
                     </div>`;
 
-                    // 지역에 따라 적절한 그리드에 카드 추가
                     if (listing.region === '서울특별시') {
                         seoulGrid.innerHTML += cardHtml;
                     } else if (listing.region === '경기도') {
@@ -122,7 +139,6 @@
                     }
                 });
                 
-                // 각 지역별로 공고가 없는 경우 메시지 표시
                 if (seoulGrid.children.length === 0) {
                      seoulGrid.innerHTML = '<p class="text-gray-500 col-span-full">현재 등록된 공고가 없습니다.</p>';
                 }
@@ -130,15 +146,11 @@
                      gyeonggiGrid.innerHTML = '<p class="text-gray-500 col-span-full">현재 등록된 공고가 없습니다.</p>';
                 }
 
-                // --- 2. 동적으로 생성된 모든 카드에 상태 업데이트 적용 ---
                 updateAllCardStatuses();
-                
-                // --- 3. '전체보기' 버튼 조건부 표시 ---
                 updateViewMoreButtons();
             })
             .catch(error => {
                 console.error('청약 정보 로드 중 오류 발생:', error);
-                // 사용자에게 오류 메시지 표시
                 const gyeonggiGrid = document.getElementById('gyeonggi-grid');
                 const seoulGrid = document.getElementById('seoul-grid');
                 const errorMessage = '<p class="text-red-500 col-span-full">공고를 불러오는 데 실패했습니다. 파일 경로를 확인하거나 잠시 후 다시 시도해 주세요.</p>';
@@ -146,10 +158,9 @@
                 seoulGrid.innerHTML = errorMessage;
             });
 
-        // --- 청약 상태 자동 업데이트 함수 ---
         function updateAllCardStatuses() {
             const today = new Date();
-            today.setHours(0, 0, 0, 0); // 날짜만 비교하기 위해 시간 정보 초기화
+            today.setHours(0, 0, 0, 0);
 
             const allCards = document.querySelectorAll('.announcement-card');
             allCards.forEach(card => {
@@ -164,10 +175,8 @@
                 const statusBadge = card.querySelector('.status-badge');
                 const periodText = card.querySelector('.application-period');
 
-                // 접수 기간 텍스트 설정
                 periodText.innerHTML = `<span class="font-semibold">접수:</span> ${startDateStr.replace(/-/g, '.')} ~ ${endDateStr.replace(/-/g, '.')}`;
 
-                // 상태에 따라 뱃지 스타일 및 텍스트 변경
                 if (today < startDate) {
                     statusBadge.textContent = '청약 예정';
                     statusBadge.className = 'status-badge bg-blue-200 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full';
@@ -181,18 +190,16 @@
             });
         }
 
-        // --- '전체보기' 버튼 조건부 표시 함수 ---
         function updateViewMoreButtons() {
             const regionSections = document.querySelectorAll('.region-section');
             regionSections.forEach(section => {
                 const cards = section.querySelectorAll('.announcement-card');
                 const viewMoreContainer = section.querySelector('.view-more-container');
-                const maxItems = 6; // 메인에 보여줄 최대 카드 수
+                const maxItems = 6;
         
                 if (viewMoreContainer) {
                     if (cards.length > maxItems) {
-                        viewMoreContainer.style.display = 'block';
-                        // maxItems 개수만큼만 카드를 보여줌
+                        viewMoreContainer.style.display = 'block'; // block으로 변경하여 중앙 정렬 유지
                         for(let i = maxItems; i < cards.length; i++) {
                             cards[i].style.display = 'none';
                         }
