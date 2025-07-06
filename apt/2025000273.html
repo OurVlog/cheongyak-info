@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>해링턴플레이스 풍무 | 분양 정보</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony (Warm Neutrals with Muted Teal/Clay Accent) -->
+    <!-- Application Structure Plan: Tabbed/section-based SPA layout with sticky navigation for easy access to key areas like '분양 정보', '입지', '청약 자격'. This non-linear structure is chosen over a long scroll to empower users to directly access the information most relevant to their decision-making process, enhancing usability. The core interaction is a housing-type selector that dynamically updates charts and data tables, providing an immediate, interactive way to compare different options. -->
+    <!-- Visualization & Content Choices: Report Info: Supply per type -> Goal: Compare -> Viz: Interactive Chart.js Donut Chart + Dynamic Table -> Interaction: Dropdown Selector -> Justification: Allows users to actively explore and compare supply and payment details for each specific housing type, making complex data digestible. | Report Info: Eligibility Rules -> Goal: Organize -> Viz: Accordion UI -> Interaction: Click to expand/collapse -> Justification: Prevents information overload by hiding complex details by default, letting users focus on the qualification type relevant to them. CONFIRMING NO SVG/Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .chart-container { position: relative; width: 100%; max-width: 380px; margin-left: auto; margin-right: auto; height: 320px; max-height: 400px; }
+        @media (min-width: 640px) { .chart-container { height: 350px; } }
+        .nav-link { transition: color 0.3s, border-bottom-color 0.3s; }
+        .nav-link.active, .nav-link:hover { color: #26A69A; border-bottom-color: #26A69A; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
+        .accordion-button.open .accordion-icon { transform: rotate(180deg); }
+    </style>
+</head>
+<body class="bg-[#F8F7F4] text-[#333333]">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-[#26A69A]">해링턴플레이스 풍무</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#summary" class="nav-link px-3 py-2 text-sm font-medium border-b-2 border-transparent">핵심 요약</a>
+                        <a href="#pricing" class="nav-link px-3 py-2 text-sm font-medium border-b-2 border-transparent">분양 정보</a>
+                        <a href="#location" class="nav-link px-3 py-2 text-sm font-medium border-b-2 border-transparent">입지 분석</a>
+                        <a href="#eligibility" class="nav-link px-3 py-2 text-sm font-medium border-b-2 border-transparent">청약 자격</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <section id="hero" class="text-center py-16">
+            <h2 class="text-4xl font-bold tracking-tight sm:text-5xl">김포의 새로운 중심, 해링턴플레이스 풍무</h2>
+            <p class="mt-6 text-lg leading-8 text-gray-600">비규제 프리미엄과 계약금 5%의 기회를 놓치지 마세요.</p>
+        </section>
+
+        <div class="space-y-16">
+
+            <section id="summary" class="scroll-mt-16">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-6 text-center">한눈에 보는 핵심 정보</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-lg font-semibold mb-4 border-b pb-2">🏠 단지 개요</h4>
+                            <ul class="space-y-3 text-gray-700">
+                                <li class="flex justify-between"><span><strong>총 세대수</strong></span><span class="font-medium text-[#26A69A]">664 세대</span></li>
+                                <li class="flex justify-between"><span><strong>규모</strong></span><span>7개동 (지상 최고 29층)</span></li>
+                                <li class="flex justify-between"><span><strong>위치</strong></span><span>김포시 풍무동 143-1 일원</span></li>
+                                <li class="flex justify-between"><span><strong>입주 예정</strong></span><span class="font-medium text-[#26A69A]">2028년 8월</span></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold mb-4 border-b pb-2">🗓️ 청약 일정</h4>
+                            <ul class="space-y-3 text-gray-700">
+                                <li class="flex justify-between"><span>특별공급</span><span>2025.07.14 (월)</span></li>
+                                <li class="flex justify-between"><span><strong>1순위 (해당/기타)</strong></span><span class="font-medium text-[#26A69A]">2025.07.15 (화)</span></li>
+                                <li class="flex justify-between"><span>당첨자 발표</span><span>2025.07.22 (화)</span></li>
+                                <li class="flex justify-between"><span>계약 체결</span><span>2025.08.04 (월) ~ 06 (수)</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="pricing" class="scroll-mt-16">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2 text-center">타입별 분양 정보</h3>
+                    <p class="text-center text-gray-500 mb-6">궁금한 주택형을 선택하여 공급 세대수와 분양가를 확인해 보세요.</p>
+                    
+                    <div class="max-w-xs mx-auto mb-8">
+                        <select id="typeSelector" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#26A69A] focus:border-[#26A69A] transition">
+                            <option value="84A">84A 타입</option>
+                            <option value="84B">84B 타입</option>
+                            <option value="84C">84C 타입</option>
+                            <option value="74A">74A 타입</option>
+                            <option value="74B">74B 타입</option>
+                            <option value="74C">74C 타입</option>
+                        </select>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-8 items-center">
+                        <div class="chart-container">
+                            <canvas id="supplyChart"></canvas>
+                        </div>
+                        <div>
+                            <div class="bg-gray-50 p-6 rounded-lg mb-4">
+                                <h4 class="text-lg font-semibold text-center mb-2">최고 분양가</h4>
+                                <p id="maxPrice" class="text-3xl font-bold text-center text-[#26A69A]"></p>
+                                <p class="text-xs text-center text-gray-500 mt-1">(발코니 확장비 별도)</p>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm text-left">
+                                    <thead class="bg-gray-100">
+                                        <tr>
+                                            <th class="p-3">구분</th>
+                                            <th class="p-3">비율</th>
+                                            <th class="p-3 text-right">금액 (최고가 기준)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="paymentSchedule">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="location" class="scroll-mt-16">
+                 <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-6 text-center">입지 환경 분석</h3>
+                    <div class="grid md:grid-cols-3 gap-6 text-center">
+                        <div class="border p-6 rounded-lg">
+                            <div class="text-4xl mb-3">🚇</div>
+                            <h4 class="text-lg font-semibold mb-2">교통 환경</h4>
+                            <p class="text-sm text-gray-600">김포골드라인 풍무역 이용 가능. 수도권제1순환고속도로, 김포한강로 등 광역 도로망으로 서울 접근성 우수.</p>
+                        </div>
+                        <div class="border p-6 rounded-lg">
+                            <div class="text-4xl mb-3">🎓</div>
+                            <h4 class="text-lg font-semibold mb-2">교육 환경</h4>
+                            <p class="text-sm text-gray-600">단지 인근 **풍무초등학교** 배정 예정. 풍무도서관이 인접하여 우수한 교육 환경을 제공합니다.</p>
+                        </div>
+                        <div class="border p-6 rounded-lg">
+                            <div class="text-4xl mb-3">🌳</div>
+                            <h4 class="text-lg font-semibold mb-2">생활 및 개발</h4>
+                            <p class="text-sm text-gray-600">**김포 풍무 양도지구** 내 위치. 체계적인 도시개발에 따른 미래가치 상승 기대. 새장터공원 등 풍부한 녹지.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="eligibility" class="scroll-mt-16">
+                 <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-6 text-center">청약 자격 및 규제 사항</h3>
+                    <div class="max-w-3xl mx-auto">
+                        <div class="space-y-4">
+                            <div class="accordion-item border-b">
+                                <button class="accordion-button w-full flex justify-between items-center py-4 text-lg font-semibold text-left">
+                                    <span>일반공급 1순위 핵심 자격</span>
+                                    <span class="accordion-icon transition-transform duration-300">▼</span>
+                                </button>
+                                <div class="accordion-content">
+                                    <ul class="pt-2 pb-4 pl-4 space-y-2 text-gray-700 list-disc">
+                                        <li><strong>거주요건:</strong> 공고일 현재 김포시 또는 수도권(서울/인천/경기) 거주</li>
+                                        <li><strong>우선공급:</strong> 경쟁 발생 시 **김포시 거주자 100% 우선**</li>
+                                        <li><strong>청약통장:</strong> 가입기간 12개월 이상, 지역별 예치금 충족</li>
+                                        <li><strong>주택소유:</strong> 세대주, 세대원, 유주택자 모두 청약 가능</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="accordion-item border-b">
+                                <button class="accordion-button w-full flex justify-between items-center py-4 text-lg font-semibold text-left">
+                                    <span>특별공급 공통 및 유형별 자격</span>
+                                    <span class="accordion-icon transition-transform duration-300">▼</span>
+                                </button>
+                                <div class="accordion-content">
+                                    <ul class="pt-2 pb-4 pl-4 space-y-2 text-gray-700 list-disc">
+                                        <li><strong>공통:</strong> 무주택세대구성원 요건 충족 (단, 노부모부양은 무주택세대주)</li>
+                                        <li><strong>다자녀:</strong> 만 19세 미만 자녀 2명 이상, 통장 6개월 이상</li>
+                                        <li><strong>신혼부부:</strong> 혼인 7년 이내, 소득/자산 기준 충족, 통장 6개월 이상</li>
+                                        <li><strong>생애최초:</strong> 생애 첫 주택 구입, 1순위, 소득/자산 기준 충족, 5년간 소득세 납부</li>
+                                        <li><strong>노부모부양:</strong> 만 65세 이상 직계존속 3년 이상 부양, 1순위</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8 bg-teal-50 border-l-4 border-[#26A69A] p-4 rounded-r-lg">
+                            <h4 class="font-bold text-teal-800">🚨 핵심 규제 사항</h4>
+                            <ul class="mt-2 space-y-1 text-sm text-teal-700 list-disc list-inside">
+                                <li><strong>전매제한:</strong> 당첨자 발표일로부터 <strong>6개월</strong></li>
+                                <li><strong>재당첨제한:</strong> 없음</li>
+                                <li><strong>실거주 의무:</strong> 없음</li>
+                                <li><strong>분양가 상한제:</strong> 미적용</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="text-center py-8 mt-12 border-t">
+        <p class="text-sm text-gray-500">본 페이지는 '해링턴플레이스 풍무' 입주자모집공고를 바탕으로 제작되었습니다.</p>
+        <p class="text-xs text-gray-400 mt-1">청약 최종 결정은 본인이 공고문 원본을 직접 확인한 후 신중하게 내리시기 바랍니다.</p>
+    </footer>
+
+    <script>
+        const housingData = {
+            '74A': { supply: [70, 56], price: 699000000 },
+            '74B': { supply: [23, 19], price: 688000000 },
+            '74C': { supply: [28, 23], price: 681000000 },
+            '84A': { supply: [186, 149], price: 772000000 },
+            '84B': { supply: [46, 39], price: 759000000 },
+            '84C': { supply: [12, 13], price: 755000000 },
+        };
+
+        const typeSelector = document.getElementById('typeSelector');
+        const maxPriceEl = document.getElementById('maxPrice');
+        const paymentScheduleEl = document.getElementById('paymentSchedule');
+        const ctx = document.getElementById('supplyChart').getContext('2d');
+        let supplyChart;
+
+        function formatCurrency(num) {
+            const bill = Math.floor(num / 100000000);
+            const mill = Math.round((num % 100000000) / 10000);
+            return `${bill}억 ${mill.toLocaleString()}만 원`;
+        }
+
+        function updateDisplay(type) {
+            const data = housingData[type];
+            if (!data) return;
+
+            maxPriceEl.textContent = formatCurrency(data.price);
+            
+            const payments = {
+                '계약금': data.price * 0.05,
+                '중도금': data.price * 0.60,
+                '잔금': data.price * 0.35,
+            };
+
+            paymentScheduleEl.innerHTML = `
+                <tr class="border-b">
+                    <td class="p-3 font-medium">계약금</td>
+                    <td class="p-3">5%</td>
+                    <td class="p-3 text-right">${formatCurrency(payments['계약금'])}</td>
+                </tr>
+                <tr class="border-b">
+                    <td class="p-3 font-medium">중도금</td>
+                    <td class="p-3">60%</td>
+                    <td class="p-3 text-right">${formatCurrency(payments['중도금'])}</td>
+                </tr>
+                <tr>
+                    <td class="p-3 font-medium">잔금</td>
+                    <td class="p-3">35%</td>
+                    <td class="p-3 text-right">${formatCurrency(payments['잔금'])}</td>
+                </tr>
+            `;
+            
+            updateChart(data.supply, type);
+        }
+
+        function updateChart(supplyData, type) {
+            const [special, general] = supplyData;
+            const total = special + general;
+
+            if (supplyChart) {
+                supplyChart.data.datasets[0].data = [special, general];
+                supplyChart.options.plugins.title.text = `${type} 타입 공급 세대수: ${total}세대`;
+                supplyChart.update();
+            } else {
+                supplyChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['특별공급', '일반공급'],
+                        datasets: [{
+                            data: [special, general],
+                            backgroundColor: ['#4DB6AC', '#81C784'],
+                            borderColor: ['#ffffff'],
+                            borderWidth: 4,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '60%',
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: { size: 14 },
+                                    padding: 20
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: `${type} 타입 공급 세대수: ${total}세대`,
+                                font: { size: 16, weight: 'bold' },
+                                padding: { top: 10, bottom: 20 }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed !== null) {
+                                            label += context.parsed + '세대';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+        
+        typeSelector.addEventListener('change', (e) => {
+            updateDisplay(e.target.value);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDisplay(typeSelector.value);
+
+            const accordions = document.querySelectorAll('.accordion-button');
+            accordions.forEach(button => {
+                button.addEventListener('click', () => {
+                    const content = button.nextElementSibling;
+                    button.classList.toggle('open');
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section[id]');
+            
+            function changeNav() {
+                let index = sections.length;
+                while(--index && window.scrollY + 100 < sections[index].offsetTop) {}
+                
+                navLinks.forEach((link) => link.classList.remove('active'));
+                const activeLink = document.querySelector(`.nav-link[href="#${sections[index].id}"]`);
+                if (activeLink) {
+                   activeLink.classList.add('active');
+                }
+            }
+            
+            changeNav();
+            window.addEventListener('scroll', changeNav);
+
+            navLinks.forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
