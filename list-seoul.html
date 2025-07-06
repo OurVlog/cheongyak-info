@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>서울특별시 청약 공고 전체보기 - 우리의 청약로그</title>
+    <meta name="description" content="서울특별시 지역의 모든 최신 아파트 청약 공고 목록을 확인해보세요. 청약 일정과 상세 정보를 제공합니다.">
+    <meta name="keywords" content="서울 청약, 서울특별시 청약, 아파트 공고, 분양 목록, 우리의 청약로그, 전체보기">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ourvlog.github.io/list-seoul.html">
+    <meta property="og:title" content="서울특별시 청약 공고 전체보기 | 우리의 청약로그">
+    <meta property="og:description" content="서울특별시 지역의 모든 최신 아파트 청약 공고 목록을 확인해보세요.">
+    <meta property="og:image" content="https://placehold.co/1200x630/4F46E5/FFFFFF?text=서울특별시+청약+공고">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ourvlog.github.io/list-seoul.html">
+    <meta property="twitter:title" content="서울특별시 청약 공고 전체보기 | 우리의 청약로그">
+    <meta property="twitter:description" content="서울특별시 지역의 모든 최신 아파트 청약 공고 목록을 확인해보세요.">
+    <meta property="twitter:image" content="https://placehold.co/1200x630/4F46E5/FFFFFF?text=서울특별시+청약+공고">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div id="header-placeholder"></div>
+
+    <!-- 메인 컨텐츠 영역 -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div class="text-left mb-10">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">서울특별시 청약 공고</h1>
+            <p class="text-lg text-gray-600 mt-2">서울특별시의 모든 청약 정보를 확인해보세요.</p>
+        </div>
+
+        <!-- 서울특별시 공고 섹션 -->
+        <section>
+            <div id="seoul-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 서울특별시 공고가 여기에 동적으로 추가됩니다. -->
+                <p class="text-gray-500 col-span-full">공고를 불러오는 중입니다...</p>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // --- 1. JSON 데이터 로드 및 카드 동적 생성 ---
+        fetch('listings.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(listings => {
+                const seoulGrid = document.getElementById('seoul-grid');
+                
+                // 서울특별시 데이터만 필터링
+                const seoulListings = listings.filter(listing => listing.region === '서울특별시');
+
+                // 최신순으로 정렬 (접수 시작일 기준 내림차순)
+                seoulListings.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+
+                // 그리드 비우기
+                seoulGrid.innerHTML = '';
+
+                if (seoulListings.length > 0) {
+                    seoulListings.forEach(listing => {
+                        const cardHtml = `
+                        <div class="announcement-card bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300" data-start-date="${listing.startDate}" data-end-date="${listing.endDate}">
+                            <div class="p-6">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-2xl font-bold text-gray-900">${listing.title}</h3>
+                                    <span class="status-badge text-xs font-semibold px-2.5 py-1 rounded-full"></span>
+                                </div>
+                                <p class="text-gray-600 mb-2">${listing.city} | ${listing.units}</p>
+                                <p class="application-period text-sm text-gray-700"><span class="font-semibold">접수:</span> </p>
+                                <p class="announcement-date text-sm text-gray-700"><span class="font-semibold">발표:</span> ${listing.announcementDate}</p>
+                            </div>
+                            <div class="bg-gray-50 px-6 py-4">
+                                <a href="${listing.url}" target="_blank" class="w-full text-center block bg-indigo-500 text-white font-semibold py-2 rounded-lg hover:bg-indigo-600 transition-colors">자세히 보기</a>
+                            </div>
+                        </div>`;
+                        seoulGrid.innerHTML += cardHtml;
+                    });
+                } else {
+                     seoulGrid.innerHTML = '<p class="text-gray-500 col-span-full">현재 등록된 공고가 없습니다.</p>';
+                }
+                
+                // --- 2. 동적으로 생성된 모든 카드에 상태 업데이트 적용 ---
+                updateAllCardStatuses();
+            })
+            .catch(error => {
+                console.error('청약 정보 로드 중 오류 발생:', error);
+                const seoulGrid = document.getElementById('seoul-grid');
+                seoulGrid.innerHTML = '<p class="text-red-500 col-span-full">공고를 불러오는 데 실패했습니다. 파일 경로를 확인하거나 잠시 후 다시 시도해 주세요.</p>';
+            });
+
+        // --- 청약 상태 자동 업데이트 함수 ---
+        function updateAllCardStatuses() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // 날짜만 비교하기 위해 시간 정보 초기화
+
+            const allCards = document.querySelectorAll('.announcement-card');
+            allCards.forEach(card => {
+                const startDateStr = card.dataset.startDate;
+                const endDateStr = card.dataset.endDate;
+
+                if (!startDateStr || !endDateStr) return;
+
+                const startDate = new Date(startDateStr);
+                const endDate = new Date(endDateStr);
+                
+                const statusBadge = card.querySelector('.status-badge');
+                const periodText = card.querySelector('.application-period');
+
+                // 접수 기간 텍스트 설정
+                periodText.innerHTML = `<span class="font-semibold">접수:</span> ${startDateStr.replace(/-/g, '.')} ~ ${endDateStr.replace(/-/g, '.')}`;
+
+                // 상태에 따라 뱃지 스타일 및 텍스트 변경
+                if (today < startDate) {
+                    statusBadge.textContent = '청약 예정';
+                    statusBadge.className = 'status-badge bg-blue-200 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full';
+                } else if (today >= startDate && today <= endDate) {
+                    statusBadge.textContent = '청약 중';
+                    statusBadge.className = 'status-badge bg-green-200 text-green-800 text-xs font-semibold px-2.5 py-1 rounded-full';
+                } else {
+                    statusBadge.textContent = '청약 마감';
+                    statusBadge.className = 'status-badge bg-gray-200 text-gray-800 text-xs font-semibold px-2.5 py-1 rounded-full';
+                }
+            });
+        }
+    });
+    </script>
+    <script src="/js/common.js" defer></script>
+</body>
+</html>
