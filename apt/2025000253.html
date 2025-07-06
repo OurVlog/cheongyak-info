@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: A tab-based Single Page Application (SPA) structure was chosen. This design pattern is highly effective for organizing dense information from a source like a housing subscription notice into logical, digestible sections. The main sections are '핵심 요약(Dashboard)', '분양 정보(Sales Info)', '입지 분석(Location Analysis)', and '청약 자격(Eligibility)'. This structure prevents overwhelming the user with a long, scrolling page and allows them to navigate directly to the information they need most. Interactions include tab switching, chart hovers for tooltips, and an interactive eligibility checker, creating a user-friendly and guided exploration flow. -->
+    <!-- Visualization & Content Choices: 
+        - [Summary]: Key dates are presented in a visually structured timeline format using HTML/CSS for better comprehension of the schedule.
+        - [Sales Info]: A Bar chart (Chart.js) is used to compare the maximum prices for different unit types, and a Doughnut chart shows the unit distribution. This allows for quick visual comparison. Goal: Compare -> Viz: Charts -> Interaction: Hover tooltips -> Justification: Faster data synthesis than tables.
+        - [Location Analysis]: A custom interactive diagram (HTML/CSS/JS) visualizes the location of key facilities like the subway station, school, and park. Goal: Organize -> Viz: Interactive Diagram -> Interaction: Hover to show info card -> Justification: More engaging and helps build a mental map of the area.
+        - [Eligibility]: An interactive form allows users to input their conditions to check for 1st priority eligibility. Goal: Inform/Organize -> Viz: Interactive Form -> Interaction: User input & button click -> Justification: Provides personalized feedback and simplifies complex rules.
+        - Library/Method: Chart.js for all charts, Vanilla JS for all interactions.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <title>인천 검단호수공원역 중흥S-클래스 | 청약 정보 요약 | 우리의 일상로그</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="인천 검단신도시 검단호수공원역 중흥S-클래스(AA24블록)의 분양가, 입지, 청약 자격, 전매제한 등 핵심 정보를 대화형으로 쉽게 확인하세요.">
+    <meta name="keywords" content="검단호수공원역 중흥S-클래스, 검단신도시, 아파트 청약, 분양 정보, 청약 자격, 우리의 일상로그, 2025000253">
+    <meta name="author" content="우리의 일상로그">
+    <link rel="canonical" href="https://ourvlog.github.io/apt/2025000253.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="검단호수공원역 중흥S-클래스 | 청약 정보 요약 | 우리의 일상로그">
+    <meta property="og:description" content="분양가, 입지, 자격 등 복잡한 청약 정보를 인터랙티브 웹으로 한눈에 파악하세요.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ourvlog.github.io/apt/2025000253.html">
+    <meta property="og:image" content="https://placehold.co/1200x630/5F6F52/F8F7F4?text=Geomdan+S-Class">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #F8F7F4;
+            color: #3A3A3A;
+        }
+        .nav-button {
+            transition: all 0.3s ease;
+            border-bottom: 4px solid transparent;
+        }
+        .nav-button.active {
+            color: #5F6F52;
+            border-bottom-color: #5F6F52;
+            font-weight: 700;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .location-diagram {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            background-color: #EAE7E1;
+            border: 2px dashed #BFBBAF;
+        }
+        .location-item {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .location-item .icon {
+            font-size: 2rem;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .info-popup {
+            display: none;
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+        .location-item:hover .info-popup {
+            display: block;
+        }
+        .form-select, .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid #D1D5DB;
+            background-color: #F9FAFB;
+        }
+        .submit-btn {
+            background-color: #5F6F52;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #4A5740;
+        }
+        .result-box {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+        .result-success {
+            background-color: #EBF8F2;
+            color: #2F855A;
+            border: 1px solid #C6F6D5;
+        }
+        .result-fail {
+            background-color: #FFF5F5;
+            color: #C53030;
+            border: 1px solid #FED7D7;
+        }
+        .result-info {
+            background-color: #EBF8FF;
+            color: #2B6CB0;
+            border: 1px solid #BEE3F8;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div id="header-placeholder"></div>
+
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-[#5F6F52] mb-2">검단호수공원역 중흥S-클래스</h1>
+            <p class="text-lg text-gray-600">핵심 청약 정보 인터랙티브 요약</p>
+            <a href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2025000253&pblancNo=2025000253" target="_blank" class="inline-block mt-4 px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                청약홈 공고 보러가기
+            </a>
+        </header>
+
+        <nav class="flex justify-center border-b border-gray-300 mb-8">
+            <button class="nav-button active py-4 px-6 text-gray-500" data-target="summary">핵심 요약</button>
+            <button class="nav-button py-4 px-6 text-gray-500" data-target="sales">분양 정보</button>
+            <button class="nav-button py-4 px-6 text-gray-500" data-target="location">입지 분석</button>
+            <button class="nav-button py-4 px-6 text-gray-500" data-target="eligibility">청약 자격</button>
+        </nav>
+
+        <main>
+            <!-- 핵심 요약 Section -->
+            <section id="summary" class="content-section active">
+                 <div class="card mb-8">
+                    <h2 class="text-2xl font-bold mb-4">✨ 한눈에 보는 단지 정보</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-500">총 세대수</p>
+                            <p class="text-2xl font-bold">1,010</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-500">건설사</p>
+                            <p class="text-xl font-bold">중흥S-클래스</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-500">입주예정</p>
+                            <p class="text-xl font-bold">2028년 8월</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <p class="text-sm text-gray-500">전매제한</p>
+                            <p class="text-xl font-bold">3년</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2 class="text-2xl font-bold mb-6">🗓️ 청약 핵심 일정 타임라인</h2>
+                    <div class="relative">
+                        <div class="border-l-2 border-[#5F6F52] absolute h-full left-1/2 -ml-px"></div>
+                        <div id="timeline-container" class="space-y-12"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 분양 정보 Section -->
+            <section id="sales" class="content-section">
+                <div class="card mb-8">
+                     <h2 class="text-2xl font-bold mb-4">💰 주택형별 분양가 (최고가 기준)</h2>
+                     <p class="text-gray-600 mb-6">각 타입별 최고 분양가를 비교하여 자금 계획을 세워보세요. 분양가는 발코니 확장비 및 유상 옵션이 제외된 금액입니다.</p>
+                     <div class="chart-container">
+                        <canvas id="priceChart"></canvas>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card">
+                        <h2 class="text-2xl font-bold mb-4">🏡 공급 대상</h2>
+                        <p class="text-gray-600 mb-6">전체 1,010세대 중 특별공급과 일반공급으로 나뉘어 공급됩니다.</p>
+                        <div class="chart-container" style="height:250px; max-height:300px;">
+                            <canvas id="supplyTypeChart"></canvas>
+                        </div>
+                    </div>
+                     <div class="card">
+                        <h2 class="text-2xl font-bold mb-4">📐 주택형별 세대수</h2>
+                        <p class="text-gray-600 mb-6">다양한 타입으로 구성되어 있습니다. 가장 세대수가 많은 타입을 확인해보세요.</p>
+                        <div class="chart-container" style="height:250px; max-height:300px;">
+                            <canvas id="unitMixChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 입지 분석 Section -->
+            <section id="location" class="content-section">
+                <div class="card">
+                    <h2 class="text-2xl font-bold mb-4">🗺️ 주변 입지 환경</h2>
+                    <p class="text-gray-600 mb-6">단지를 중심으로 주요 시설들의 위치를 가늠해볼 수 있습니다. 각 아이콘 위에 마우스를 올려보세요.</p>
+                    <div class="location-diagram mx-auto rounded-lg">
+                        <div class="location-item" style="top: 45%; left: 40%;">
+                            <div class="icon">🏢</div>
+                            <div>중흥S-클래스</div>
+                        </div>
+
+                        <div class="location-item" style="bottom: 15%; left: 40%;">
+                            <div class="icon">🚇</div>
+                            <div>(가칭)검단호수공원역</div>
+                            <div class="info-popup">
+                                <h4 class="font-bold">인천 1호선 연장</h4>
+                                <p class="text-xs">개통 시 서울 접근성이 크게 향상될 예정인 역세권 입지입니다.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="location-item" style="top: 15%; left: 65%;">
+                            <div class="icon">🏞️</div>
+                            <div>검단호수공원</div>
+                            <div class="info-popup">
+                                <h4 class="font-bold">쾌적한 자연</h4>
+                                <p class="text-xs">산책, 운동 등 여유로운 일상을 즐길 수 있는 대규모 공원입니다.</p>
+                            </div>
+                        </div>
+
+                         <div class="location-item" style="top: 50%; right: 10%;">
+                            <div class="icon">🏫</div>
+                            <div>(가칭)검단7초</div>
+                             <div class="info-popup">
+                                <h4 class="font-bold">초품아 단지</h4>
+                                <p class="text-xs">2028년 9월 개교 예정으로, 자녀의 안전한 통학이 가능합니다.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="location-item" style="top: 10%; left: 10%;">
+                            <div class="icon">🛍️</div>
+                            <div>중심상업지구</div>
+                             <div class="info-popup">
+                                <h4 class="font-bold">생활 편의시설</h4>
+                                <p class="text-xs">마트, 병원, 학원가 등 다양한 인프라가 집중될 예정입니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 청약 자격 Section -->
+            <section id="eligibility" class="content-section">
+                <div class="card mb-8">
+                     <h2 class="text-2xl font-bold mb-4">🚨 주요 규제사항 확인</h2>
+                     <p class="text-gray-600 mb-6">청약 전 반드시 확인해야 할 핵심 규제사항입니다. 불이익이 없도록 꼼꼼히 체크하세요.</p>
+                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                        <div class="bg-red-50 p-4 rounded-lg border border-red-200">
+                            <p class="text-sm text-red-700">전매제한</p>
+                            <p class="text-2xl font-bold text-red-800">3년</p>
+                        </div>
+                         <div class="bg-red-50 p-4 rounded-lg border border-red-200">
+                            <p class="text-sm text-red-700">재당첨제한</p>
+                            <p class="text-2xl font-bold text-red-800">10년</p>
+                        </div>
+                         <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <p class="text-sm text-green-700">실거주 의무</p>
+                            <p class="text-2xl font-bold text-green-800">없음</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2 class="text-2xl font-bold mb-4">🙋‍♂️ 내 청약자격 확인하기</h2>
+                    <p class="text-gray-600 mb-6">아래 정보를 입력하여 1순위 청약 자격 여부를 간단하게 확인해보세요. (정확한 자격은 반드시 공고문 원문을 확인해야 합니다)</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="residence" class="block text-sm font-medium text-gray-700 mb-1">거주지</label>
+                            <select id="residence" class="form-select">
+                                <option value="incheon">인천광역시</option>
+                                <option value="seoul_gyeonggi">서울/경기</option>
+                                <option value="other">기타</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="subscriptionPeriod" class="block text-sm font-medium text-gray-700 mb-1">청약통장 가입기간</label>
+                            <select id="subscriptionPeriod" class="form-select">
+                                <option value="under_12">12개월 미만</option>
+                                <option value="over_12">12개월 이상</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="isHomeless" class="block text-sm font-medium text-gray-700 mb-1">현재 무주택자이신가요?</label>
+                            <select id="isHomeless" class="form-select">
+                                <option value="yes">예</option>
+                                <option value="no">아니오</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="specialSupply" class="block text-sm font-medium text-gray-700 mb-1">희망 특별공급 유형</label>
+                            <select id="specialSupply" class="form-select">
+                                <option value="none">해당 없음 (일반공급)</option>
+                                <option value="newlywed">신혼부부</option>
+                                <option value="first_time">생애최초</option>
+                                <option value="multi_child">다자녀가구</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button id="checkEligibilityBtn" class="submit-btn">자격 확인하기</button>
+                    </div>
+                    <div id="eligibilityResult" class="mt-6"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navButtons = document.querySelectorAll('.nav-button');
+            const contentSections = document.querySelectorAll('.content-section');
+            const timelineContainer = document.getElementById('timeline-container');
+            
+            const appData = {
+                timeline: [
+                    { date: '2025.07.04 (금)', event: '입주자 모집 공고', description: '모든 청약 자격의 기준이 되는 날입니다.', side: 'left' },
+                    { date: '2025.07.14 (월)', event: '특별공급 접수', description: '인터넷(청약홈) 또는 견본주택 현장 접수', side: 'right' },
+                    { date: '2025.07.15 (화)', event: '일반공급 1순위 접수', description: '청약홈을 통해 인터넷으로 접수합니다.', side: 'left' },
+                    { date: '2025.07.22 (화)', event: '당첨자 발표', description: '청약홈에서 당첨 여부를 확인할 수 있습니다.', side: 'right' },
+                    { date: '2025.08.04 (월) ~ 08.07 (목)', event: '정당 계약 체결', description: '견본주택에서 4일간 계약을 진행합니다.', side: 'left' },
+                ],
+                prices: {
+                    labels: ['84A', '84B', '112A', '114A'],
+                    values: [61700, 59900, 71400, 73400]
+                },
+                supply: {
+                    total: 1010,
+                    special: 491,
+                    general: 519
+                },
+                units: {
+                    labels: ['84A', '84B', '112A', '114A'],
+                    counts: [521, 180, 74, 235]
+                }
+            };
+
+            function navigate(targetId) {
+                navButtons.forEach(button => {
+                    button.classList.toggle('active', button.dataset.target === targetId);
+                });
+                contentSections.forEach(section => {
+                    section.classList.toggle('active', section.id === targetId);
+                });
+            }
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    navigate(button.dataset.target);
+                });
+            });
+            
+            function renderTimeline() {
+                appData.timeline.forEach(item => {
+                    const sideClass = item.side === 'left' ? 'md:ml-auto md:mr-12' : 'md:mr-auto md:ml-12';
+                    const timelineItem = `
+                        <div class="relative">
+                            <div class="w-16 h-16 bg-[#A3B899] rounded-full absolute top-1/2 -mt-8 ${item.side === 'left' ? 'md:left-1/2 md:-ml-8' : 'md:left-1/2 md:-ml-8'} left-0 -ml-8 flex items-center justify-center text-white font-bold text-sm">
+                                ${item.date.split(' ')[1]}
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-md w-full md:w-5/12 ${sideClass}">
+                                <p class="text-sm text-[#5F6F52] font-semibold">${item.date}</p>
+                                <h3 class="text-xl font-bold mt-1 mb-2">${item.event}</h3>
+                                <p class="text-gray-600 text-sm">${item.description}</p>
+                            </div>
+                        </div>
+                    `;
+                    timelineContainer.innerHTML += timelineItem;
+                });
+            }
+            
+            function checkEligibility() {
+                const residence = document.getElementById('residence').value;
+                const period = document.getElementById('subscriptionPeriod').value;
+                const homeless = document.getElementById('isHomeless').value;
+                const special = document.getElementById('specialSupply').value;
+                const resultContainer = document.getElementById('eligibilityResult');
+
+                let messages = [];
+                
+                if (residence !== 'other' && period === 'over_12') {
+                    let priorityMessage = '✅ <strong>일반공급 1순위</strong> 조건에 해당될 가능성이 높습니다.';
+                    if (residence === 'incheon') {
+                        priorityMessage += ' (인천 50% 우선공급 대상)';
+                    }
+                    messages.push({type: 'success', text: priorityMessage});
+                } else {
+                    messages.push({type: 'fail', text: '❌ <strong>일반공급 1순위</strong> 조건을 충족하지 못합니다. (거주지 또는 통장 가입기간 확인 필요)'});
+                }
+
+                if (special !== 'none') {
+                    const specialTypeMap = {
+                        'newlywed': '신혼부부',
+                        'first_time': '생애최초',
+                        'multi_child': '다자녀가구'
+                    };
+                    messages.push({type: 'info', text: `ℹ️ <strong>${specialTypeMap[special]} 특별공급</strong>의 경우, 소득 및 자산 기준 등 추가 조건이 있으니 반드시 모집공고 원문을 확인해주세요.`});
+                }
+
+                resultContainer.innerHTML = messages.map(msg => `<div class="result-box result-${msg.type}">${msg.text}</div>`).join('');
+            }
+
+            document.getElementById('checkEligibilityBtn').addEventListener('click', checkEligibility);
+
+            function createPriceChart() {
+                const ctx = document.getElementById('priceChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: appData.prices.labels,
+                        datasets: [{
+                            label: '최고 분양가 (만원)',
+                            data: appData.prices.values,
+                            backgroundColor: '#A3B899',
+                            borderColor: '#5F6F52',
+                            borderWidth: 1,
+                            borderRadius: 5,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) { label += ': '; }
+                                        if (context.parsed.y !== null) {
+                                            label += new Intl.NumberFormat('ko-KR').format(context.parsed.y) + ' 만원';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value, index, values) {
+                                        return new Intl.NumberFormat('ko-KR').format(value) + '만';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function createSupplyTypeChart() {
+                const ctx = document.getElementById('supplyTypeChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['특별공급', '일반공급'],
+                        datasets: [{
+                            data: [appData.supply.special, appData.supply.general],
+                            backgroundColor: ['#A3B899', '#D3C5E5'],
+                            borderColor: ['#5F6F52', '#A391B3'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                            },
+                             tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) { label += ': '; }
+                                        let value = context.parsed;
+                                        let total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                        let percentage = ((value / total) * 100).toFixed(1) + '%';
+                                        return `${label} ${value}세대 (${percentage})`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function createUnitMixChart() {
+                const ctx = document.getElementById('unitMixChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: appData.units.labels,
+                        datasets: [{
+                            data: appData.units.counts,
+                            backgroundColor: ['#A3B899', '#D3C5E5', '#F5E8DD', '#B4C6A6'],
+                            borderColor: ['#5F6F52', '#A391B3', '#D6C6B3', '#8A9A5B'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                            },
+                             tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                         let label = context.label || '';
+                                        if (label) { label += ': '; }
+                                        let value = context.parsed;
+                                        return `${label} ${value}세대`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            renderTimeline();
+            createPriceChart();
+            createSupplyTypeChart();
+            createUnitMixChart();
+        });
+    </script>
+    <script src="/js/common.js" defer></script>
+</body>
+</html>
