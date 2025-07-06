@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Load header and footer into their respective placeholders
-    loadComponent('/_header.html', 'header-placeholder');
-    loadComponent('/_footer.html', 'footer-placeholder');
+    loadComponent('/header.html', 'header-placeholder');
+    loadComponent('/footer.html', 'footer-placeholder');
 
     // Dynamically add common scripts to the head to avoid duplication
     const addScript = (src, async = true, crossorigin = null) => {
