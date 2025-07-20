@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: A single-page application with a top navigation bar for smooth scrolling to thematic sections. The structure is designed for a user-centric journey: 1. Overview (Key Info Dashboard), 2. Details (Supply/Price with interactive charts/tables), 3. Context (Location Analysis with tabs), 4. Actionable Steps (Qualifications with an interactive checker), and 5. Conclusion (Pros/Cons). This flow guides the user from high-level summaries to detailed decision-making points, making complex information digestible and less overwhelming than a linear report. -->
+    <!-- Visualization & Content Choices: 
+        - Key Dates: Goal(Inform) -> HTML/CSS Timeline -> Interaction(Hover) -> Justification(Visualizes process better than a list).
+        - Unit Supply: Goal(Compare) -> Chart.js Doughnut Chart -> Interaction(Hover for tooltips) -> Justification(Quickly shows unit type proportions).
+        - Price Details: Goal(Explore Details) -> JS-powered Filterable HTML Table -> Interaction(Click buttons to filter by type) -> Justification(Allows users to focus on specific data without clutter).
+        - Location Info: Goal(Organize) -> JS-powered Tabs -> Interaction(Click to switch views) -> Justification(Breaks down dense text into manageable, themed chunks).
+        - Qualifications: Goal(Self-assess) -> Interactive JS Form -> Interaction(User input & click) -> Justification(Provides personalized feedback and simplifies complex rules).
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <title>클러스터용인 경남아너스빌 | 청약 정보, 분양가, 입지 분석 (우리의 일상로그)</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="용인 처인구 비규제 프리미엄! 클러스터용인 경남아너스빌의 분양가, 청약 자격, 입지, 개발 호재를 심층 분석합니다. 5억대 분양가로 내 집 마련 기회를 잡으세요.">
+    <meta name="keywords" content="클러스터용인 경남아너스빌, 용인 아파트 분양, 용인 청약, 처인구 아파트, 양지지구, 용인 반도체 클러스터, 비규제 청약, 2025년 분양">
+    <meta name="author" content="우리의 일상로그">
+    <link rel="canonical" href="https://ourvlog.github.io/apt/2025000189.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="클러스터용인 경남아너스빌 | 청약 완벽 분석 (우리의 일상로그)">
+    <meta property="og:description" content="5억대 분양가, 비규제 프리미엄! 용인 반도체 클러스터 최대 수혜 단지, 경남아너스빌의 모든 정보를 인터랙티브하게 확인하고 청약 자격을 진단해보세요.">
+    <meta property="og:url" content="https://ourvlog.github.io/apt/2025000189.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="우리의 일상로그">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .section-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .section-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .tab-btn.active { background-color: #3b82f6; color: white; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out; }
+    </style>
+</head>
+<body class="bg-slate-50 text-gray-800">
+
+    <div id="header-placeholder"></div>
+
+    <main class="container mx-auto p-4 md:p-8">
+        
+        <section class="text-center mb-16 pt-8">
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">용인 처인구의 미래 가치, <br class="md:hidden"><span class="text-blue-600">클러스터용인 경남아너스빌</span></h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-8">비규제 프리미엄과 반도체 클러스터 호재를 품은 신규 대단지! 내 집 마련의 기회를 위한 모든 정보를 담았습니다.</p>
+            <a href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2025000189&pblancNo=2025000189" target="_blank" rel="noopener noreferrer" class="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-full hover:bg-blue-700 transition-colors shadow-lg text-lg">
+                청약 공고 보러가기 🚀
+            </a>
+        </section>
+
+        <section id="info" class="mb-20 section-fade-in">
+            <h3 class="text-3xl font-bold text-center mb-4">한눈에 보는 핵심 정보 🗓️</h3>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">청약의 첫걸음은 정확한 정보 확인입니다. 가장 중요한 단지 정보와 규제 사항, 그리고 청약 일정을 한눈에 파악하여 계획을 세워보세요.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform">
+                    <div class="text-5xl mb-3">🏠</div>
+                    <h4 class="text-xl font-bold mb-2">총 세대수</h4>
+                    <p class="text-3xl font-bold text-blue-600">997세대</p>
+                    <p class="text-sm text-gray-500">13개동 / 지하 3층 ~ 지상 29층</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform">
+                    <div class="text-5xl mb-3">🔑</div>
+                    <h4 class="text-xl font-bold mb-2">입주 예정</h4>
+                    <p class="text-3xl font-bold text-blue-600">2028년 12월</p>
+                    <p class="text-sm text-gray-500">정확한 입주일자는 추후 통보</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform">
+                    <div class="text-5xl mb-3">📜</div>
+                    <h4 class="text-xl font-bold mb-2">전매 제한</h4>
+                    <p class="text-3xl font-bold text-blue-600">6개월</p>
+                    <p class="text-sm text-gray-500">당첨자 발표일로부터</p>
+                </div>
+                 <div class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-105 transition-transform">
+                    <div class="text-5xl mb-3">✅</div>
+                    <h4 class="text-xl font-bold mb-2">규제 사항</h4>
+                    <p class="text-2xl font-bold text-green-600">비규제지역</p>
+                    <p class="text-sm text-gray-500">재당첨제한, 실거주 의무 없음</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h4 class="text-2xl font-bold text-center mb-6">주요 청약 일정</h4>
+                <div id="timeline-container" class="relative">
+                    <div class="absolute left-1/2 h-full w-0.5 bg-gray-200 hidden md:block"></div>
+                    <!-- Timeline items will be inserted here by JS -->
+                </div>
+            </div>
+        </section>
+
+        <section id="supply" class="mb-20 section-fade-in">
+            <h3 class="text-3xl font-bold text-center mb-4">공급 및 분양가 💰</h3>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">어떤 타입이 얼마나 공급되는지, 가장 중요한 분양가는 얼마인지 확인해보세요. 차트와 필터링 가능한 표를 통해 원하는 정보를 쉽게 찾을 수 있습니다.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg flex flex-col justify-center">
+                    <h4 class="text-2xl font-bold text-center mb-4">주택형별 공급 비율</h4>
+                    <div class="chart-container relative h-72 w-full max-w-sm mx-auto">
+                        <canvas id="supplyChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-3 bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                    <h4 class="text-2xl font-bold mb-6">주택형별 분양가 (최고가 기준)</h4>
+                    <div class="flex justify-center space-x-2 mb-4">
+                        <button class="price-filter-btn px-4 py-2 text-sm font-semibold rounded-full bg-blue-500 text-white" data-type="all">전체</button>
+                        <button class="price-filter-btn px-4 py-2 text-sm font-semibold rounded-full bg-gray-200 text-gray-700" data-type="84A">84A</button>
+                        <button class="price-filter-btn px-4 py-2 text-sm font-semibold rounded-full bg-gray-200 text-gray-700" data-type="84B">84B</button>
+                        <button class="price-filter-btn px-4 py-2 text-sm font-semibold rounded-full bg-gray-200 text-gray-700" data-type="123">123</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="p-3 font-semibold">주택형</th>
+                                    <th class="p-3 font-semibold">총 세대수</th>
+                                    <th class="p-3 font-semibold">최고 분양가</th>
+                                </tr>
+                            </thead>
+                            <tbody id="priceTableBody">
+                                <!-- Price data will be inserted here by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                     <div class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-400 text-amber-800 rounded-r-lg">
+                        <p class="font-bold">🚨 잠깐! 체크포인트</p>
+                        <p class="text-sm">분양가에는 발코니 확장비, 시스템 에어컨 등 추가 선택품목(유상옵션) 비용이 포함되어 있지 않습니다. 계약금 5%, 중도금 60%(무이자), 잔금 35% 조건입니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="location" class="mb-20 section-fade-in">
+             <h3 class="text-3xl font-bold text-center mb-4">입지 환경 분석 🧐</h3>
+             <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">'그래서 살기 좋은가?'라는 질문에 답해드립니다. 교통, 학군 및 생활 인프라, 그리고 미래가치를 결정할 개발 호재까지 탭을 클릭하여 심층 분석 내용을 확인하세요.</p>
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <div class="border-b border-gray-200 mb-6">
+                    <nav class="-mb-px flex justify-center space-x-2 md:space-x-8" aria-label="Tabs">
+                        <button class="tab-btn active whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="transport">
+                            🚗 교통
+                        </button>
+                        <button class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="life">
+                            👨‍👩‍👧‍👦 학군/생활
+                        </button>
+                        <button class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="dev">
+                            ✨ 개발 호재
+                        </button>
+                    </nav>
+                </div>
+                <div>
+                    <div id="transport" class="tab-content active animate-fade-in">
+                        <h4 class="text-xl font-bold mb-3">직장까지 얼마나 걸릴까?</h4>
+                        <p class="text-gray-700 leading-relaxed">영동고속도로 **양지IC**가 바로 인접해 있어 서울 및 수도권으로의 이동이 매우 편리합니다. 제2경부고속도로(서울-세종)가 개통되면 광역 교통망은 더욱 향상될 것입니다. 자차 이용 시 **강남까지 약 1시간, 판교까지 약 40분**이 소요됩니다. <br><br>무엇보다 가장 큰 기대 요인은 **GTX-A 용인역(가칭)**입니다. 개통 시 삼성역까지 10분대에 주파 가능해, 서울 핵심 업무지구로의 출퇴근이 획기적으로 개선됩니다. 이는 단지의 미래가치를 높이는 핵심적인 교통 호재입니다.</p>
+                    </div>
+                    <div id="life" class="tab-content animate-fade-in">
+                        <h4 class="text-xl font-bold mb-3">아이 키우고 살기 좋은가?</h4>
+                        <p class="text-gray-700 leading-relaxed">단지 인근에 **남곡2초중통합학교(가칭)**가 설립될 예정으로, 개교 후에는 아이들이 안전하게 통학할 수 있는 교육 환경이 조성됩니다. 설립 전까지는 양지초등학교로 배정됩니다. <br><br>생활 인프라는 현재 양지면 중심 상권을 이용해야 하지만, 단지가 속한 **양지지구** 개발이 완료되면 단지 바로 앞에서 편리한 생활을 누릴 수 있습니다. 지금은 조금 불편할 수 있지만, 신도시가 형성되는 과정의 잠재력을 고려해야 합니다.</p>
+                    </div>
+                    <div id="dev" class="tab-content animate-fade-in">
+                         <h4 class="text-xl font-bold mb-3">주변 환경 및 핵심 개발 호재</h4>
+                         <p class="text-gray-700 leading-relaxed">이 단지의 가치를 논할 때 빼놓을 수 없는 것이 바로 **'용인 반도체 클러스터'**입니다. SK하이닉스를 중심으로 120조 원 이상이 투입되는 세계 최대 규모의 반도체 생산단지로, 약 10만 명 이상의 양질의 일자리가 창출될 예정입니다. 이는 풍부한 배후 주택 수요로 직결되어 단지의 장기적인 가치 상승을 이끌 강력한 엔진이 될 것입니다.<br><br><span class="font-bold text-red-600">주의사항:</span> 단지 북측 약 120m 거리에 송전탑이 존치될 예정입니다. 일부 세대에서는 조망에 영향을 줄 수 있으니, 청약 전 반드시 현장을 방문하여 직접 확인하시기 바랍니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="qualification" class="mb-20 section-fade-in">
+            <h3 class="text-3xl font-bold text-center mb-4">청약 자격 완벽 정리 🙋‍♀️</h3>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">가장 복잡하게 느껴지는 청약 자격, 나의 정보를 입력하여 1순위 자격 여부를 직접 확인해보세요! 특별공급 등 더 자세한 정보는 아래 요약 내용을 참고하세요.</p>
+            
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h4 class="text-2xl font-bold mb-6 text-center">1순위 청약 자격 자가진단</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="residence" class="block text-sm font-medium text-gray-700 mb-1">거주지</label>
+                        <select id="residence" class="w-full p-2 border border-gray-300 rounded-md">
+                            <option value="yongin">용인시</option>
+                            <option value="metro">수도권(경기/서울/인천)</option>
+                            <option value="other">기타 지역</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="period" class="block text-sm font-medium text-gray-700 mb-1">청약통장 가입 기간 (개월)</label>
+                        <input type="number" id="period" placeholder="예: 24" class="w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label for="unit-type" class="block text-sm font-medium text-gray-700 mb-1">신청할 주택형</label>
+                        <select id="unit-type" class="w-full p-2 border border-gray-300 rounded-md">
+                            <option value="85">85㎡ 이하 (84A, 84B)</option>
+                            <option value="123">85㎡ 초과 (123)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="deposit" class="block text-sm font-medium text-gray-700 mb-1">청약통장 예치금 (만원)</label>
+                        <input type="number" id="deposit" placeholder="예: 300" class="w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button id="check-qualification-btn" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full hover:bg-blue-700 transition-colors shadow-lg">자격 확인하기</button>
+                </div>
+                <div id="qualification-result" class="mt-6 p-4 rounded-lg text-center font-bold text-lg hidden"></div>
+            </div>
+
+            <div id="accordion-container" class="space-y-4 mt-8">
+                <!-- Accordion items will be inserted here by JS -->
+            </div>
+        </section>
+        
+        <section id="summary" class="section-fade-in">
+            <h3 class="text-3xl font-bold text-center mb-4">최종 정리 및 총평 ✍️</h3>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">지금까지의 모든 분석을 바탕으로 '클러스터용인 경남아너스빌'의 장점과 단점을 명확히 짚어보고, 어떤 분들에게 최적의 선택이 될지 최종 의견을 제시합니다.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-green-500">
+                    <h4 class="text-2xl font-bold mb-4 text-green-600">👍 장점</h4>
+                    <ul class="space-y-3 list-disc list-inside text-gray-700">
+                        <li><span class="font-semibold">압도적인 가격 경쟁력:</span> 5억 원대 분양가로 용인 신축 대단지 입성 기회.</li>
+                        <li><span class="font-semibold">자유로운 규제:</span> 전매제한 6개월, 재당첨제한 및 실거주 의무가 없어 투자와 실거주 목적 모두 충족 가능.</li>
+                        <li><span class="font-semibold">확실한 미래가치:</span> 용인 반도체 클러스터와 GTX-A 노선이라는 강력한 개발 호재 보유.</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-red-500">
+                    <h4 class="text-2xl font-bold mb-4 text-red-600">👎 단점</h4>
+                    <ul class="space-y-3 list-disc list-inside text-gray-700">
+                        <li><span class="font-semibold">아쉬운 현재 인프라:</span> 지구 개발 초기 단계로 학군, 상권 등 생활 인프라가 갖춰지기까지 시간 필요.</li>
+                        <li><span class="font-semibold">송전탑 존재:</span> 단지 북측 송전탑은 일부 세대 조망 및 심리적 영향을 줄 수 있으므로 현장 확인 필수.</li>
+                        <li><span class="font-semibold">대중교통 접근성:</span> 현재는 자차 이동이 필수적이며, 대중교통망 확충까지 시간이 소요될 전망.</li>
+                    </ul>
+                </div>
+            </div>
+             <div class="mt-12 bg-blue-50 p-8 rounded-xl text-center">
+                 <h4 class="text-2xl font-bold mb-3">👨‍⚖️ 총평</h4>
+                 <p class="text-lg text-gray-800 leading-relaxed max-w-3xl mx-auto">이러한 특징을 종합해볼 때, <strong>[클러스터용인 경남아너스빌]</strong>은 당장의 생활 편의성보다는 <span class="font-bold text-blue-600">미래 가치와 저렴한 분양가</span>에 중점을 두는 3040 실수요자 및 투자자에게 가장 매력적인 선택지가 될 것입니다. 특히 용인 반도체 클러스터 관련 직장인이라면 직주근접의 장점까지 누릴 수 있습니다.</p>
+             </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const timelineData = [
+                { date: '2025.07.11', event: '입주자 모집 공고', icon: '📢' },
+                { date: '2025.07.16', event: '특별공급 접수', icon: '⭐' },
+                { date: '2025.07.17', event: '일반공급 1순위', icon: '1️⃣' },
+                { date: '2025.07.18', event: '일반공급 2순위', icon: '2️⃣' },
+                { date: '2025.07.24', event: '당첨자 발표', icon: '🎉' },
+                { date: '2025.08.05-07', event: '계약 체결', icon: '✍️' },
+            ];
+
+            const timelineContainer = document.getElementById('timeline-container');
+            timelineData.forEach((item, index) => {
+                const isEven = index % 2 === 0;
+                const timelineItem = `
+                    <div class="mb-8 flex justify-between ${isEven ? 'flex-row-reverse' : ''} items-center w-full">
+                        <div class="order-1 w-5/12 hidden md:block"></div>
+                        <div class="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-10 h-10 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">${item.icon}</h1>
+                        </div>
+                        <div class="order-1 bg-white rounded-lg shadow-lg w-full md:w-5/12 px-6 py-4 ${isEven ? 'md:text-right' : 'md:text-left'}">
+                            <p class="text-sm font-medium text-blue-600">${item.date}</p>
+                            <h3 class="mb-1 font-bold text-gray-800 text-lg">${item.event}</h3>
+                        </div>
+                    </div>
+                `;
+                 const timelineItemMobile = `
+                    <div class="md:hidden flex items-center w-full mb-4">
+                        <div class="z-20 flex items-center bg-gray-800 shadow-xl w-10 h-10 rounded-full mr-4 shrink-0">
+                           <h1 class="mx-auto font-semibold text-lg text-white">${item.icon}</h1>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-md p-4 w-full">
+                           <p class="text-sm font-medium text-blue-600">${item.date}</p>
+                           <h3 class="font-bold text-gray-800 text-md">${item.event}</h3>
+                        </div>
+                    </div>
+                 `;
+                timelineContainer.innerHTML += `<div class="hidden md:block">${timelineItem}</div>` + timelineItemMobile;
+            });
+
+
+            const supplyData = {
+                labels: ['84A', '84B', '123'],
+                datasets: [{
+                    label: '공급 세대수',
+                    data: [534, 385, 78],
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.8)',
+                        'rgba(96, 165, 250, 0.8)',
+                        'rgba(147, 197, 253, 0.8)',
+                    ],
+                    borderColor: [
+                        'rgba(59, 130, 246, 1)',
+                        'rgba(96, 165, 250, 1)',
+                        'rgba(147, 197, 253, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const supplyChartCtx = document.getElementById('supplyChart').getContext('2d');
+            new Chart(supplyChartCtx, {
+                type: 'doughnut',
+                data: supplyData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) { label += ': '; }
+                                    if (context.parsed !== null) { label += context.parsed + '세대'; }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const priceData = [
+                { type: '84A', units: 534, price: '5억 2,600만원' },
+                { type: '84B', units: 385, price: '5억 2,600만원' },
+                { type: '123', units: 78, price: '7억 3,600만원' },
+            ];
+
+            const priceTableBody = document.getElementById('priceTableBody');
+            const priceFilterBtns = document.querySelectorAll('.price-filter-btn');
+
+            function renderPriceTable(filterType = 'all') {
+                priceTableBody.innerHTML = '';
+                const filteredData = filterType === 'all' ? priceData : priceData.filter(d => d.type === filterType);
+                
+                filteredData.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.className = 'border-b border-gray-200 hover:bg-gray-50';
+                    row.innerHTML = `
+                        <td class="p-3 font-semibold text-blue-600">${item.type}</td>
+                        <td class="p-3">${item.units} 세대</td>
+                        <td class="p-3 font-bold">${item.price}</td>
+                    `;
+                    priceTableBody.appendChild(row);
+                });
+            }
+
+            priceFilterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    priceFilterBtns.forEach(b => b.classList.replace('bg-blue-500','bg-gray-200') || b.classList.replace('text-white','text-gray-700'));
+                    btn.classList.replace('bg-gray-200','bg-blue-500');
+                    btn.classList.replace('text-gray-700','text-white');
+                    renderPriceTable(btn.dataset.type);
+                });
+            });
+
+            renderPriceTable();
+
+            const tabs = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active', 'text-blue-600', 'border-blue-600'));
+                    tab.classList.add('active', 'text-blue-600', 'border-blue-600');
+
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    document.getElementById(tab.dataset.tab).classList.add('active');
+                });
+            });
+
+            const accordionData = [
+                {
+                    title: '가. 특별공급 자격 요건 (요약)',
+                    content: `
+                        <ul class="space-y-2 list-disc list-inside text-gray-600 pl-2">
+                            <li><strong>신혼부부:</strong> 혼인 기간 7년 이내, 무주택세대구성원, 소득/자산 기준 충족, 청약통장 6개월 이상</li>
+                            <li><strong>생애최초:</strong> 세대원 전원 과거 주택 소유 사실 없음, 무주택세대주, 1순위 자격, 5년 이상 소득세 납부, 소득/자산 기준 충족</li>
+                            <li><strong>다자녀가구:</strong> 만 19세 미만 자녀 2명 이상, 무주택세대구성원, 청약통장 6개월 이상</li>
+                            <li><strong>노부모부양:</strong> 만 65세 이상 직계존속 3년 이상 부양, 무주택세대주, 1순위 자격</li>
+                        </ul>
+                        <p class="text-xs text-gray-500 mt-3">* 위 내용은 핵심 요약이며, 상세한 소득/자산 기준 등은 반드시 공고문 원본을 확인해야 합니다.</p>
+                    `
+                },
+                {
+                    title: '다. 주요 규제사항 확인 (★★★★★)',
+                    content: `
+                        <p class="text-gray-700">이 단지의 가장 큰 매력 포인트! 규제로부터 비교적 자유롭습니다.</p>
+                        <ul class="space-y-2 list-disc list-inside text-gray-600 pl-2 mt-2">
+                           <li><strong>전매제한:</strong> 당첨자 발표일로부터 <span class="font-bold text-blue-600">6개월</span> (이후 전매 가능!)</li>
+                           <li><strong>재당첨제한:</strong> <span class="font-bold text-green-600">없음</span></li>
+                           <li><strong>실거주 의무:</strong> <span class="font-bold text-green-600">없음</span></li>
+                        </ul>
+                    `
+                }
+            ];
+            
+            const accordionContainer = document.getElementById('accordion-container');
+            accordionData.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'border border-gray-200 rounded-lg bg-white shadow-sm overflow-hidden';
+                div.innerHTML = `
+                    <button class="accordion-btn w-full text-left p-5 flex justify-between items-center font-bold text-lg hover:bg-gray-50 transition-colors">
+                        <span>${item.title}</span>
+                        <span class="transform transition-transform duration-500 text-blue-500">▼</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="p-5 border-t border-gray-200 bg-gray-50">
+                            ${item.content}
+                        </div>
+                    </div>
+                `;
+                accordionContainer.appendChild(div);
+            });
+
+            accordionContainer.addEventListener('click', function(e) {
+                const button = e.target.closest('.accordion-btn');
+                if (button) {
+                    const content = button.nextElementSibling;
+                    const icon = button.querySelector('span:last-child');
+                    
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+                        document.querySelectorAll('.accordion-btn span:last-child').forEach(i => i.style.transform = 'rotate(0deg)');
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                }
+            });
+
+            const checkBtn = document.getElementById('check-qualification-btn');
+            const resultDiv = document.getElementById('qualification-result');
+
+            checkBtn.addEventListener('click', () => {
+                const residence = document.getElementById('residence').value;
+                const period = parseInt(document.getElementById('period').value) || 0;
+                const unitType = document.getElementById('unit-type').value;
+                const deposit = parseInt(document.getElementById('deposit').value) || 0;
+
+                let messages = [];
+                let isEligible = true;
+
+                if (residence === 'other') {
+                    isEligible = false;
+                    messages.push('거주지 요건(용인시 또는 수도권)을 충족하지 않습니다.');
+                }
+
+                if (period < 12) {
+                    isEligible = false;
+                    messages.push('청약통장 가입 기간(12개월 이상)을 충족하지 않습니다.');
+                }
+
+                const requiredDeposit = {
+                    'yongin': { '85': 200, '123': 400 },
+                    'metro': { '85': 300, '123': 1000 } // 서울 기준
+                };
+                
+                let requiredAmount = 0;
+                if(residence === 'yongin') requiredAmount = requiredDeposit.yongin[unitType];
+                // 수도권은 지역별로 다르지만, 가장 높은 서울 기준으로 체크
+                else if(residence === 'metro') requiredAmount = requiredDeposit.metro[unitType]; 
+
+                if (deposit < requiredAmount) {
+                    isEligible = false;
+                    messages.push(`예치금(${requiredAmount}만원 이상)을 충족하지 않습니다.`);
+                }
+                
+                resultDiv.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+                if (isEligible) {
+                    resultDiv.classList.add('bg-green-100', 'text-green-800');
+                    let resultText = '🎉 축하합니다! 1순위 청약 자격에 해당합니다.';
+                    if(residence === 'metro') {
+                        resultText += '<br><span class="text-sm font-normal">단, 경쟁 시 용인시 거주자에게 100% 우선 공급됩니다.</span>';
+                    }
+                    resultDiv.innerHTML = resultText;
+                } else {
+                    resultDiv.classList.add('bg-red-100', 'text-red-800');
+                    resultDiv.innerHTML = `⚠️ 1순위 청약 자격에 해당하지 않습니다.<br><span class="text-sm font-normal">${messages.join('<br>')}</span>`;
+                }
+            });
+
+
+            const sections = document.querySelectorAll('.section-fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+        });
+    </script>
+    <script src="/js/common.js" defer></script>
+</body>
+</html>
