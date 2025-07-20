@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신분평 더웨이시티 제일풍경채 - 인터랙티브 청약 가이드</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="청주 장성지구 신분평 더웨이시티 제일풍경채 아파트의 분양가, 청약 자격, 전매 정보, 입지 분석 등 모든 정보를 인터랙티브 가이드로 확인하세요. 비규제 단지의 기회를 잡으세요.">
+    <meta name="keywords" content="신분평 더웨이시티 제일풍경채, 청주 아파트 분양, 청주 장성지구, 제일풍경채, 청약 자격, 분양가, 전매제한 없음, 비규제 청약, 우리의 일상로그">
+    <meta name="author" content="우리의 일상로그">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="신분평 더웨이시티 제일풍경채 - 인터랙티브 청약 가이드 | 우리의 일상로그">
+    <meta property="og:description" content="전매제한 없는 청주 장성지구 핵심 입지! 분양가부터 청약 자격까지 모든 정보를 한눈에 확인하고, 나의 1순위 자격을 직접 진단해보세요.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ourvlog.github.io/apt/2025000285.html">
+    <meta property="og:image" content="https://placehold.co/1200x630/0d9488/ffffff?text=신분평+더웨이시티+제일풍경채">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: A single-page application with a top navigation bar to jump between thematic sections: '홈 (Overview)', '핵심 정보 (Key Data)', '입지 분석 (Location)', '청약 자격 (Eligibility)', and '핵심 규제 (Regulations)'. This structure follows a prospective buyer's decision-making flow, starting from a high-level summary and progressively drilling down into details like price, location, and personal eligibility. Interactive charts for data visualization and a self-assessment tool for eligibility are included to make complex information digestible and engaging, enhancing usability over a static blog post format. -->
+    <!-- Visualization & Content Choices: 
+        - Supply Info -> Goal: Compare supply types -> Viz: Donut Chart (Chart.js/Canvas) -> Interaction: Hover to see details -> Justification: More engaging than a table for simple proportions.
+        - Price Info -> Goal: Compare prices by unit type -> Viz: Bar Chart (Chart.js/Canvas) -> Interaction: Hover for exact price -> Justification: Enables quick visual comparison of values.
+        - Schedule -> Goal: Understand timeline -> Viz: Interactive Timeline (HTML/CSS) -> Interaction: Highlighting key date phases -> Justification: More intuitive than a simple list.
+        - Eligibility Check -> Goal: Personalized self-assessment -> Viz: Interactive Form (HTML/JS) -> Interaction: User inputs their status and clicks a button to get instant feedback -> Justification: Turns passive reading into an active, useful tool.
+        - Regulations -> Goal: Highlight key benefits -> Viz: Icon-based summary (HTML/CSS with Unicode) -> Interaction: None -> Justification: Fast, clear visual confirmation of major advantages.
+        - Location Analysis -> Goal: Organize text -> Viz: Tabbed content (HTML/JS) -> Interaction: Click tabs to switch content -> Justification: Prevents a long wall of text and allows focused reading. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 350px; max-height: 50vh; }
+        @media (max-width: 768px) { .chart-container { height: 300px; max-height: 45vh; } }
+        .nav-link { cursor: pointer; transition: all 0.3s; }
+        .nav-link.active { color: #0f766e; border-bottom-color: #0f766e; }
+        .nav-link:not(.active) { border-bottom-color: transparent; }
+        .tab-button.active { background-color: #0d9488; color: white; }
+        .tab-button { transition: background-color 0.3s; }
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .highlight-card { transition: transform 0.3s, box-shadow 0.3s; }
+        .highlight-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+    </style>
+</head>
+<body class="bg-stone-50 text-gray-800">
+
+    <div id="header-placeholder"></div>
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-3xl md:text-5xl font-black text-teal-800 mb-2">신분평 더웨이시티 제일풍경채</h1>
+            <p class="text-lg md:text-xl text-gray-600">인터랙티브 청약 가이드</p>
+        </header>
+
+        <nav class="sticky top-0 bg-stone-50/80 backdrop-blur-sm z-10 mb-8 border-b border-gray-200">
+            <ul class="flex justify-center items-center gap-4 md:gap-8 text-sm md:text-base font-bold">
+                <li><a class="nav-link active py-4 border-b-2" data-target="home">홈</a></li>
+                <li><a class="nav-link py-4 border-b-2" data-target="info">핵심 정보</a></li>
+                <li><a class="nav-link py-4 border-b-2" data-target="location">입지 분석</a></li>
+                <li><a class="nav-link py-4 border-b-2" data-target="eligibility">청약 자격</a></li>
+                <li><a class="nav-link py-4 border-b-2" data-target="rules">핵심 규제</a></li>
+            </ul>
+        </nav>
+
+        <main id="main-content">
+
+            <section id="home" class="content-section active fade-in">
+                <div class="text-center mb-12">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4">청주 장성지구의 새로운 시작, 당신의 기회</h2>
+                    <p class="max-w-3xl mx-auto text-gray-600">
+                        '신분평 더웨이시티 제일풍경채'는 비규제 지역의 자유로움과 대단지 신축 아파트의 가치를 동시에 누릴 수 있는 기회입니다. 이 페이지는 복잡한 공고문을 분석하여 여러분의 현명한 결정을 돕기 위해 제작되었습니다. 각 섹션을 통해 단지의 장단점과 핵심 정보를 꼼꼼히 확인해보세요.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <div class="bg-white p-6 rounded-xl shadow-md highlight-card">
+                        <h3 class="text-xl font-bold mb-4 text-green-700">👍 장점</h3>
+                        <ul class="space-y-3 list-inside">
+                            <li class="flex items-start"><span class="text-green-500 mr-2">✅</span> <div><strong class="font-semibold">비규제 프리미엄:</strong> 전매제한, 재당첨제한, 실거주 의무가 없어 투자와 실거주 모두 유연한 선택이 가능합니다.</div></li>
+                            <li class="flex items-start"><span class="text-green-500 mr-2">✅</span> <div><strong class="font-semibold">대단지 신축 아파트:</strong> 1,448세대의 대단지로, 향후 지역의 랜드마크가 될 가능성이 높으며, 신축 아파트의 쾌적함을 누릴 수 있습니다.</div></li>
+                            <li class="flex items-start"><span class="text-green-500 mr-2">✅</span> <div><strong class="font-semibold">계획된 택지지구:</strong> 장성지구 도시개발사업으로 조성되어 깔끔하고 쾌적한 주거 환경이 기대됩니다.</div></li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md highlight-card">
+                        <h3 class="text-xl font-bold mb-4 text-red-700">👎 단점</h3>
+                        <ul class="space-y-3 list-inside">
+                            <li class="flex items-start"><span class="text-red-500 mr-2">⚠️</span> <div><strong class="font-semibold">중학교 원거리 통학:</strong> 중학생 자녀가 있는 가정은 통학 문제를 고려해야 합니다.</div></li>
+                            <li class="flex items-start"><span class="text-red-500 mr-2">⚠️</span> <div><strong class="font-semibold">초기 인프라 부족:</strong> 택지지구 특성상 입주 초기에는 생활 편의시설이 부족할 수 있습니다.</div></li>
+                            <li class="flex items-start"><span class="text-red-500 mr-2">⚠️</span> <div><strong class="font-semibold">분양가 상한제 미적용:</strong> 주변 시세와 꼼꼼한 비교를 통해 분양가의 적정성을 스스로 판단해야 합니다.</div></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-teal-50 border-l-4 border-teal-500 text-teal-900 p-6 rounded-r-lg">
+                    <h4 class="font-bold text-lg">🧐 최종 총평</h4>
+                    <p class="mt-2">이러한 특징을 종합해볼 때, [신분평 더웨이시티 제일풍경채]는 <strong class="font-semibold">자유로운 자금 계획과 향후 이주 가능성을 열어두고 싶은 신혼부부나 젊은 세대</strong>, 그리고 <strong class="font-semibold">비규제 지역의 미래 가치를 보고 투자하려는 분들</strong>에게 가장 매력적인 선택지가 될 것입니다.</p>
+                </div>
+
+            </section>
+            
+            <section id="info" class="content-section fade-in">
+                <div class="text-center mb-12">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4">사업 개요 및 분양 정보</h2>
+                    <p class="max-w-3xl mx-auto text-gray-600">
+                        단지의 기본적인 정보와 가장 중요한 청약 일정을 정리했습니다. 공급 세대수와 분양가 차트를 통해 한눈에 비교하고 자금 계획을 세워보세요.
+                    </p>
+                </div>
+                
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg mb-8">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold text-center md:text-left mb-4 md:mb-0">📅 청약 주요 일정</h3>
+                        <a href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2025000285&pblancNo=2025000285" target="_blank" rel="noopener noreferrer" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition duration-300">
+                            청약 공고 보러가기 ↗
+                        </a>
+                    </div>
+                    <div id="timeline" class="space-y-4"></div>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-4 text-center">📊 공급 세대수 (총 655세대)</h3>
+                        <p class="text-center text-gray-600 text-sm mb-4">차트 위에 마우스를 올리면 세대수를 확인할 수 있습니다.</p>
+                        <div class="chart-container">
+                            <canvas id="supplyChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-4 text-center">💰 타입별 최고 분양가</h3>
+                        <p class="text-center text-gray-600 text-sm mb-4">발코니 확장비 및 추가 선택품목 비용은 별도입니다.</p>
+                        <div class="chart-container">
+                            <canvas id="priceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="location" class="content-section fade-in">
+                <div class="text-center mb-12">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4">입지 환경 분석: 여기서 살아도 될까?</h2>
+                    <p class="max-w-3xl mx-auto text-gray-600">
+                        부동산의 가치는 입지에서 시작됩니다. 교통, 교육 및 생활 인프라, 그리고 주변 개발 호재까지. '그래서 나에게 좋은가?'라는 관점에서 심층적으로 분석했습니다. 탭을 클릭하여 각 주제를 확인해보세요.
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+                    <div class="mb-6 border-b border-gray-200">
+                        <nav class="-mb-px flex justify-center gap-4" aria-label="Tabs">
+                            <button class="tab-button active whitespace-nowrap py-3 px-5 font-medium text-sm rounded-t-lg" data-tab="transport">🚗 교통</button>
+                            <button class="tab-button whitespace-nowrap py-3 px-5 font-medium text-sm rounded-t-lg text-gray-500" data-tab="infra">🏫 학군/생활</button>
+                            <button class="tab-button whitespace-nowrap py-3 px-5 font-medium text-sm rounded-t-lg text-gray-500" data-tab="development">📈 개발 호재</button>
+                        </nav>
+                    </div>
+
+                    <div id="transport" class="tab-content active space-y-4 leading-relaxed">
+                        <p>'신분평'이라는 이름에서부터 새로운 교통 중심지에 대한 기대감이 느껴지는데요. 단지는 <strong>청주 제2순환로</strong>와 인접해 있어 청주 시내외로의 이동이 편리합니다. KTX 오송역, 청주공항 접근성도 양호한 편이죠. 다만, 대중교통, 특히 지하철망이 부족한 청주의 특성상 자차의 중요도가 높을 것으로 보입니다. 향후 충청권 광역철도 등 교통 호재가 실현된다면 가치는 더욱 높아질 수 있겠네요.</p>
+                    </div>
+                    <div id="infra" class="tab-content hidden space-y-4 leading-relaxed">
+                        <p>자녀를 둔 부모님이라면 가장 먼저 체크할 학군! 단지 인근에 <strong>초등학교가 신설될 예정</strong>이라는 점이 가장 큰 장점입니다. 다만, 입주 시점과 개교 시점이 맞지 않을 경우를 대비해 사업주체에서 <strong>개교 전까지 통학 차량을 제공</strong>할 예정이라고 하니 안심이네요. 하지만 공고문에 따르면 <strong>중학교는 원거리 통학이 예상</strong>된다고 하니 이 점은 꼭 인지하셔야 합니다.</p>
+                        <p>생활 인프라는 장성지구 개발이 완료되면서 점차 갖춰질 것으로 기대됩니다. 신도시 초기에는 다소 불편할 수 있지만, 장기적으로는 쾌적한 주거 환경이 조성될 가능성이 높습니다.</p>
+                    </div>
+                    <div id="development" class="tab-content hidden space-y-4 leading-relaxed">
+                        <p>이 단지는 <strong>청주 장성지구 도시개발사업</strong> 구역 내에 위치합니다. 계획된 도시개발지구인 만큼 깔끔한 도로망과 녹지 공간이 조성될 예정입니다. 대규모 택지개발지구의 장점은 시간이 지날수록 빛을 발하죠. 주변 유해시설 없이 쾌적한 환경에서 거주할 수 있다는 점이 매력적입니다.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="eligibility" class="content-section fade-in">
+                 <div class="text-center mb-12">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4">청약 자격 자가진단</h2>
+                    <p class="max-w-3xl mx-auto text-gray-600">
+                        가장 복잡하고 어려운 청약 자격, 간단한 체크를 통해 나의 1순위 자격 여부를 미리 확인해보세요. 아래 항목에 해당하는 옵션을 선택하면 진단 결과가 나타납니다. (이 진단은 참고용이며, 최종 자격은 반드시 모집공고문을 통해 재확인해야 합니다.)
+                    </p>
+                </div>
+                
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg mb-8">
+                    <h3 class="text-xl font-bold mb-6">일반공급 1순위 자격 체크</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <label for="residence-select" class="font-semibold text-gray-700 mb-2 block">1. 거주지 (공고일: 2025.07.11 기준)</label>
+                            <select id="residence-select" class="w-full p-3 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition">
+                                <option value="">선택하세요</option>
+                                <option value="cheongju">청주시 거주</option>
+                                <option value="chungbuk">충청북도 거주</option>
+                                <option value="other">그 외 지역</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="period-input" class="font-semibold text-gray-700 mb-2 block">2. 청약통장 가입 기간 (개월)</label>
+                            <input type="number" id="period-input" placeholder="예: 12" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition">
+                        </div>
+                        <div>
+                            <label for="deposit-input" class="font-semibold text-gray-700 mb-2 block">3. 청약통장 예치금 (원)</label>
+                            <input type="number" id="deposit-input" placeholder="예: 2000000" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition">
+                        </div>
+                    </div>
+                    <button id="check-eligibility-btn" class="mt-8 w-full bg-teal-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-teal-700 transition duration-300">1순위 자격 진단하기</button>
+                    <div id="eligibility-result" class="mt-6 p-6 rounded-lg text-center font-bold text-lg transition-all duration-500 bg-gray-100 text-gray-800">
+                        정보를 입력하고 버튼을 눌러주세요.
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold mb-6 text-center">주요 특별공급 핵심 자격</h3>
+                    <div class="space-y-4">
+                        <details class="bg-white rounded-lg shadow p-4 cursor-pointer">
+                            <summary class="font-semibold">💑 신혼부부</summary>
+                            <p class="mt-2 text-gray-600 text-sm">혼인 기간 7년 이내, 소득 및 자산 기준을 충족하는 무주택세대구성원</p>
+                        </details>
+                        <details class="bg-white rounded-lg shadow p-4 cursor-pointer">
+                            <summary class="font-semibold">🌱 생애최초</summary>
+                            <p class="mt-2 text-gray-600 text-sm">세대원 모두 과거 주택 소유 사실이 없고, 5년 이상 소득세 납부, 소득 및 자산 기준을 충족하는 무주택세대구성원</p>
+                        </details>
+                        <details class="bg-white rounded-lg shadow p-4 cursor-pointer">
+                            <summary class="font-semibold">👨‍👩‍👧‍👦 다자녀가구</summary>
+                            <p class="mt-2 text-gray-600 text-sm">만 19세 미만 자녀 2명 이상(태아 포함)을 둔 무주택세대구성원</p>
+                        </details>
+                         <details class="bg-white rounded-lg shadow p-4 cursor-pointer">
+                            <summary class="font-semibold">👴 노부모부양</summary>
+                            <p class="mt-2 text-gray-600 text-sm">만 65세 이상 직계존속을 3년 이상 계속하여 부양하고 있는 무주택세대주</p>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <section id="rules" class="content-section fade-in">
+                <div class="text-center mb-12">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-4">핵심 규제 사항 CHECK!</h2>
+                     <p class="max-w-3xl mx-auto text-gray-600">
+                        이 아파트의 가장 큰 매력 포인트 중 하나는 바로 '비규제' 단지라는 점입니다. 투자와 실거주 모두 유연하게 계획할 수 있는 핵심 규제 사항들을 명확하게 확인하세요.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="bg-white p-8 rounded-xl shadow-lg highlight-card">
+                        <div class="text-5xl mb-4">🔄</div>
+                        <h3 class="text-xl font-bold">전매제한</h3>
+                        <p class="text-3xl font-black text-green-600 mt-2">없음</p>
+                        <p class="text-gray-500 mt-2 text-sm">당첨자 발표 이후<br>바로 전매 가능</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg highlight-card">
+                        <div class="text-5xl mb-4">🔁</div>
+                        <h3 class="text-xl font-bold">재당첨제한</h3>
+                        <p class="text-3xl font-black text-green-600 mt-2">없음</p>
+                         <p class="text-gray-500 mt-2 text-sm">기존 주택 당첨자도<br>청약 가능</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg highlight-card">
+                        <div class="text-5xl mb-4">🏠</div>
+                        <h3 class="text-xl font-bold">실거주 의무</h3>
+                        <p class="text-3xl font-black text-green-600 mt-2">없음</p>
+                         <p class="text-gray-500 mt-2 text-sm">입주 시점에<br>전/월세 가능</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+                    link.classList.add('active');
+
+                    const targetId = link.getAttribute('data-target');
+                    
+                    contentSections.forEach(section => {
+                        if (section.id === targetId) {
+                            section.classList.add('active');
+                            section.classList.remove('hidden');
+                        } else {
+                            section.classList.remove('active');
+                            section.classList.add('hidden');
+                        }
+                    });
+                    const activeSection = document.getElementById(targetId);
+                    activeSection.classList.remove('fade-in');
+                    void activeSection.offsetWidth; 
+                    activeSection.classList.add('fade-in');
+                });
+            });
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.classList.remove('bg-teal-600');
+                        btn.classList.remove('text-white');
+                        btn.classList.add('text-gray-500');
+                    });
+                    
+                    button.classList.add('active', 'bg-teal-600', 'text-white');
+                    button.classList.remove('text-gray-500');
+
+                    const tabTarget = button.getAttribute('data-tab');
+                    
+                    tabContents.forEach(content => {
+                        if (content.id === tabTarget) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            const timelineData = [
+                { date: '2025-07-11', event: '입주자 모집 공고' },
+                { date: '2025-07-21', event: '특별공급 접수' },
+                { date: '2025-07-22', event: '일반공급 1순위 접수' },
+                { date: '2025-07-23', event: '일반공급 2순위 접수' },
+                { date: '2025-07-29', event: '당첨자 발표' },
+                { date: '2025-08-11', event: '계약 체결 시작' }
+            ];
+            
+            const timelineContainer = document.getElementById('timeline');
+            const today = new Date('2025-07-22');
+
+            timelineData.forEach(item => {
+                const itemDate = new Date(item.date);
+                let stateClasses = 'text-gray-500';
+                let dotClasses = 'bg-gray-300';
+                let eventText = item.event;
+                
+                if (itemDate < today) {
+                    stateClasses = 'text-gray-400 line-through';
+                    dotClasses = 'bg-gray-300';
+                    eventText += ' (완료)';
+                } else if (itemDate.toDateString() === today.toDateString()) {
+                    stateClasses = 'text-teal-600 font-bold';
+                    dotClasses = 'bg-teal-500 ring-4 ring-teal-200';
+                    eventText += ' (오늘)';
+                }
+
+                timelineContainer.innerHTML += `
+                    <div class="flex items-center gap-4 ${stateClasses}">
+                        <div class="w-20 text-right text-sm font-medium">${item.date.substring(5).replace('-', '/')}</div>
+                        <div class="relative h-full">
+                           <div class="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 h-4 w-4 rounded-full ${dotClasses}"></div>
+                        </div>
+                        <div>${eventText}</div>
+                    </div>
+                `;
+            });
+            
+            const supplyData = {
+                labels: ['특별공급 (323세대)', '일반공급 (332세대)'],
+                datasets: [{
+                    data: [323, 332],
+                    backgroundColor: ['#14b8a6', '#0d9488'],
+                    borderColor: '#ffffff',
+                    borderWidth: 2,
+                    hoverOffset: 4
+                }]
+            };
+            
+            new Chart(document.getElementById('supplyChart'), {
+                type: 'doughnut',
+                data: supplyData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const priceData = {
+                labels: ['75A', '75B', '75C', '84A', '84B', '112A'],
+                datasets: [{
+                    label: '최고 분양가 (만원)',
+                    data: [43200, 42800, 42800, 47900, 47600, 65400],
+                    backgroundColor: '#0d9488',
+                    borderRadius: 6
+                }]
+            };
+            
+            new Chart(document.getElementById('priceChart'), {
+                type: 'bar',
+                data: priceData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.raw.toLocaleString() + ' 만원';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return (value / 10000).toFixed(0) + '억';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const checkBtn = document.getElementById('check-eligibility-btn');
+            const resultEl = document.getElementById('eligibility-result');
+            
+            checkBtn.addEventListener('click', () => {
+                const residence = document.getElementById('residence-select').value;
+                const period = parseInt(document.getElementById('period-input').value, 10);
+                const deposit = parseInt(document.getElementById('deposit-input').value, 10);
+
+                if (!residence || isNaN(period) || isNaN(deposit)) {
+                    resultEl.textContent = '모든 항목을 올바르게 입력해주세요.';
+                    resultEl.className = 'mt-6 p-6 rounded-lg text-center font-bold text-lg bg-yellow-100 text-yellow-800';
+                    return;
+                }
+
+                const isPeriodOk = period >= 6;
+                const isDepositOk = deposit >= 2000000;
+
+                if (!isPeriodOk || !isDepositOk) {
+                    resultEl.textContent = '아쉽지만, 통장 가입기간 또는 예치금 조건이 1순위에 미달합니다. 2순위를 노려보세요.';
+                    resultEl.className = 'mt-6 p-6 rounded-lg text-center font-bold text-lg bg-red-100 text-red-800';
+                } else if (residence === 'other') {
+                    resultEl.textContent = '해당 지역(청주시) 및 기타 지역(충북) 거주가 아니므로 1순위 청약이 어렵습니다.';
+                    resultEl.className = 'mt-6 p-6 rounded-lg text-center font-bold text-lg bg-red-100 text-red-800';
+                } else if (residence === 'cheongju') {
+                    resultEl.textContent = '축하합니다! 해당 지역 1순위 자격 요건을 충족합니다.';
+                    resultEl.className = 'mt-6 p-6 rounded-lg text-center font-bold text-lg bg-green-100 text-green-800';
+                } else if (residence === 'chungbuk') {
+                    resultEl.textContent = '좋아요! 기타 지역 1순위 자격 요건을 충족합니다. (단, 경쟁 발생 시 청주시 거주자에게 우선 공급됩니다)';
+                    resultEl.className = 'mt-6 p-6 rounded-lg text-center font-bold text-lg bg-blue-100 text-blue-800';
+                }
+            });
+
+        });
+    </script>
+    <script src="/js/common.js" defer></script>
+</body>
+</html>
