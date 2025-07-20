@@ -3,565 +3,505 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>힐스테이트 회룡역파크뷰 - 인터랙티브 청약 분석</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="힐스테이트 회룡역파크뷰 아파트 청약 정보를 인터랙티브하게 분석합니다. 분양가, 평면도, 입지, 청약 자격 등 모든 정보를 한눈에 확인하고, 나에게 맞는 청약 전략을 세워보세요.">
-    <meta name="keywords" content="힐스테이트 회룡역파크뷰, 의정부 청약, 회룡역 아파트, 아파트 분양, 청약 정보, 분양가, 평면도, GTX-C, 우리의 일상로그">
-    <meta name="author" content="우리의 일상로그">
-    
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="힐스테이트 회룡역파크뷰 | 인터랙티브 청약 완벽 분석">
-    <meta property="og:description" content="분양가, 평면도, 입지, 자격 조건까지. 복잡한 청약 정보를 한눈에 확인하고 나만의 청약 자격을 진단해보세요.">
-    <meta property="og:image" content="https://placehold.co/1200x630/EBF8FF/2C5282?text=힐스테이트+회룡역파크뷰">
-    <meta property="og:url" content="https://ourvlog.github.io/apt/2025000255.html">
-    <meta property="og:type" content="website">
+    <!-- Chosen Palette: Warm Neutral -->
+    <!-- Application Structure Plan: The application is designed as a single-page dashboard with a sticky top navigation for easy access to different analysis sections: '핵심 요약' (Key Summary), '분양 정보' (Pricing Info), '입지 분석' (Location Analysis), '단지 및 세대' (Complex & Units), and '청약 자격' (Eligibility). This tabbed structure is chosen over a linear blog format to allow users to quickly jump to the information they find most relevant, enhancing usability. Key data points are presented in interactive charts and cards for quick comprehension, and a guided 'Eligibility Checker' simplifies the complex application rules, making the information highly accessible and user-centric. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Core Info & Schedule -> Goal: Inform -> Viz: Key metric cards and an interactive schedule timeline -> Interaction: Hover to see details -> Justification: Provides a quick, high-level dashboard view. -> Library/Method: HTML/CSS, JS.
+        - Report Info: Pricing Table -> Goal: Compare -> Viz: Bar chart and filterable table -> Interaction: Filter by unit size updates chart and table -> Justification: Simplifies price comparison. -> Library/Method: Chart.js, JS.
+        - Report Info: Location Analysis -> Goal: Organize/Inform -> Viz: Icon-based lists and a CSS-based transport diagram -> Interaction: Tabs for different location aspects -> Justification: More engaging and faster to parse than text. -> Library/Method: HTML/CSS, JS.
+        - Report Info: Unit Layout -> Goal: Inform -> Viz: Simple HTML/CSS floor plan diagrams -> Interaction: Select a unit type to view its plan -> Justification: Visual representation is more effective than text description. -> Library/Method: HTML/CSS, JS.
+        - Report Info: Eligibility Rules -> Goal: Guide/Inform -> Viz: A detailed form-based "eligibility check" tool -> Interaction: User selects their conditions to get a tailored eligibility result -> Justification: Provides a more accurate and personalized guide than a simple quiz. -> Library/Method: HTML/CSS, JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <title>힐스테이트 회룡역파크뷰 청약 완벽 분석 (분양가, 자격, 입지)</title>
 
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="힐스테이트 회룡역파크뷰 아파트의 분양가, 청약 자격, 입지 환경, 전매 정보 등을 완벽하게 분석해 드립니다. 비규제 지역의 기회를 잡으세요.">
+    <meta name="keywords" content="힐스테이트 회룡역파크뷰, 의정부 청약, 아파트 분양, 청약 자격, 분양가, GTX-C, 회룡역, 비규제, 전매제한, 우리의 일상로그">
+    <meta name="author" content="우리의 일상로그">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="힐스테이트 회룡역파크뷰 청약 완벽 분석 | 우리의 일상로그">
+    <meta property="og:description" content="전매 1년, 재당첨 제한 없는 의정부 비규제 찬스! 힐스테이트 회룡역파크뷰의 모든 것을 인터랙티브 웹으로 한눈에 확인하세요.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ourvlog.github.io/apt/2025000255.html">
+    <meta property="og:image" content="https://placehold.co/1200x630/2563EB/FFFFFF?text=힐스테이트+회룡역파크뷰">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Urban Oasis -->
-    <!-- Application Structure Plan: A single-page application with a fixed top navigation bar (핵심 정보, 분양 정보, 입지 분석, 단지/평면, 청약 자격). This structure divides the dense report into user-centric themes, allowing non-linear exploration. The user lands on a summary dashboard and can navigate to sections with interactive charts for price comparison, tabbed content for location details, and dynamic selectors for floor plans. This task-oriented design enhances usability by letting users quickly find and digest the information most relevant to them, rather than scrolling through a long, linear document. -->
-    <!-- Visualization & Content Choices: 
-        - Key Info -> Goal: Inform/Summarize -> Presentation: Dynamic cards and a horizontal timeline -> Interaction: Hover effects on timeline -> Justification: Quick, scannable overview and intuitive date visualization -> Library/Method: HTML/Tailwind, Vanilla JS.
-        - Sales Info -> Goal: Compare Prices -> Presentation: Interactive bar chart for price ranges and a detailed HTML table -> Interaction: Clicking a unit type on the chart or table provides visual feedback -> Justification: A chart offers quick comparison, while the table provides financial details -> Library/Method: Chart.js, Vanilla JS.
-        - Location Analysis -> Goal: Explore Location Details -> Presentation: Tabbed interface for Transport, School/Amenities, and Development -> Interaction: Clicking tabs reveals categorized information -> Justification: Organizes dense information into manageable chunks, preventing user overload -> Library/Method: HTML/Tailwind, Vanilla JS.
-        - Unit Info -> Goal: Visualize Layouts -> Presentation: Dropdown to select unit type, which updates a floor plan image and its description -> Interaction: Dynamic content update based on user selection -> Justification: Intuitive way to browse and compare different layouts -> Library/Method: Vanilla JS.
-        - Eligibility -> Goal: Guide/Inform -> Presentation: Interactive form for self-assessment of 1st priority eligibility -> Interaction: User inputs data, clicks a button, and receives a dynamic result in a modal -> Justification: Transforms static rules into a practical, personalized tool -> Library/Method: HTML/Tailwind, Vanilla JS. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: #F8F7F4;
-            color: #4A4A4A;
+            background-color: #FDFDFB;
+            color: #383838;
         }
         .nav-link {
-            transition: color 0.3s, border-bottom-color 0.3s;
+            transition: all 0.3s;
+            border-bottom: 2px solid transparent;
         }
-        .nav-link.active {
-            color: #2c5282; /* tailwind's blue-800 */
-            border-bottom-color: #2c5282;
-        }
-        .content-section {
-            display: none;
-        }
-        .content-section.active {
-            display: block;
+        .nav-link.active, .nav-link:hover {
+            color: #2563eb;
+            border-bottom-color: #2563eb;
         }
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 800px;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
             height: 300px;
-            max-height: 40vh;
+            max-height: 400px;
         }
         @media (min-width: 768px) {
             .chart-container {
-                height: 400px;
+                height: 350px;
             }
         }
-        .tab.active {
-            border-color: #2c5282;
-            background-color: #ebf8ff;
-            color: #2c5282;
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
         }
-        .modal-backdrop {
-            transition: opacity 0.3s ease;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="bg-[#F8F9FA]">
+
     <div id="header-placeholder"></div>
 
-    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
-        <nav class="sticky top-0 bg-white/80 backdrop-blur-md z-10 mb-8 shadow-sm rounded-lg">
-            <ul class="flex items-center justify-center flex-wrap text-sm md:text-base font-medium text-center text-gray-500 border-b border-gray-200">
-                <li class="mr-2">
-                    <a href="#핵심정보" class="nav-link inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-700 hover:border-gray-300">핵심 정보 🗓️</a>
-                </li>
-                <li class="mr-2">
-                    <a href="#분양정보" class="nav-link inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-700 hover:border-gray-300">분양 정보 💰</a>
-                </li>
-                <li class="mr-2">
-                    <a href="#입지분석" class="nav-link inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-700 hover:border-gray-300">입지 분석 🗺️</a>
-                </li>
-                <li class="mr-2">
-                    <a href="#단지평면" class="nav-link inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-700 hover:border-gray-300">단지/평면 🏠</a>
-                </li>
-                <li>
-                    <a href="#청약자격" class="nav-link inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-700 hover:border-gray-300">청약 자격 🙋‍♀️</a>
-                </li>
-            </ul>
-        </nav>
+    <main class="container mx-auto p-4 md:p-8">
 
-        <main>
-            <section id="핵심정보" class="content-section">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <div class="flex justify-between items-start mb-4">
-                        <h2 class="text-2xl font-bold">한눈에 보는 핵심 정보</h2>
-                        <a href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2025000255&pblancNo=2025000255" target="_blank" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap">
-                            청약 공고 원문 보기 🚀
-                        </a>
+        <section id="summary" class="mb-16 scroll-mt-20">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold mb-2">전매제한 1년, 재당첨제한 없음! 의정부 비규제 찬스</h2>
+                <p class="text-lg text-gray-600">현대건설이 짓는 힐스테이트 회룡역파크뷰의 모든 것을 한눈에 파악하고, 현명한 청약 결정을 내리세요.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 text-center">
+                    <div class="text-blue-500 mb-2 text-3xl">🏢</div>
+                    <h3 class="font-bold text-lg">총 1,816세대 대단지</h3>
+                    <p class="text-gray-600 text-sm">일반분양 674세대</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 text-center">
+                    <div class="text-blue-500 mb-2 text-3xl">🚇</div>
+                    <h3 class="font-bold text-lg">더블 역세권 + GTX-C</h3>
+                    <p class="text-gray-600 text-sm">1호선/경전철 회룡역</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 text-center">
+                    <div class="text-blue-500 mb-2 text-3xl">🏫</div>
+                    <h3 class="font-bold text-lg">초등학교 도보 통학</h3>
+                    <p class="text-gray-600 text-sm">'초품아' 의정부호원초</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 text-center">
+                    <div class="text-blue-500 mb-2 text-3xl">📜</div>
+                    <h3 class="font-bold text-lg">자유로운 비규제</h3>
+                    <p class="text-gray-600 text-sm">전매 1년, 재당첨/실거주 의무 없음</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-200 mb-8">
+                <h3 class="text-xl font-bold text-center mb-6">핵심 분양 일정</h3>
+                <div id="timeline" class="relative flex justify-between items-center w-full"></div>
+                <div id="timeline-details" class="text-center mt-4 h-10"></div>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2025000255&pblancNo=2025000255" target="_blank" class="w-full md:w-auto text-center bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition">
+                    청약 공고 보러가기
+                </a>
+                <a href="https://map.naver.com/v5/search/경기도 의정부시 호원동 281-21번지" target="_blank" class="w-full md:w-auto text-center bg-green-500 text-white font-bold py-3 px-8 rounded-lg hover:bg-green-600 transition">
+                    네이버 지도에서 위치 보기
+                </a>
+            </div>
+        </section>
+        
+        <section id="pricing" class="mb-16 scroll-mt-20">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold mb-2">사업개요 및 분양가</h2>
+                <p class="text-lg text-gray-600">타입별 공급 세대수와 분양가를 확인하고 자금 계획을 세워보세요. 중도금 60%는 무이자 혜택이 제공됩니다.</p>
+            </div>
+
+            <div class="bg-white p-4 md:p-8 rounded-xl shadow-lg border border-gray-200">
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                    <div class="lg:col-span-2">
+                        <h3 class="font-bold text-xl mb-4">공급 대상</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-gray-50 rounded-lg">
+                                <p class="font-semibold">총 일반분양 <span class="text-blue-600 font-bold">674</span> 세대</p>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                                  <div class="bg-blue-600 h-2.5 rounded-full" style="width: 50%"></div>
+                                </div>
+                                <div class="flex justify-between text-sm mt-1">
+                                    <span>특별공급: 337세대</span>
+                                    <span>일반공급: 337세대</span>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-gray-50 rounded-lg">
+                                <p class="font-semibold">납부 비율</p>
+                                <p class="text-sm text-gray-600">계약금 5% - 중도금 60% (무이자) - 잔금 35%</p>
+                            </div>
+                             <div class="p-4 bg-gray-50 rounded-lg">
+                                <p class="font-semibold">규제 사항</p>
+                                <p class="text-sm text-gray-600">분양가 상한제 미적용</p>
+                            </div>
+                        </div>
                     </div>
-                    <p class="text-gray-600 mb-6">힐스테이트 회룡역파크뷰의 가장 중요한 기본 정보와 청약 일정을 정리했습니다. 주요 일정은 놓치지 않도록 달력에 꼭 표시해두세요.</p>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                        <div class="bg-blue-50 p-4 rounded-lg text-center">
-                            <p class="text-sm text-blue-800 font-semibold">총 세대수</p>
-                            <p class="text-2xl font-bold text-blue-900">1,816</p>
-                            <p class="text-xs text-blue-700">(일반분양 674)</p>
-                        </div>
-                        <div class="bg-green-50 p-4 rounded-lg text-center">
-                            <p class="text-sm text-green-800 font-semibold">위치</p>
-                            <p class="text-base font-bold text-green-900">의정부시 호원동</p>
-                        </div>
-                        <div class="bg-yellow-50 p-4 rounded-lg text-center">
-                            <p class="text-sm text-yellow-800 font-semibold">입주예정</p>
-                            <p class="text-2xl font-bold text-yellow-900">2026.04</p>
-                        </div>
-                        <div class="bg-indigo-50 p-4 rounded-lg text-center">
-                            <p class="text-sm text-indigo-800 font-semibold">건설사</p>
-                            <p class="text-xl font-bold text-indigo-900">현대건설</p>
-                        </div>
-                    </div>
-                    
-                    <h3 class="text-xl font-bold mb-4">주요 청약 일정</h3>
-                    <div class="relative">
-                        <div class="border-l-2 border-blue-200 ml-4 md:ml-0 md:border-t-2 md:border-l-0 md:flex md:justify-between absolute md:relative h-full md:h-auto left-4 top-0 md:left-auto"></div>
-                        <div class="flex flex-col md:flex-row justify-between text-center gap-y-8 md:gap-y-0">
-                            <div class="relative flex-1">
-                                <div class="absolute -left-7 top-1/2 -translate-y-1/2 md:top-auto md:-translate-y-0 md:left-1/2 md:-translate-x-1/2 md:-top-3 w-6 h-6 bg-white border-4 border-blue-500 rounded-full"></div>
-                                <p class="font-bold text-blue-800">특별공급</p>
-                                <p class="text-gray-600 text-sm">2025.07.21 (월)</p>
+                    <div class="lg:col-span-3">
+                         <div class="flex justify-center mb-4">
+                            <div class="bg-blue-50 rounded-full p-1 flex space-x-1" id="pricing-filter">
+                                <button class="filter-btn active px-4 py-2 text-sm font-semibold rounded-full" data-type="all">전체</button>
+                                <button class="filter-btn px-4 py-2 text-sm font-semibold rounded-full" data-type="59">59㎡</button>
+                                <button class="filter-btn px-4 py-2 text-sm font-semibold rounded-full" data-type="84">84㎡</button>
                             </div>
-                            <div class="relative flex-1">
-                                <div class="absolute -left-7 top-1/2 -translate-y-1/2 md:top-auto md:-translate-y-0 md:left-1/2 md:-translate-x-1/2 md:-top-3 w-6 h-6 bg-white border-4 border-blue-500 rounded-full"></div>
-                                <p class="font-bold text-blue-800">1순위 접수</p>
-                                <p class="text-gray-600 text-sm">2025.07.22 (화)</p>
-                            </div>
-                            <div class="relative flex-1">
-                               <div class="absolute -left-7 top-1/2 -translate-y-1/2 md:top-auto md:-translate-y-0 md:left-1/2 md:-translate-x-1/2 md:-top-3 w-6 h-6 bg-white border-4 border-blue-500 rounded-full"></div>
-                                <p class="font-bold text-blue-800">당첨자 발표</p>
-                                <p class="text-gray-600 text-sm">2025.07.29 (화)</p>
-                            </div>
-                            <div class="relative flex-1">
-                               <div class="absolute -left-7 top-1/2 -translate-y-1/2 md:top-auto md:-translate-y-0 md:left-1/2 md:-translate-x-1/2 md:-top-3 w-6 h-6 bg-white border-4 border-blue-500 rounded-full"></div>
-                                <p class="font-bold text-blue-800">계약 체결</p>
-                                <p class="text-gray-600 text-sm">2025.08.09 ~ 08.11</p>
-                            </div>
+                        </div>
+                        <div class="chart-container h-64 md:h-80">
+                            <canvas id="priceChart"></canvas>
                         </div>
                     </div>
                 </div>
-            </section>
-
-            <section id="분양정보" class="content-section">
-                 <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h2 class="text-2xl font-bold mb-4">사업개요 및 분양가 💰</h2>
-                    <p class="text-gray-600 mb-6">총 1,816세대 중 일반분양 674세대에 대한 분양가 정보입니다. 타입별 최고가 기준이며, 차트를 통해 가격대를 한눈에 비교하고 아래 표에서 자세한 금액을 확인하세요. 계약금 5%, 중도금 60% 무이자 조건은 초기 자금 부담을 덜어주는 큰 장점입니다.</p>
-                    <div class="chart-container mb-8">
-                        <canvas id="priceChart"></canvas>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-sm text-left text-gray-700">
-                            <thead class="text-xs text-gray-800 uppercase bg-gray-100">
-                                <tr>
-                                    <th scope="col" class="px-4 py-3">타입</th>
-                                    <th scope="col" class="px-4 py-3">공급 세대수</th>
-                                    <th scope="col" class="px-4 py-3">최고 분양가</th>
-                                    <th scope="col" class="px-4 py-3">계약금 (5%)</th>
-                                    <th scope="col" class="px-4 py-3">중도금 (60%)</th>
-                                    <th scope="col" class="px-4 py-3">잔금 (35%)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Data will be populated by JS -->
-                            </tbody>
-                        </table>
-                    </div>
-                     <p class="mt-4 text-xs text-gray-500">*분양가에는 발코니 확장비 및 유상옵션 비용이 미포함되어 있습니다. 발코니 확장비는 59타입 1,900~2,050만원, 84타입 2,250만원입니다.</p>
+                 <div class="mt-8 overflow-x-auto">
+                    <table class="w-full text-sm text-left">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="p-3 font-semibold">주택형</th>
+                                <th class="p-3 font-semibold">세대수</th>
+                                <th class="p-3 font-semibold">최고 분양가</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pricing-table-body">
+                        </tbody>
+                    </table>
+                     <p class="text-xs text-gray-500 mt-2 text-right">※ 발코니 확장비, 유상옵션 비용 별도</p>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section id="입지분석" class="content-section">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h2 class="text-2xl font-bold mb-4">입지 환경 분석: 여기에 살아도 될까? 🤔</h2>
-                    <p class="text-gray-600 mb-6">청약의 성패를 가르는 가장 중요한 요소, 바로 '입지'입니다. 교통, 학군, 생활 인프라, 그리고 미래 가치에 영향을 줄 개발 호재까지. '그래서 나에게 좋은가?'라는 관점에서 자세히 분석했습니다.</p>
-                    
-                    <div class="mb-4 border-b border-gray-200">
-                        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="location-tabs" role="tablist">
-                            <li class="mr-2" role="presentation">
-                                <button class="inline-block p-4 border-b-2 rounded-t-lg tab active" data-tab="transport">교통 🚇</button>
-                            </li>
-                            <li class="mr-2" role="presentation">
-                                <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg tab" data-tab="amenities">학군/생활 🏫</button>
-                            </li>
-                            <li class="mr-2" role="presentation">
-                                <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg tab" data-tab="development">개발호재 📈</button>
-                            </li>
-                        </ul>
-                    </div>
-                    <div id="location-content">
-                        <div id="transport" class="tab-content">
-                            <h3 class="font-bold text-lg mb-2">직장까지 얼마나 걸릴까?</h3>
-                            <ul class="space-y-3 list-disc list-inside text-gray-700">
-                                <li><strong class="font-semibold text-gray-900">더블 역세권의 가치:</strong> 1호선 및 의정부 경전철 회룡역을 도보로 이용 가능합니다. 1호선 이용 시 종로, 시청 등 서울 중심업무지구(CBD)까지 환승 없이 약 40~50분대에 도착할 수 있습니다.</li>
-                                <li><strong class="font-semibold text-gray-900">GTX-C 노선 최대 수혜:</strong> 단지의 미래가치를 이끌 가장 강력한 호재입니다. 인접한 의정부역에 GTX-C 노선이 예정되어 있으며, 개통 시 삼성역까지 20분대로 주파하여 강남 접근성이 획기적으로 개선됩니다.</li>
-                                <li><strong class="font-semibold text-gray-900">편리한 도로 교통망:</strong> 수도권제1순환고속도로(호원IC, 의정부IC) 진입이 수월하여 서울 및 수도권 전역으로의 자차 이동이 편리합니다.</li>
-                            </ul>
-                        </div>
-                        <div id="amenities" class="tab-content hidden">
-                            <h3 class="font-bold text-lg mb-2">아이 키우고 살기 좋은가?</h3>
-                            <ul class="space-y-3 list-disc list-inside text-gray-700">
-                                <li><strong class="font-semibold text-gray-900">교육 환경:</strong> 의정부호원초등학교로 배정 예정이며, 도보 통학이 가능합니다. 주변에 호원중, 회룡중, 호원고 등 다수의 중·고등학교가 밀집해 있습니다.</li>
-                                <li><strong class="font-semibold text-gray-900">생활 편의시설:</strong> 신세계백화점, 롯데마트, 코스트코 등 대형 쇼핑시설과 의정부을지대학교병원 등 주요 의료시설이 가까워 편리한 생활을 누릴 수 있습니다.</li>
-                                <li><strong class="font-semibold text-gray-900">쾌적한 자연:</strong> 단지 바로 옆으로 중랑천이 흐르고 있어 산책, 조깅 등 여가 활동을 즐기기 좋으며, 주변 녹지가 풍부해 쾌적한 주거 환경을 제공합니다.</li>
-                            </ul>
-                        </div>
-                        <div id="development" class="tab-content hidden">
-                            <h3 class="font-bold text-lg mb-2">주변 환경 및 개발 호재</h3>
-                           <ul class="space-y-3 list-disc list-inside text-gray-700">
-                                <li><strong class="font-semibold text-gray-900">깨끗한 주거 환경:</strong> 단지 주변이 대부분 주거지역으로 유해시설이 없어 조용하고 쾌적한 분위기를 자랑합니다.</li>
-                                <li><strong class="font-semibold text-gray-900">장기적인 가치 상승:</strong> 의정부시가 추진 중인 미군 공여지 개발, 복합문화융합단지 조성 등 다양한 개발 사업이 완료되면 지역 전체의 인프라가 확충되고 도시 가치가 동반 상승할 것으로 기대됩니다.</li>
-                           </ul>
-                        </div>
-                    </div>
+        <section id="location" class="mb-16 scroll-mt-20">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold mb-2">입지 환경 분석</h2>
+                <p class="text-lg text-gray-600">교통, 학군, 생활 인프라까지. '힐스테이트 회룡역파크뷰'가 들어설 곳의 가치를 심층 분석합니다.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                    <h3 class="font-bold text-xl mb-4 text-center">🚇 교통: 직장까지 얼마나 걸릴까?</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start"><span class="font-bold text-blue-600 mr-2">✔</span><div><strong class="text-black">더블 역세권:</strong> 1호선 & 의정부 경전철 회룡역 도보 이용 가능. 종로, 시청 등 서울 도심까지 환승 없이 이동.</div></li>
+                        <li class="flex items-start"><span class="font-bold text-blue-600 mr-2">✔</span><div><strong class="text-black">GTX-C 호재:</strong> 의정부역(1정거장) GTX-C 노선 정차 예정. 강남(삼성역)까지 20분대 주파 기대.</div></li>
+                    </ul>
                 </div>
-            </section>
-
-            <section id="단지평면" class="content-section">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h2 class="text-2xl font-bold mb-4">단지 배치 및 평면도 분석 🏠</h2>
-                    <p class="text-gray-600 mb-6">남향 위주의 단지 배치로 채광과 통풍을 극대화했으며, 일부 세대에서는 중랑천 조망이 가능합니다. 선호도 높은 판상형과 개방감 있는 타워형 구조를 타입별로 확인해보세요. 아래에서 타입을 선택하면 해당 평면도와 특징을 볼 수 있습니다.</p>
-                    <div class="mb-4">
-                        <label for="floorplan-select" class="block mb-2 text-sm font-medium text-gray-900">타입 선택:</label>
-                        <select id="floorplan-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full md:w-1/2 p-2.5">
-                            <option value="84A">84A 타입 (판상형)</option>
-                            <option value="59A">59A 타입 (판상형)</option>
-                            <option value="59B">59B 타입 (타워형)</option>
-                            <option value="84B">84B 타입 (타워형)</option>
-                            <option value="59C">59C 타입 (타워형)</option>
-                            <option value="84C">84C 타입 (타워형)</option>
-                        </select>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                        <div id="floorplan-image-container" class="bg-gray-100 rounded-lg flex items-center justify-center h-80">
-                            <img id="floorplan-image" src="https://placehold.co/400x400/E2E8F0/A0AEC0?text=84A+%ED%8F%89%EB%A9%B4%EB%8F%84" alt="평면도" class="max-w-full max-h-full rounded-lg object-contain">
-                        </div>
-                        <div id="floorplan-description">
-                            <h3 class="font-bold text-lg mb-2">84A 타입 특징</h3>
-                            <ul class="space-y-2 list-disc list-inside text-gray-700">
-                                <li>가장 선호도 높은 4베이 판상형 구조</li>
-                                <li>맞통풍이 가능하여 환기에 매우 유리</li>
-                                <li>낭비되는 공간 없이 효율적인 공간 활용 가능</li>
-                                <li>안방 드레스룸, 현관 팬트리 등 수납공간 우수</li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                    <h3 class="font-bold text-xl mb-4 text-center">🏫 학군 및 생활 인프라</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start"><span class="font-bold text-blue-600 mr-2">✔</span><div><strong class="text-black">'초품아' 단지:</strong> 의정부호원초등학교가 단지 바로 옆에 위치하여 안전한 통학 환경.</div></li>
+                        <li class="flex items-start"><span class="font-bold text-blue-600 mr-2">✔</span><div><strong class="text-black">풍부한 편의시설:</strong> 신세계백화점, 롯데마트, CGV 등 대형 쇼핑/문화 시설 인접.</div></li>
+                        <li class="flex items-start"><span class="font-bold text-blue-600 mr-2">✔</span><div><strong class="text-black">자연 환경:</strong> 중랑천 수변공원을 따라 조성된 산책로에서 여가 활동 가능.</div></li>
+                    </ul>
                 </div>
-            </section>
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+                    <h3 class="font-bold text-xl mb-4 text-center">🌳 주변 환경 및 개발 호재</h3>
+                     <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start"><span class="font-bold text-blue-600 mr-2">✔</span><div><strong class="text-black">쾌적한 주거지역:</strong> 유해시설 없는 주거지역에 위치. 대단지 조경과 커뮤니티 기대.</div></li>
+                        <li class="flex items-start"><span class="font-bold text-blue-600 mr-2">✔</span><div><strong class="text-black">의정부 미래 비전:</strong> 미군 부대 이전 부지 개발 등 장기적인 지역 가치 상승 잠재력.</div></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
-            <section id="청약자격" class="content-section">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h2 class="text-2xl font-bold mb-4">1순위 청약 자격, 미리 확인해보세요! 🙋‍♀️</h2>
-                    <p class="text-gray-600 mb-6">가장 복잡하게 느껴지는 청약 자격, 이제 직접 확인해보세요. 아래 항목에 정보를 입력하면 일반공급 1순위 자격 여부를 간단하게 진단해볼 수 있습니다. (본 결과는 일반적인 1순위 요건에 따른 것으로, 참고용으로만 활용해주세요.)</p>
-                    
-                    <div id="eligibility-form" class="space-y-4 p-4 border rounded-lg bg-gray-50">
+        <section id="units" class="mb-16 scroll-mt-20">
+             <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold mb-2">단지 배치 및 평면도</h2>
+                <p class="text-lg text-gray-600">남향 위주의 단지 배치와 선호도 높은 4베이 판상형 구조를 확인해 보세요.</p>
+            </div>
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-200">
+                <p class="text-center mb-6">주력 타입인 <strong>84A 타입</strong>은 맞통풍과 채광이 우수한 <strong>4베이 판상형 구조</strong>로 설계될 예정입니다. 아래에서 간단한 구조 예시를 확인해 보세요.</p>
+                <div class="max-w-2xl mx-auto border-2 border-gray-200 p-4 rounded-lg">
+                    <h4 class="font-bold text-lg text-center mb-4">84A 타입 구조 (예시)</h4>
+                    <div class="grid grid-cols-5 grid-rows-3 gap-2 h-48 bg-gray-50 p-2 rounded">
+                        <div class="col-span-1 row-span-1 bg-blue-100 rounded flex items-center justify-center text-xs text-blue-800">침실3</div>
+                        <div class="col-span-1 row-span-1 bg-blue-100 rounded flex items-center justify-center text-xs text-blue-800">침실2</div>
+                        <div class="col-span-2 row-span-2 bg-blue-200 rounded flex items-center justify-center text-sm text-blue-900 font-semibold">거실</div>
+                        <div class="col-span-1 row-span-2 bg-blue-100 rounded flex items-center justify-center text-sm text-blue-800">안방</div>
+                        
+                        <div class="col-span-2 row-span-2 bg-indigo-100 rounded flex items-center justify-center text-sm text-indigo-800">주방/식당</div>
+                        <div class="col-span-1 row-span-1 bg-gray-200 rounded flex items-center justify-center text-xs">욕실2</div>
+                        <div class="col-span-1 row-span-1 bg-gray-200 rounded flex items-center justify-center text-xs">드레스룸</div>
+                         <div class="col-span-1 row-span-1 bg-gray-200 rounded flex items-center justify-center text-xs">욕실1</div>
+                    </div>
+                     <p class="text-xs text-center text-gray-500 mt-2">※ 위 이미지는 이해를 돕기 위한 예시이며 실제 평면도와 차이가 있을 수 있습니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="eligibility" class="scroll-mt-20">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold mb-2">청약 자격 완벽 정리</h2>
+                <p class="text-lg text-gray-600">가장 복잡한 청약 자격, '나는 신청할 수 있을까?' 자가진단을 통해 쉽게 알아보세요.</p>
+            </div>
+
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-200">
+                <div id="eligibility-checker" class="max-w-2xl mx-auto">
+                    <div class="space-y-4">
                         <div>
-                            <label class="block mb-2 text-sm font-medium text-gray-900">거주지</label>
-                            <select id="residence" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <label for="residence" class="font-semibold block mb-2">1. 거주지</label>
+                            <select id="residence" class="w-full p-2 border rounded-md">
                                 <option value="uijeongbu">의정부시</option>
-                                <option value="gyeonggi">경기도 (의정부시 외)</option>
-                                <option value="seoul">서울특별시</option>
-                                <option value="incheon">인천광역시</option>
+                                <option value="metro">수도권 (서울/경기/인천)</option>
+                                <option value="other">그 외 지역</option>
                             </select>
                         </div>
                         <div>
-                             <label class="block mb-2 text-sm font-medium text-gray-900">세대주 여부</label>
-                             <div class="flex gap-4">
-                                <label><input type="radio" name="household-head" value="yes" class="mr-1">세대주</label>
-                                <label><input type="radio" name="household-head" value="no" class="mr-1" checked>세대원</label>
-                             </div>
+                            <label for="housing" class="font-semibold block mb-2">2. 무주택 여부</label>
+                            <select id="housing" class="w-full p-2 border rounded-md">
+                                <option value="no">무주택 세대구성원</option>
+                                <option value="yes">유주택자 (1주택)</option>
+                            </select>
                         </div>
                         <div>
-                            <label for="subscription-period" class="block mb-2 text-sm font-medium text-gray-900">청약통장 가입 기간 (개월)</label>
-                            <input type="number" id="subscription-period" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="예: 24">
+                            <label for="account" class="font-semibold block mb-2">3. 청약통장 (1순위 기준)</label>
+                            <select id="account" class="w-full p-2 border rounded-md">
+                                <option value="yes">가입 12개월 이상 & 예치금 충족</option>
+                                <option value="no">조건 미충족</option>
+                            </select>
                         </div>
-                        <div>
-                            <label for="deposit-amount" class="block mb-2 text-sm font-medium text-gray-900">청약통장 예치금 (만원)</label>
-                            <input type="number" id="deposit-amount" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="예: 300">
-                        </div>
-                        <div>
-                             <label class="block mb-2 text-sm font-medium text-gray-900">과거 5년 내 본인 또는 세대원 당첨 이력</label>
-                             <div class="flex gap-4">
-                                <label><input type="radio" name="win-history" value="yes" class="mr-1">있음</label>
-                                <label><input type="radio" name="win-history" value="no" class="mr-1" checked>없음</label>
-                             </div>
-                        </div>
-                        <button id="check-eligibility-btn" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors">
-                            1순위 자격 확인하기
-                        </button>
+                    </div>
+                    <button id="check-eligibility-btn" class="mt-6 w-full bg-blue-500 text-white font-bold py-3 rounded-lg hover:bg-blue-600 transition">결과 확인하기</button>
+                    <div id="eligibility-results" class="hidden mt-6">
+                        <h4 class="font-bold text-xl mb-4 text-center">나의 청약 자격 진단 결과</h4>
+                        <div id="eligibility-result-content" class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg"></div>
                     </div>
                 </div>
-            </section>
-        </main>
-    </div>
 
-    <!-- Modal -->
-    <div id="result-modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center p-4 hidden modal-backdrop">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-md transform transition-all">
-            <div class="p-6">
-                <div class="text-center">
-                    <h3 id="modal-title" class="text-2xl font-bold text-gray-900">자격 확인 결과</h3>
-                    <div class="mt-4 text-left">
-                        <p id="modal-result-text" class="text-lg"></p>
-                        <ul id="modal-result-details" class="mt-2 text-sm text-gray-600 list-disc list-inside space-y-1">
-                        </ul>
+                <div class="mt-12 pt-8 border-t">
+                    <h3 class="font-bold text-2xl text-center mb-6">주요 규제사항 최종 확인 ⚠️</h3>
+                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                        <div class="bg-amber-50 p-4 rounded-lg border border-amber-200">
+                            <h4 class="font-bold">전매제한</h4>
+                            <p class="text-xl font-bold text-amber-700">1년</p>
+                        </div>
+                         <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                            <h4 class="font-bold">재당첨제한</h4>
+                            <p class="text-xl font-bold text-green-700">없음</p>
+                        </div>
+                         <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+                            <h4 class="font-bold">실거주 의무</h4>
+                            <p class="text-xl font-bold text-indigo-700">없음</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button type="button" id="close-modal-btn" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
-                    닫기
-                </button>
-            </div>
-        </div>
-    </div>
+        </section>
 
+    </main>
+    
     <div id="footer-placeholder"></div>
-    <script src="/js/common.js" defer></script>
-    
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('.content-section');
 
-    function setActiveTab(hash) {
-        navLinks.forEach(link => {
-            if (link.hash === hash) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const pricingData = [
+                { type: "59A", size: "59", units: 50, price: 59490 },
+                { type: "59B", size: "59", units: 109, price: 58340 },
+                { type: "59C", size: "59", units: 43, price: 58670 },
+                { type: "84A", size: "84", units: 382, price: 84310 },
+                { type: "84B", size: "84", units: 40, price: 83460 },
+                { type: "84C", size: "84", units: 50, price: 82990 },
+            ];
+
+            const timelineData = [
+                { date: "07.11", event: "모집 공고" },
+                { date: "07.21", event: "특별공급" },
+                { date: "07.22", event: "1순위 접수" },
+                { date: "07.29", event: "당첨자 발표" },
+                { date: "08.09", event: "계약 체결" },
+            ];
+            
+            let priceChart;
+
+            function renderTable(data) {
+                const tableBody = document.getElementById('pricing-table-body');
+                tableBody.innerHTML = '';
+                data.forEach(item => {
+                    const row = `
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="p-3 font-semibold">${item.type}</td>
+                            <td class="p-3">${item.units.toLocaleString()}</td>
+                            <td class="p-3">${(item.price / 10000).toFixed(2)}억 원</td>
+                        </tr>`;
+                    tableBody.innerHTML += row;
+                });
             }
-        });
 
-        sections.forEach(section => {
-            if ('#' + section.id === hash) {
-                section.classList.add('active');
-            } else {
-                section.classList.remove('active');
-            }
-        });
-    }
-
-    navLinks.forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetHash = this.hash;
-            history.pushState(null, null, targetHash);
-            setActiveTab(targetHash);
-        });
-    });
-
-    let initialHash = window.location.hash;
-    if (!initialHash || !document.querySelector(initialHash)) {
-        initialHash = '#핵심정보';
-        history.replaceState(null, null, initialHash);
-    }
-    setActiveTab(initialHash);
-    
-    window.addEventListener('popstate', () => {
-        setActiveTab(window.location.hash || '#핵심정보');
-    });
-
-    const salesData = [
-        { type: '59A', count: 50, price: 59490, down: '500만 + 2,474.5만', mid: '3억 5,694만', balance: '2억 821.5만' },
-        { type: '59B', count: 109, price: 58340, down: '500만 + 2,417만', mid: '3억 5,004만', balance: '2억 419만' },
-        { type: '59C', count: 43, price: 58670, down: '500만 + 2,433.5만', mid: '3억 5,202만', balance: '2억 534.5만' },
-        { type: '84A', count: 382, price: 84310, down: '500만 + 3,715.5만', mid: '5억 586만', balance: '2억 9,508.5만' },
-        { type: '84B', count: 40, price: 83460, down: '500만 + 3,673만', mid: '5억 76만', balance: '2억 9,211만' },
-        { type: '84C', count: 50, price: 82990, down: '500만 + 3,649.5만', mid: '4억 9,794만', balance: '2억 9,046.5만' },
-    ];
-
-    const tableBody = document.querySelector('#분양정보 tbody');
-    salesData.forEach(item => {
-        const row = document.createElement('tr');
-        row.className = 'bg-white border-b hover:bg-gray-50';
-        row.innerHTML = `
-            <td class="px-4 py-4 font-medium text-gray-900 whitespace-nowrap">${item.type}</td>
-            <td class="px-4 py-4">${item.count}</td>
-            <td class="px-4 py-4">${(item.price / 10000).toFixed(2)}억원</td>
-            <td class="px-4 py-4">${item.down}</td>
-            <td class="px-4 py-4">${item.mid}</td>
-            <td class="px-4 py-4">${item.balance}</td>
-        `;
-        tableBody.appendChild(row);
-    });
-
-    if (document.getElementById('priceChart')) {
-        const priceChartCtx = document.getElementById('priceChart').getContext('2d');
-        new Chart(priceChartCtx, {
-            type: 'bar',
-            data: {
-                labels: salesData.map(d => d.type),
-                datasets: [{
-                    label: '최고 분양가 (만원)',
-                    data: salesData.map(d => d.price),
-                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    title: { display: true, text: '타입별 최고 분양가' }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value, index, values) {
-                                return (value / 10000).toFixed(1) + '억';
+            function renderChart(data) {
+                const ctx = document.getElementById('priceChart').getContext('2d');
+                if (priceChart) {
+                    priceChart.destroy();
+                }
+                priceChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.map(d => d.type),
+                        datasets: [{
+                            label: '최고 분양가 (만 원)',
+                            data: data.map(d => d.price),
+                            backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                            borderColor: 'rgba(59, 130, 246, 1)',
+                            borderWidth: 1,
+                            borderRadius: 5,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            label += new Intl.NumberFormat('ko-KR').format(context.parsed.y) + '만 원';
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                ticks: {
+                                    callback: function(value, index, values) {
+                                        return (value / 10000).toFixed(1) + '억';
+                                    }
+                                }
                             }
                         }
                     }
-                }
+                });
             }
-        });
-    }
-
-    const locationTabs = document.querySelectorAll('.tab');
-    const tabContents = document.querySelectorAll('.tab-content');
-    locationTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            locationTabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            const target = tab.getAttribute('data-tab');
-            tabContents.forEach(content => {
-                if (content.id === target) {
-                    content.classList.remove('hidden');
-                } else {
-                    content.classList.add('hidden');
-                }
-            });
-        });
-    });
-
-    const floorplanSelect = document.getElementById('floorplan-select');
-    const floorplanImage = document.getElementById('floorplan-image');
-    const floorplanDescription = document.getElementById('floorplan-description');
-    const floorplanData = {
-        '84A': {
-            desc: '<h3 class="font-bold text-lg mb-2">84A 타입 특징</h3><ul class="space-y-2 list-disc list-inside text-gray-700"><li>가장 선호도 높은 4베이 판상형 구조</li><li>맞통풍이 가능하여 환기에 매우 유리</li><li>낭비되는 공간 없이 효율적인 공간 활용 가능</li><li>안방 드레스룸, 현관 팬트리 등 수납공간 우수</li></ul>',
-            img: 'https://placehold.co/400x400/E2E8F0/A0AEC0?text=84A+%ED%8F%89%EB%A9%B4%EB%8F%84'
-        },
-        '59A': {
-            desc: '<h3 class="font-bold text-lg mb-2">59A 타입 특징</h3><ul class="space-y-2 list-disc list-inside text-gray-700"><li>84A와 유사한 4베이 판상형 구조의 축소형</li><li>신혼부부 및 소가족에게 인기 높은 타입</li><li>효율적인 공간 구성으로 실사용 면적 극대화</li></ul>',
-            img: 'https://placehold.co/400x400/E2E8F0/A0AEC0?text=59A+%ED%8F%89%EB%A9%B4%EB%8F%84'
-        },
-        '59B': {
-            desc: '<h3 class="font-bold text-lg mb-2">59B 타입 특징</h3><ul class="space-y-2 list-disc list-inside text-gray-700"><li>개방감 좋은 거실 2면 개방 타워형 구조</li><li>다양한 방향으로 조망 확보에 유리</li><li>젊은 층이 선호하는 현대적인 평면</li></ul>',
-            img: 'https://placehold.co/400x400/E2E8F0/A0AEC0?text=59B+%ED%8F%89%EB%A9%B4%EB%8F%84'
-        },
-        '84B': {
-            desc: '<h3 class="font-bold text-lg mb-2">84B 타입 특징</h3><ul class="space-y-2 list-disc list-inside text-gray-700"><li>독특한 공간 설계가 가능한 타워형 구조</li><li>안방과 자녀 공간의 분리로 세대 프라이버시 강화</li><li>거실 2면창으로 채광 및 조망 우수</li></ul>',
-            img: 'https://placehold.co/400x400/E2E8F0/A0AEC0?text=84B+%ED%8F%89%EB%A9%B4%EB%8F%84'
-        },
-        '59C': {
-            desc: '<h3 class="font-bold text-lg mb-2">59C 타입 특징</h3><ul class="space-y-2 list-disc list-inside text-gray-700"><li>공간 분리가 확실한 타워형 구조</li><li>사생활 보호에 유리한 평면</li><li>다양한 가구 배치 가능</li></ul>',
-            img: 'https://placehold.co/400x400/E2E8F0/A0AEC0?text=59C+%ED%8F%89%EB%A9%B4%EB%8F%84'
-        },
-        '84C': {
-            desc: '<h3 class="font-bold text-lg mb-2">84C 타입 특징</h3><ul class="space-y-2 list-disc list-inside text-gray-700"><li>안정적인 타워형 구조</li><li>넓은 거실과 주방 공간 확보</li><li>조망과 채광을 동시에 고려한 설계</li></ul>',
-            img: 'https://placehold.co/400x400/E2E8F0/A0AEC0?text=84C+%ED%8F%89%EB%A9%B4%EB%8F%84'
-        },
-    };
-    if(floorplanSelect) {
-        floorplanSelect.addEventListener('change', (e) => {
-            const selectedType = e.target.value;
-            floorplanImage.src = floorplanData[selectedType].img;
-            floorplanImage.alt = `${selectedType} 평면도`;
-            floorplanDescription.innerHTML = floorplanData[selectedType].desc;
-        });
-    }
-
-    const checkBtn = document.getElementById('check-eligibility-btn');
-    const modal = document.getElementById('result-modal');
-    const closeModalBtn = document.getElementById('close-modal-btn');
-
-    if(checkBtn) {
-        checkBtn.addEventListener('click', () => {
-            const residence = document.getElementById('residence').value;
-            const period = parseInt(document.getElementById('subscription-period').value, 10);
-            const deposit = parseInt(document.getElementById('deposit-amount').value, 10);
-            const hasWinHistory = document.querySelector('input[name="win-history"]:checked').value === 'yes';
-
-            let isEligible = true;
-            let details = [];
-
-            if (period < 12) {
-                isEligible = false;
-                details.push(`가입 기간 부족: 현재 ${period}개월 (12개월 이상 필요)`);
-            } else {
-                details.push(`가입 기간 충족: ${period}개월 👍`);
-            }
-
-            const requiredDeposit = {
-                'uijeongbu': 200, 'gyeonggi': 200, 'seoul': 300, 'incheon': 250
-            };
-            if (deposit < requiredDeposit[residence]) {
-                isEligible = false;
-                details.push(`예치금 부족: 현재 ${deposit}만원 (${requiredDeposit[residence]}만원 이상 필요)`);
-            } else {
-                details.push(`예치금 충족: ${deposit}만원 👍`);
-            }
-
-            if (hasWinHistory) {
-                isEligible = false;
-                details.push('과거 5년 내 당첨 이력으로 1순위 청약이 제한됩니다.');
-            } else {
-                details.push('과거 5년 내 당첨 이력 없음 👍');
-            }
-
-            const resultText = document.getElementById('modal-result-text');
-            const resultDetails = document.getElementById('modal-result-details');
             
-            if(isEligible) {
-                resultText.textContent = '🎉 축하합니다! 일반공급 1순위 청약 자격에 해당합니다.';
-                resultText.className = 'text-lg font-bold text-green-600';
-            } else {
-                resultText.textContent = '⚠️ 아쉽지만 1순위 자격 요건을 일부 충족하지 못했습니다.';
-                resultText.className = 'text-lg font-bold text-red-600';
+            function filterData(size) {
+                const filteredData = size === 'all' ? pricingData : pricingData.filter(d => d.size === size);
+                renderTable(filteredData);
+                renderChart(filteredData);
             }
 
-            resultDetails.innerHTML = '';
-            details.forEach(detail => {
-                const li = document.createElement('li');
-                li.textContent = detail;
-                resultDetails.appendChild(li);
+            document.getElementById('pricing-filter').addEventListener('click', function (e) {
+                if (e.target.classList.contains('filter-btn')) {
+                    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active', 'bg-blue-600', 'text-white'));
+                    e.target.classList.add('active', 'bg-blue-600', 'text-white');
+                    filterData(e.target.dataset.type);
+                }
             });
 
-            modal.classList.remove('hidden');
-        });
-    }
-
-    if(closeModalBtn) {
-        closeModalBtn.addEventListener('click', () => modal.classList.add('hidden'));
-    }
-    if(modal) {
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.add('hidden');
+            function renderTimeline() {
+                const timelineContainer = document.getElementById('timeline');
+                timelineContainer.innerHTML = `<div class="absolute top-1/2 left-0 w-full h-0.5 bg-gray-300"></div>`;
+                timelineData.forEach((item, index) => {
+                    const dot = document.createElement('div');
+                    dot.className = 'relative z-10 w-4 h-4 bg-white border-2 border-blue-500 rounded-full cursor-pointer';
+                    dot.dataset.event = item.event;
+                    dot.dataset.date = item.date;
+                    timelineContainer.appendChild(dot);
+                });
             }
-        });
-    }
-});
-</script>
 
+            document.getElementById('timeline').addEventListener('mouseover', function(e) {
+                if (e.target.dataset.event) {
+                    const details = document.getElementById('timeline-details');
+                    details.innerHTML = `<span class="font-bold text-blue-600">${e.target.dataset.event}</span><br><span class="text-sm text-gray-500">${e.target.dataset.date}</span>`;
+                }
+            });
+            
+             document.getElementById('timeline').addEventListener('mouseout', function(e) {
+                document.getElementById('timeline-details').innerHTML = '';
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.4
+            };
+            
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+                        if (activeLink) {
+                            navLinks.forEach(link => link.classList.remove('active'));
+                            activeLink.classList.add('active');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            filterData('all');
+            document.querySelector('.filter-btn[data-type="all"]').classList.add('active', 'bg-blue-600', 'text-white');
+            renderTimeline();
+
+            document.getElementById('check-eligibility-btn').addEventListener('click', function() {
+                const residence = document.getElementById('residence').value;
+                const housing = document.getElementById('housing').value;
+                const account = document.getElementById('account').value;
+                const resultsContainer = document.getElementById('eligibility-results');
+                const resultContent = document.getElementById('eligibility-result-content');
+
+                resultsContainer.classList.remove('hidden');
+                resultsContainer.classList.add('fade-in');
+
+                if (residence === 'other') {
+                    resultContent.innerHTML = `<h5 class="font-bold text-lg mb-2 text-red-600">청약 신청 불가</h5><p>아쉽지만, 본 청약은 의정부시 또는 수도권(서울/경기/인천) 거주자만 신청할 수 있습니다.</p>`;
+                    return;
+                }
+
+                let resultHtml = `<h5 class="font-bold text-lg mb-2">신청 가능성이 있는 청약 유형입니다:</h5><ul class="list-disc pl-5 space-y-2">`;
+                let canApply = false;
+
+                if (account === 'yes') {
+                    let priorityText = residence === 'uijeongbu' ? ' (해당지역 우선)' : '';
+                    if (housing === 'no') {
+                        resultHtml += `<li><strong class="text-blue-700">일반공급 1순위${priorityText}</strong>: 무주택자로서 가점제 및 추첨제로 청약 가능성이 높습니다.</li>`;
+                        resultHtml += `<li><strong class="text-blue-700">각종 특별공급</strong>: 생애최초, 신혼부부 등 다른 자격요건(소득, 자산 등) 충족 시 도전해볼 수 있습니다.</li>`;
+                        canApply = true;
+                    } else {
+                        resultHtml += `<li><strong class="text-blue-700">일반공급 1순위 (추첨제)${priorityText}</strong>: 1주택자는 추첨제로 신청 가능합니다.</li>`;
+                        canApply = true;
+                    }
+                } else {
+                    resultHtml += `<li><strong class="text-amber-700">일반공급 2순위</strong>: 1순위 조건 미충족 시 2순위로 신청 가능합니다. (단, 1순위에서 마감될 수 있습니다.)</li>`;
+                    canApply = true;
+                }
+
+                if (!canApply) {
+                     resultContent.innerHTML = `<h5 class="font-bold text-lg mb-2">신청 자격 확인 필요</h5><p>입력하신 정보만으로는 정확한 판단이 어렵습니다. 모집공고의 세부 자격요건을 꼼꼼히 확인해주세요.</p>`;
+                } else {
+                     resultHtml += `</ul><p class="mt-4 text-sm text-gray-600">※ 본 결과는 간이 진단이며, 세대주 여부, 소득/자산 기준 등 상세 조건에 따라 달라질 수 있습니다. 반드시 공식 모집 공고문을 확인하세요.</p>`;
+                     resultContent.innerHTML = resultHtml;
+                }
+            });
+        });
+    </script>
+    <script src="/js/common.js" defer></script>
 </body>
 </html>
