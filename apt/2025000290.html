@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Chosen Palette: Calm Neutrals -->
+    <!-- Application Structure Plan: A thematic, single-page scrolling application designed for intuitive exploration. The structure starts with a high-level overview (Hero, Key Info), then dives into interactive data visualization for core details (Supply & Price), followed by qualitative analysis (Location), a practical tool (Eligibility), and concludes with a summary. This top-down approach guides the user from general to specific information, making a complex report easily digestible. A sticky navigation bar allows users to jump between these logical themes, facilitating non-linear exploration based on their immediate interests. This is more user-friendly than a rigid report-like structure. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Supply numbers (Total, Special, General per unit type). Goal: Compare proportions. Viz: Interactive Donut Chart (Chart.js). Interaction: Updates on unit type selection. Justification: Instantly visualizes the competitive landscape for each unit type.
+        - Report Info: Price data (Max price per unit type). Goal: Compare values. Viz: Interactive Bar Chart (Chart.js). Interaction: Highlights the selected type and updates on selection. Justification: Provides a quick visual comparison of affordability across different options.
+        - Report Info: Key dates. Goal: Inform about a process. Viz: Horizontal Timeline (HTML/CSS). Interaction: Hover effects. Justification: More engaging and readable than a simple list or table.
+        - Report Info: Eligibility criteria. Goal: Simplify complex rules. Viz: Interactive Checklist/Form (HTML/JS). Interaction: User selects their status, and relevant rules are displayed. Justification: Turns passive reading into an active, personalized experience, greatly improving comprehension.
+        - Report Info: Location features. Goal: Organize spatial info. Viz: Icon-based feature list and a simplified map-like diagram (HTML/CSS). Justification: Quickly communicates key amenities and spatial relationships without the overhead of a real map API, maintaining speed and simplicity.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <title>가야역 롯데캐슬 스카이엘 | 청약 정보, 분양가, 자격 완벽 분석</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="부산 가야역 롯데캐슬 스카이엘 아파트의 분양가, 평면도, 청약 자격(특별공급, 1순위), 전매제한 등 모든 정보를 대화형으로 쉽게 확인하세요. 내 청약 자격을 지금 바로 진단해볼 수 있습니다.">
+    <meta name="keywords" content="가야역 롯데캐슬 스카이엘, 부산 아파트 청약, 롯데캐슬 분양가, 부산진구 아파트, 가야동 아파트, 청약 1순위 자격, 특별공급, 내집마련">
+    <meta name="author" content="우리의 일상로그">
+    <link rel="canonical" href="https://ourvlog.github.io/apt/2025000290.html">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="가야역 롯데캐슬 스카이엘 | 대화형 청약 정보">
+    <meta property="og:description" content="부산 가야역 초역세권 롯데캐슬 스카이엘의 모든 것! 분양가, 청약일정, 자격조건을 한눈에 확인하고 나의 당첨 가능성을 진단해보세요.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ourvlog.github.io/apt/2025000290.html">
+    <meta property="og:image" content="https://ourvlog.github.io/img/og-image-lotte-castle.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #F8F7F4;
+            color: #333;
+        }
+        .btn-primary {
+            background-color: #1a4a3a;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #113126;
+        }
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #4a5568;
+            transition: background-color 0.3s;
+        }
+        .btn-secondary.active, .btn-secondary:hover {
+            background-color: #1a4a3a;
+            color: #fff;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+         @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: #1a4a3a;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="header-placeholder"></div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="bg-white">
+            <div class="container mx-auto px-6 py-20 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">가야역 롯데캐슬 스카이엘, 청약의 모든 것</h1>
+                <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">부산의 중심, 가야역 초역세권에서 누리는 롯데캐슬의 가치.<br>복잡한 공고문, 여기서 쉽고 명쾌하게 확인하세요.</p>
+                <div class="flex justify-center items-center flex-wrap gap-4">
+                     <a href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2025000290&pblancNo=2025000290" target="_blank" class="btn-primary py-2 px-6 rounded-full text-lg">
+                        청약 공고 바로가기
+                    </a>
+                </div>
+                <div class="mt-8 flex justify-center flex-wrap gap-4">
+                    <span class="bg-teal-100 text-teal-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-full">#2호선_초역세권</span>
+                    <span class="bg-amber-100 text-amber-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-full">#롯데캐슬_브랜드</span>
+                    <span class="bg-sky-100 text-sky-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-full">#전매제한_6개월</span>
+                    <span class="bg-rose-100 text-rose-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-full">#재당첨제한_없음</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Info Section -->
+        <section id="info" class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold section-title inline-block">한눈에 보는 핵심 정보</h2>
+                    <p class="text-gray-600 mt-4">청약 전 반드시 알아야 할 기본 정보와 주요 일정을 확인하세요.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 items-start">
+                    <div class="card p-6">
+                        <h3 class="text-xl font-bold mb-4 flex items-center"><span class="mr-2">🏠</span>단지 기본 정보</h3>
+                        <div class="space-y-3 text-gray-700">
+                            <p><strong>단지명:</strong> 가야역 롯데캐슬 스카이엘</p>
+                            <p><strong>위치:</strong> 부산광역시 부산진구 가야동 3-11번지 일원</p>
+                            <p><strong>건설사:</strong> 롯데건설(주)</p>
+                            <p><strong>총 세대수:</strong> 725세대 (아파트)</p>
+                            <p><strong>입주 예정일:</strong> 2026년 1월</p>
+                        </div>
+                    </div>
+                    <div class="card p-6">
+                        <h3 class="text-xl font-bold mb-4 flex items-center"><span class="mr-2">🗓️</span>핵심 청약 일정</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <span class="bg-gray-200 text-gray-700 text-sm font-bold rounded-full px-3 py-1 mr-4">공고</span>
+                                <div class="text-gray-700"><strong>입주자 모집 공고일:</strong> 2025-07-18</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-blue-200 text-blue-700 text-sm font-bold rounded-full px-3 py-1 mr-4">접수</span>
+                                <div class="text-gray-700"><strong>특별공급:</strong> 2025-07-28<br><strong>일반 1순위:</strong> 2025-07-29</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-green-200 text-green-700 text-sm font-bold rounded-full px-3 py-1 mr-4">발표</span>
+                                <div class="text-gray-700"><strong>당첨자 발표일:</strong> 2025-08-05</div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-yellow-200 text-yellow-700 text-sm font-bold rounded-full px-3 py-1 mr-4">계약</span>
+                                <div class="text-gray-700"><strong>계약 체결:</strong> 2025-08-18 ~ 08-20</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Supply and Price Section -->
+        <section id="supply" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold section-title inline-block">타입별 공급 및 분양가</h2>
+                    <p class="text-gray-600 mt-4">원하는 타입을 선택해 공급 세대수와 분양가 정보를 확인해보세요.</p>
+                </div>
+                <div class="flex justify-center flex-wrap gap-2 mb-8">
+                    <button class="btn-secondary py-2 px-4 rounded-full type-btn" data-type="59A">59A</button>
+                    <button class="btn-secondary py-2 px-4 rounded-full type-btn" data-type="59B">59B</button>
+                    <button class="btn-secondary py-2 px-4 rounded-full type-btn" data-type="77A">77A</button>
+                    <button class="btn-secondary py-2 px-4 rounded-full type-btn" data-type="84A">84A</button>
+                    <button class="btn-secondary py-2 px-4 rounded-full type-btn" data-type="84B">84B</button>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="card p-6 lg:col-span-1">
+                        <h3 id="details-title" class="text-xl font-bold mb-4">타입별 상세정보</h3>
+                        <div id="details-content" class="space-y-3 text-gray-700">
+                           <p>위에서 타입을 선택해주세요.</p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-200 text-sm text-gray-500">
+                           <p><strong>※ 중요:</strong> 분양가에는 발코니 확장비 및 추가선택품목 비용이 **모두 포함**되어 있습니다. (후분양 혜택)</p>
+                        </div>
+                    </div>
+                     <div class="card p-6 md:col-span-1 lg:col-span-1">
+                        <h3 class="text-xl font-bold mb-4">공급 세대수 비율</h3>
+                        <div class="chart-container">
+                            <canvas id="supply-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card p-6 md:col-span-2 lg:col-span-1">
+                        <h3 class="text-xl font-bold mb-4">타입별 최고 분양가</h3>
+                         <div class="chart-container" style="max-width: 500px; height: 300px; max-height: 350px;">
+                            <canvas id="price-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Section -->
+        <section id="location" class="py-20">
+            <div class="container mx-auto px-6">
+                 <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold section-title inline-block">입지 환경 분석</h2>
+                    <p class="text-gray-600 mt-4">교통, 학군, 생활 인프라까지 '살기 좋은 곳'인지 확인해보세요.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="card p-6">
+                        <h3 class="text-xl font-bold mb-4 flex items-center"><span class="text-2xl mr-2">🚇</span> 교통: 출퇴근은 어떨까?</h3>
+                        <ul class="space-y-2 text-gray-700 list-disc list-inside">
+                           <li><strong>2호선 가야역</strong> 바로 앞 초역세권</li>
+                           <li>서면역 2정거장 (약 5분 소요)</li>
+                           <li>가야대로 인접으로 자차 이동 용이</li>
+                           <li>경부선 철도 인접 (일부 세대 소음 가능성)</li>
+                        </ul>
+                    </div>
+                     <div class="card p-6">
+                        <h3 class="text-xl font-bold mb-4 flex items-center"><span class="text-2xl mr-2">🏫</span> 학군 및 생활 인프라</h3>
+                        <ul class="space-y-2 text-gray-700 list-disc list-inside">
+                           <li>가야초, 개성고, 가야고 등 인접</li>
+                           <li>롯데백화점, NC백화점 등 서면 생활권</li>
+                           <li>홈플러스, 가야시장 등 근거리 위치</li>
+                           <li>병원, 은행 등 편의시설 다수</li>
+                        </ul>
+                    </div>
+                     <div class="card p-6">
+                        <h3 class="text-xl font-bold mb-4 flex items-center"><span class="text-2xl mr-2">🌳</span> 주변 환경 및 호재</h3>
+                         <ul class="space-y-2 text-gray-700 list-disc list-inside">
+                           <li>부산시민공원 인접으로 쾌적한 환경</li>
+                           <li>완성된 도심 인프라 즉시 이용 가능</li>
+                           <li>부전역 복합환승센터 개발 수혜 기대</li>
+                           <li>주변 정비사업으로 주거환경 개선 기대</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Eligibility Section -->
+        <section id="eligibility" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                 <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold section-title inline-block">나의 청약 자격 진단</h2>
+                    <p class="text-gray-600 mt-4">아래 정보를 입력하고, 내 청약 자격 여부를 확인해보세요.</p>
+                </div>
+                <div class="card max-w-3xl mx-auto p-8">
+                    <form id="eligibility-form" class="space-y-6">
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="residence" class="block text-sm font-medium text-gray-700">거주지</label>
+                                <select id="residence" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                                    <option value="busan_over_1y">부산광역시 (1년 이상 거주)</option>
+                                    <option value="busan_under_1y">부산광역시 (1년 미만 거주)</option>
+                                    <option value="other">울산광역시 / 경상남도</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="housing-status" class="block text-sm font-medium text-gray-700">세대 주택소유</label>
+                                <select id="housing-status" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                                    <option value="none">무주택</option>
+                                    <option value="one">1주택</option>
+                                    <option value="multiple">2주택 이상</option>
+                                </select>
+                            </div>
+                        </div>
+                         <div>
+                            <label for="bankbook-period" class="block text-sm font-medium text-gray-700">청약통장 가입기간</label>
+                            <select id="bankbook-period" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                                <option value="over_6m">6개월 이상</option>
+                                <option value="under_6m">6개월 미만</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="supply-type" class="block text-sm font-medium text-gray-700">청약 유형</label>
+                            <select id="supply-type" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                                <option value="general">일반공급</option>
+                                <option value="special_newlywed">특별공급 (신혼부부)</option>
+                                <option value="special_first_time">특별공급 (생애최초)</option>
+                                <option value="special_multi_child">특별공급 (다자녀)</option>
+                                <option value="special_old_parent">특별공급 (노부모부양)</option>
+                            </select>
+                        </div>
+                        <div id="special-conditions" class="hidden space-y-4">
+                            <!-- Dynamic fields will be inserted here -->
+                        </div>
+                        <div>
+                            <button type="button" id="check-eligibility-btn" class="w-full btn-primary py-3 px-4 rounded-md text-lg font-bold">자격 확인하기</button>
+                        </div>
+                    </form>
+                    <div id="eligibility-result" class="mt-8 p-6 rounded-lg hidden">
+                        <h4 id="result-title" class="font-bold text-lg mb-2"></h4>
+                        <div id="result-text" class="space-y-2"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary Section -->
+        <section id="summary" class="py-20">
+            <div class="container mx-auto px-6">
+                 <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold section-title inline-block">최종 정리 및 총평</h2>
+                    <p class="text-gray-600 mt-4">장점과 단점을 비교해보고, 나에게 맞는 선택인지 최종적으로 판단해보세요.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card p-8 bg-blue-50">
+                        <h3 class="text-2xl font-bold mb-4 text-blue-800">👍 장점</h3>
+                        <ul class="space-y-4 text-gray-700">
+                            <li class="flex items-start"><span class="text-blue-500 font-bold mr-3">1.</span> <div><strong>압도적 교통:</strong> 2호선 가야역 초역세권, 서면 5분 컷으로 출퇴근 및 도심 라이프 최적화.</div></li>
+                            <li class="flex items-start"><span class="text-blue-500 font-bold mr-3">2.</span> <div><strong>유리한 규제:</strong> 전매 6개월, 실거주/재당첨 제한 無. 실거주와 투자를 모두 잡는 매력적인 조건.</div></li>
+                            <li class="flex items-start"><span class="text-blue-500 font-bold mr-3">3.</span> <div><strong>브랜드 파워:</strong> 믿음의 롯데캐슬이 짓는 43층 초고층 랜드마크 아파트로 미래 가치 기대.</div></li>
+                        </ul>
+                    </div>
+                    <div class="card p-8 bg-red-50">
+                        <h3 class="text-2xl font-bold mb-4 text-red-800">👎 단점</h3>
+                        <ul class="space-y-4 text-gray-700">
+                             <li class="flex items-start"><span class="text-red-500 font-bold mr-3">1.</span> <div><strong>분양가 부담:</strong> 입지가 좋은 만큼 84타입 기준 9억 원을 상회하는 가격은 부담 요인.</div></li>
+                             <li class="flex items-start"><span class="text-red-500 font-bold mr-3">2.</span> <div><strong>소음 가능성:</strong> 단지 인근 지상 철도로 인해 일부 세대는 소음 영향권에 있을 수 있음.</div></li>
+                             <li class="flex items-start"><span class="text-red-500 font-bold mr-3">3.</span> <div><strong>학군 아쉬움:</strong> 단지와 바로 붙어있는 초등학교(초품아)는 아님. 도보 통학 필요.</div></li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="mt-12 text-center card p-8 max-w-3xl mx-auto">
+                     <h3 class="text-xl font-bold mb-4">어떤 분에게 추천할까요?</h3>
+                     <p class="text-gray-700 leading-relaxed">
+                         이러한 특징을 종합해볼 때, <strong class="text-[#1a4a3a]">가야역 롯데캐슬 스카이엘</strong>은 안정적인 출퇴근과 완성된 도심 인프라를 최우선으로 생각하는 <strong class="text-[#1a4a3a]">신혼부부나 전문직 직장인, 그리고 단기 시세차익보다는 장기적인 가치 상승을 노리는 투자자</strong>에게 가장 매력적인 선택지가 될 것입니다.
+                     </p>
+                 </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    
+    <script src="/js/common.js" defer></script>
+    <script>
+        const apartmentData = {
+            "59A": {
+                total: 80,
+                special: 37,
+                general: 43,
+                price: "6억 6,060만 원",
+                payment: {
+                    deposit: "3,303만 원 (계약시 1천, 30일 내 잔여분)",
+                    middle: "9,909만 원",
+                    balance: "5억 2,848만 원"
+                }
+            },
+            "59B": {
+                total: 40,
+                special: 19,
+                general: 21,
+                price: "6억 5,920만 원",
+                payment: {
+                    deposit: "3,296만 원 (계약시 1천, 30일 내 잔여분)",
+                    middle: "9,888만 원",
+                    balance: "5억 2,736만 원"
+                }
+            },
+            "77A": {
+                total: 120,
+                special: 56,
+                general: 64,
+                price: "8억 4,280만 원",
+                 payment: {
+                    deposit: "4,214만 원 (계약시 1천, 30일 내 잔여분)",
+                    middle: "1억 2,642만 원",
+                    balance: "6억 7,424만 원"
+                }
+            },
+            "84A": {
+                total: 323,
+                special: 154,
+                general: 169,
+                price: "9억 2,800만 원",
+                 payment: {
+                    deposit: "4,640만 원 (계약시 1천, 30일 내 잔여분)",
+                    middle: "1억 3,920만 원",
+                    balance: "7억 4,240만 원"
+                }
+            },
+            "84B": {
+                total: 162,
+                special: 75,
+                general: 87,
+                price: "9억 2,420만 원",
+                payment: {
+                    deposit: "4,621만 원 (계약시 1천, 30일 내 잔여분)",
+                    middle: "1억 3,863만 원",
+                    balance: "7억 3,936만 원"
+                }
+            }
+        };
+
+        let supplyChart, priceChart;
+
+        function updateDetails(type) {
+            const data = apartmentData[type];
+            const contentEl = document.getElementById('details-content');
+            const titleEl = document.getElementById('details-title');
+            
+            titleEl.innerHTML = `<span class="bg-gray-800 text-white rounded-md px-2 py-1 mr-2">${type}</span> 타입 상세정보`;
+
+            contentEl.innerHTML = `
+                <p><strong>총 세대수:</strong> ${data.total} 세대</p>
+                <p><strong>특별공급:</strong> ${data.special} 세대</p>
+                <p><strong>일반공급:</strong> ${data.general} 세대</p>
+                <p><strong>최고 분양가:</strong> ${data.price}</p>
+                <div class="pt-2">
+                    <p class="font-semibold">납부 조건:</p>
+                    <ul class="list-disc list-inside ml-4 text-sm">
+                        <li><strong>계약금(5%):</strong> ${data.payment.deposit}</li>
+                        <li><strong>중도금(15%):</strong> ${data.payment.middle}</li>
+                        <li><strong>잔금(80%):</strong> ${data.payment.balance}</li>
+                    </ul>
+                </div>
+            `;
+        }
+
+        function createCharts() {
+            const supplyCtx = document.getElementById('supply-chart').getContext('2d');
+            supplyChart = new Chart(supplyCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['특별공급', '일반공급'],
+                    datasets: [{
+                        data: [0, 0],
+                        backgroundColor: ['#38b2ac', '#667eea'],
+                        borderColor: '#F8F7F4',
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed + ' 세대';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const priceCtx = document.getElementById('price-chart').getContext('2d');
+            priceChart = new Chart(priceCtx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(apartmentData),
+                    datasets: [{
+                        label: '최고 분양가 (만원)',
+                        data: Object.values(apartmentData).map(d => parseFloat(d.price.replace(/,/g, '').replace('억', '0000').replace('만 원', ''))),
+                        backgroundColor: Object.keys(apartmentData).map(() => '#a7f3d0'),
+                        borderColor: Object.keys(apartmentData).map(() => '#047857'),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                             callbacks: {
+                                label: function(context) {
+                                    let val = context.raw / 10000;
+                                    return `${val.toFixed(0)}억원`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                callback: function(value, index, values) {
+                                    return (value / 100000000) + '억';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateCharts(type) {
+            const data = apartmentData[type];
+            supplyChart.data.datasets[0].data = [data.special, data.general];
+            supplyChart.update();
+
+            const colors = Object.keys(apartmentData).map(key => key === type ? '#10b981' : '#a7f3d0');
+            const borders = Object.keys(apartmentData).map(key => key === type ? '#047857' : '#047857');
+            priceChart.data.datasets[0].backgroundColor = colors;
+            priceChart.data.datasets[0].borderColor = borders;
+            priceChart.update();
+        }
+
+        document.querySelectorAll('.type-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const selectedType = e.target.dataset.type;
+                document.querySelectorAll('.type-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                updateDetails(selectedType);
+                updateCharts(selectedType);
+            });
+        });
+
+        const supplyTypeSelect = document.getElementById('supply-type');
+        const specialConditionsDiv = document.getElementById('special-conditions');
+        
+        const specialFields = {
+            'special_newlywed': `
+                <div>
+                    <label for="marital-period" class="block text-sm font-medium text-gray-700">혼인 기간</label>
+                    <select id="marital-period" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                        <option value="under_7y">7년 이내</option>
+                        <option value="over_7y">7년 초과</option>
+                    </select>
+                </div>`,
+            'special_multi_child': `
+                <div>
+                    <label for="children-count" class="block text-sm font-medium text-gray-700">만 19세 미만 자녀 수</label>
+                    <select id="children-count" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                        <option value="2">2명</option>
+                        <option value="3">3명 이상</option>
+                        <option value="1">1명 이하</option>
+                    </select>
+                </div>`,
+            'special_old_parent': `
+                <div>
+                    <label for="support-period" class="block text-sm font-medium text-gray-700">만 65세 이상 직계존속 부양 기간</label>
+                    <select id="support-period" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                        <option value="over_3y">3년 이상</option>
+                        <option value="under_3y">3년 미만</option>
+                    </select>
+                </div>`
+        };
+
+        supplyTypeSelect.addEventListener('change', (e) => {
+            const selectedType = e.target.value;
+            specialConditionsDiv.innerHTML = '';
+            if (selectedType.startsWith('special')) {
+                specialConditionsDiv.classList.remove('hidden');
+                if (specialFields[selectedType]) {
+                    specialConditionsDiv.innerHTML = specialFields[selectedType];
+                }
+            } else {
+                specialConditionsDiv.classList.add('hidden');
+            }
+        });
+
+        document.getElementById('check-eligibility-btn').addEventListener('click', () => {
+            const residence = document.getElementById('residence').value;
+            const housing = document.getElementById('housing-status').value;
+            const bankbook = document.getElementById('bankbook-period').value;
+            const supplyType = document.getElementById('supply-type').value;
+
+            let messages = [];
+            let eligible = true;
+
+            if (housing === 'multiple') {
+                messages.push('❌ 2주택 이상 소유자는 청약이 제한됩니다.');
+                eligible = false;
+            }
+
+            if (bankbook === 'under_6m') {
+                messages.push('❌ 청약통장 가입기간 6개월 이상이 필요합니다.');
+                eligible = false;
+            }
+
+            if (supplyType === 'general') {
+                if (eligible) {
+                    messages.push('✅ 일반공급 1순위 기본 조건을 만족합니다.');
+                    if(residence !== 'busan_over_1y') {
+                        messages.push('⚠️ 경쟁 발생 시 부산 1년 이상 거주자에게 우선 공급됩니다.');
+                    }
+                    if(housing === 'one') {
+                        messages.push('⚠️ 1주택자는 추첨제만 가능합니다.');
+                    }
+                }
+            } else if (supplyType.startsWith('special')) {
+                if (housing !== 'none') {
+                    messages.push('❌ 특별공급은 무주택세대구성원만 신청 가능합니다.');
+                    eligible = false;
+                }
+                
+                if (supplyType === 'special_newlywed') {
+                    const maritalPeriod = document.getElementById('marital-period').value;
+                    if (maritalPeriod === 'over_7y') {
+                        messages.push('❌ 신혼부부 특공은 혼인기간 7년 이내여야 합니다.');
+                        eligible = false;
+                    }
+                } else if (supplyType === 'special_multi_child') {
+                    const childrenCount = document.getElementById('children-count').value;
+                    if (childrenCount === '1') {
+                        messages.push('❌ 다자녀 특공은 만 19세 미만 자녀가 2명 이상이어야 합니다.');
+                        eligible = false;
+                    }
+                } else if (supplyType === 'special_old_parent') {
+                     const supportPeriod = document.getElementById('support-period').value;
+                    if (supportPeriod === 'under_3y') {
+                        messages.push('❌ 노부모부양 특공은 부양기간 3년 이상이어야 합니다.');
+                        eligible = false;
+                    }
+                }
+
+                if (eligible) {
+                    messages.push(`✅ ${supplyTypeSelect.options[supplyTypeSelect.selectedIndex].text} 기본 조건을 만족합니다.`);
+                    messages.push('⚠️ 소득, 자산 등 추가적인 세부 자격 요건을 반드시 공고문에서 확인해야 합니다.');
+                }
+            }
+
+            const resultDiv = document.getElementById('eligibility-result');
+            const titleEl = document.getElementById('result-title');
+            const textEl = document.getElementById('result-text');
+
+            resultDiv.classList.remove('hidden', 'bg-green-50', 'bg-red-50');
+            if (eligible) {
+                resultDiv.classList.add('bg-green-50');
+                titleEl.textContent = '🎉 청약 가능성이 있습니다!';
+                titleEl.className = 'font-bold text-lg mb-2 text-green-800';
+            } else {
+                resultDiv.classList.add('bg-red-50');
+                titleEl.textContent = '😥 자격 요건을 다시 확인해주세요.';
+                titleEl.className = 'font-bold text-lg mb-2 text-red-800';
+            }
+            textEl.innerHTML = messages.map(msg => `<p>${msg}</p>`).join('');
+        });
+
+        // Initial state
+        window.onload = () => {
+            createCharts();
+            document.querySelector('.type-btn[data-type="84A"]').click();
+        };
+
+    </script>
+</body>
+</html>
