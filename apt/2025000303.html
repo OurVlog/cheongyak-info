@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>부여 골드클래스 | 인터랙티브 청약 분석 (분양가, 자격, 입지)</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="부여 골드클래스 아파트 청약 정보를 인터랙티브하게 분석합니다. 분양가, 청약 자격, 입지, 규제 정보를 한눈에 확인하고 청약 자격 계산기로 당첨 가능성을 확인해보세요.">
+    <meta name="keywords" content="부여 골드클래스, 부여 아파트, 부여 청약, 충남 아파트 분양, 골드클래스 분양가, 청약 자격, 내집마련, 부동산, 아파트 분양">
+    <meta name="author" content="우리의 일상로그">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="부여 골드클래스 | 인터랙티브 청약 분석">
+    <meta property="og:description" content="분양가, 청약 자격, 입지, 규제 정보를 한눈에 확인하고 나만의 청약 자격을 계산해보세요.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ourvlog.github.io/apt/2025000303.html">
+    <meta property="og:image" content="https://placehold.co/1200x630/3b82f6/ffffff?text=부여+골드클래스">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutral Harmony -->
+    <!-- Application Structure Plan: The application uses a horizontal tab-based navigation (`핵심 요약`, `분양 정보`, `입지 분석`, `청약 자격`, `최종 정리`) to structure the information. This design was chosen over a linear blog format to allow users to quickly access the specific information they need, reflecting a task-oriented user flow (e.g., a user might only want to check qualifications, or just see the price). The `핵심 요약` tab serves as a dashboard-style landing page, presenting the most critical information (key dates, regulations) upfront for immediate understanding. A new interactive qualification calculator is added to the '청약 자격' tab to provide direct user value. This non-linear, user-driven structure enhances usability and makes the dense report content more digestible. -->
+    <!-- Visualization & Content Choices: The application translates tables and text from the report into interactive visualizations to improve comprehension. [분양 정보] - Goal: Compare supply volume and payment terms. Method: Bar chart for unit supply, Donut chart for payment breakdown. Interaction: Hovering over chart segments reveals exact numbers. Justification: Visual comparison is faster than reading a table. Library: Chart.js. [청약 자격] - Goal: Allow users to check their eligibility. Method: An interactive form that takes user input and provides instant feedback on their 1st priority qualification status. Justification: This replaces static text with a dynamic tool, significantly improving user engagement and utility. All other information is presented in structured text within accordions and cards to manage information density. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .tab-active {
+            border-bottom-color: #3b82f6;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        .tab-inactive {
+            border-bottom-color: transparent;
+            color: #6b7280;
+        }
+        .section-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div id="header-placeholder"></div>
+
+    <div class="container mx-auto p-4 md:p-8">
+        <main>
+            <div class="sticky top-0 bg-gray-50/80 backdrop-blur-sm z-10 mb-6 border-b border-gray-200">
+                <nav class="flex justify-center -mb-px">
+                    <button data-tab="summary" class="tab-button text-sm md:text-base py-4 px-6 border-b-2 tab-active">핵심 요약</button>
+                    <button data-tab="sales" class="tab-button text-sm md:text-base py-4 px-6 border-b-2 tab-inactive">분양 정보</button>
+                    <button data-tab="location" class="tab-button text-sm md:text-base py-4 px-6 border-b-2 tab-inactive">입지 분석</button>
+                    <button data-tab="qualification" class="tab-button text-sm md:text-base py-4 px-6 border-b-2 tab-inactive">청약 자격</button>
+                    <button data-tab="final" class="tab-button text-sm md:text-base py-4 px-6 border-b-2 tab-inactive">최종 정리</button>
+                </nav>
+            </div>
+
+            <div id="content" class="space-y-10">
+                <section id="summary" class="tab-content section-fade-in">
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <h2 class="text-2xl font-bold mb-4 text-center">한눈에 보는 핵심 정보</h2>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h3 class="font-bold text-lg mb-2 text-blue-800">✅ 단지 개요</h3>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li><strong>단지명:</strong> 부여 골드클래스</li>
+                                    <li><strong>위치:</strong> 충청남도 부여군 부여읍 쌍북리 595번지 일원</li>
+                                    <li><strong>총 세대수:</strong> 413세대</li>
+                                    <li><strong>입주 예정:</strong> 2027년 5월</li>
+                                </ul>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <h3 class="font-bold text-lg mb-2 text-green-800">⚠️ 주요 규제사항</h3>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li><strong>전매제한:</strong> <span class="font-bold text-green-600">없음</span></li>
+                                    <li><strong>재당첨제한:</strong> <span class="font-bold text-green-600">없음</span></li>
+                                    <li><strong>실거주 의무:</strong> <span class="font-bold text-green-600">없음</span></li>
+                                </ul>
+                                <p class="text-sm text-green-700 mt-2">비규제지역으로 자유로운 투자가 가능합니다.</p>
+                            </div>
+                        </div>
+                        <div class="mt-8 text-center">
+                            <a href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2025000303&pblancNo=2025000303" target="_blank" class="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors duration-300">
+                                📄 청약 공고 원문 보러가기
+                            </a>
+                        </div>
+                        <div class="mt-8">
+                            <h3 class="font-bold text-lg mb-4 text-center">🗓️ 핵심 청약 일정</h3>
+                            <div class="relative">
+                                <div class="hidden md:block absolute left-1/2 w-0.5 h-full bg-gray-300 -translate-x-1/2"></div>
+                                <div class="space-y-8">
+                                    <div class="md:flex items-center w-full">
+                                        <div class="md:w-1/2 md:flex justify-end md:pr-8">
+                                            <div class="bg-white p-3 rounded-lg shadow-md text-center md:text-right w-full md:max-w-xs mb-2 md:mb-0">
+                                                <p class="font-semibold text-gray-800">모집 공고</p>
+                                                <p class="text-gray-600 text-sm">2025년 7월 10일 (목)</p>
+                                            </div>
+                                        </div>
+                                        <div class="hidden md:block w-8 h-8 rounded-full bg-blue-500 text-white flex-shrink-0 flex items-center justify-center z-10 mx-auto">1</div>
+                                        <div class="md:w-1/2"></div>
+                                    </div>
+                                    <div class="md:flex items-center w-full">
+                                        <div class="md:w-1/2"></div>
+                                        <div class="hidden md:block w-8 h-8 rounded-full bg-blue-500 text-white flex-shrink-0 flex items-center justify-center z-10 mx-auto">2</div>
+                                        <div class="md:w-1/2 md:flex justify-start md:pl-8">
+                                            <div class="bg-white p-3 rounded-lg shadow-md text-center md:text-left w-full md:max-w-xs mb-2 md:mb-0">
+                                                <p class="font-semibold text-gray-800">특별공급 접수</p>
+                                                <p class="text-gray-600 text-sm">2025년 7월 21일 (월)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="md:flex items-center w-full">
+                                        <div class="md:w-1/2 md:flex justify-end md:pr-8">
+                                            <div class="bg-white p-3 rounded-lg shadow-md text-center md:text-right w-full md:max-w-xs mb-2 md:mb-0">
+                                                <p class="font-semibold text-gray-800">1순위 접수</p>
+                                                <p class="text-gray-600 text-sm">2025년 7월 22일 (화)</p>
+                                            </div>
+                                        </div>
+                                        <div class="hidden md:block w-8 h-8 rounded-full bg-blue-500 text-white flex-shrink-0 flex items-center justify-center z-10 mx-auto">3</div>
+                                        <div class="md:w-1/2"></div>
+                                    </div>
+                                     <div class="md:flex items-center w-full">
+                                        <div class="md:w-1/2"></div>
+                                        <div class="hidden md:block w-8 h-8 rounded-full bg-blue-500 text-white flex-shrink-0 flex items-center justify-center z-10 mx-auto">4</div>
+                                        <div class="md:w-1/2 md:flex justify-start md:pl-8">
+                                            <div class="bg-white p-3 rounded-lg shadow-md text-center md:text-left w-full md:max-w-xs mb-2 md:mb-0">
+                                                <p class="font-semibold text-gray-800">당첨자 발표</p>
+                                                <p class="text-gray-600 text-sm">2025년 7월 30일 (수)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="md:flex items-center w-full">
+                                        <div class="md:w-1/2 md:flex justify-end md:pr-8">
+                                            <div class="bg-white p-3 rounded-lg shadow-md text-center md:text-right w-full md:max-w-xs mb-2 md:mb-0">
+                                                <p class="font-semibold text-gray-800">계약 체결</p>
+                                                <p class="text-gray-600 text-sm">2025년 8월 11일 ~ 13일</p>
+                                            </div>
+                                        </div>
+                                        <div class="hidden md:block w-8 h-8 rounded-full bg-green-500 text-white flex-shrink-0 flex items-center justify-center z-10 mx-auto">✓</div>
+                                        <div class="md:w-1/2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="sales" class="tab-content hidden section-fade-in">
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                         <h2 class="text-2xl font-bold mb-4 text-center">사업개요 및 분양가</h2>
+                         <p class="text-center text-gray-600 mb-8">지하 1층, 지상 5~8층, 11개 동, 총 413세대 규모로 조성됩니다. 아래 표와 차트를 통해 타입별 공급 세대수와 분양가, 납부 조건을 확인해보세요.</p>
+                         <div class="overflow-x-auto mb-8">
+                            <table class="w-full text-sm text-left text-gray-500">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 rounded-l-lg">주택형(타입)</th>
+                                        <th scope="col" class="px-6 py-3">총 세대수</th>
+                                        <th scope="col" class="px-6 py-3">특별공급</th>
+                                        <th scope="col" class="px-6 py-3">일반공급</th>
+                                        <th scope="col" class="px-6 py-3 rounded-r-lg">최고 분양가</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-white border-b">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">82㎡</th>
+                                        <td class="px-6 py-4">211</td>
+                                        <td class="px-6 py-4">104</td>
+                                        <td class="px-6 py-4">107</td>
+                                        <td class="px-6 py-4 font-semibold">4억 2,100만원</td>
+                                    </tr>
+                                    <tr class="bg-white border-b">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">84㎡</th>
+                                        <td class="px-6 py-4">156</td>
+                                        <td class="px-6 py-4">77</td>
+                                        <td class="px-6 py-4">79</td>
+                                        <td class="px-6 py-4 font-semibold">4억 1,100만원</td>
+                                    </tr>
+                                    <tr class="bg-white">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">114㎡</th>
+                                        <td class="px-6 py-4">46</td>
+                                        <td class="px-6 py-4">5</td>
+                                        <td class="px-6 py-4">41</td>
+                                        <td class="px-6 py-4 font-semibold">6억 3,100만원</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="text-center text-xs text-red-600 mb-8">⚠️ 위 분양가는 최고가 기준이며, 발코니 확장비와 추가 선택품목(유상옵션) 비용은 별도입니다.</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-8 mt-4">
+                            <div>
+                                <h3 class="font-bold text-lg mb-4 text-center">타입별 공급 세대수</h3>
+                                <div class="chart-container"><canvas id="supplyChart"></canvas></div>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg mb-4 text-center">분양대금 납부 조건</h3>
+                                <div class="chart-container"><canvas id="paymentChart"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="location" class="tab-content hidden section-fade-in">
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <h2 class="text-2xl font-bold mb-4 text-center">입지 환경 분석: 이곳에 살아도 될까?</h2>
+                        <p class="text-center text-gray-600 mb-8">내 집 마련의 핵심, 입지! 교통, 학군, 생활 인프라 세 가지 관점에서 부여 골드클래스의 가치를 분석합니다.</p>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="border border-gray-200 p-4 rounded-lg">
+                                <h3 class="font-bold text-lg mb-2">🚗 교통: 직장까지 얼마나 걸릴까?</h3>
+                                <p class="text-gray-600 text-sm">단지 주변으로 12m, 15m, 25m 도로가 접하고 있어 부여군 내에서의 이동은 편리할 것으로 보입니다. 다만, 서울이나 대전 등 주요 대도시 업무지구까지의 구체적인 대중교통 소요 시간이나 GTX 같은 광역 교통망 계획은 언급되지 않았습니다. 이는 충청권 내 실거주를 목적으로 하는 분들에게 더 초점이 맞춰진 단지임을 의미합니다.</p>
+                            </div>
+                            <div class="border border-gray-200 p-4 rounded-lg">
+                                <h3 class="font-bold text-lg mb-2">🏫 학군 및 생활 인프라: 아이 키우고 살기 좋은가?</h3>
+                                <ul class="text-gray-600 text-sm space-y-2">
+                                    <li><strong>초등학교:</strong> 부여초등학교 배정 예정 (도보 거리 현장 확인 필요)</li>
+                                    <li><strong>중학교:</strong> 부여학군 (부여중, 부여여중)</li>
+                                    <li><strong>생활 인프라:</strong> 부여읍 중심 생활권에 위치하여 병원, 마트, 관공서 등 기본 편의시설 이용이 용이할 것으로 예상됩니다.</li>
+                                </ul>
+                            </div>
+                            <div class="border border-gray-200 p-4 rounded-lg">
+                                <h3 class="font-bold text-lg mb-2">🌳 주변 환경 및 개발 호재</h3>
+                                <p class="text-gray-600 text-sm">공고문 상 대규모 공원이나 뚜렷한 개발 호재는 명시되어 있지 않습니다. 다만, 부여읍 내에 자리한 만큼 기존의 안정된 생활 인프라를 누릴 수 있다는 점이 장점입니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="qualification" class="tab-content hidden section-fade-in">
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <h2 class="text-2xl font-bold mb-4 text-center">청약 자격 완벽 정리: 나는 신청할 수 있을까?</h2>
+                        <p class="text-center text-gray-600 mb-8">가장 복잡하고 중요한 청약 자격! 아래 계산기를 통해 나의 일반공급 1순위 자격 여부를 직접 확인해보세요.</p>
+                        
+                        <div class="max-w-2xl mx-auto mt-8 p-6 border border-gray-200 rounded-lg bg-gray-50">
+                            <h3 class="text-xl font-bold mb-6 text-center">일반공급 1순위 자격 계산기</h3>
+                            <div class="space-y-4" id="qualification-form">
+                                <div>
+                                    <label for="residence" class="block text-sm font-medium text-gray-700">거주지</label>
+                                    <select id="residence" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                        <option>부여군</option>
+                                        <option>충청남도 (부여군 외)</option>
+                                        <option>대전광역시</option>
+                                        <option>세종특별자치시</option>
+                                        <option>기타 지역</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="period" class="block text-sm font-medium text-gray-700">청약통장 가입기간 (개월)</label>
+                                    <input type="number" id="period" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="예: 12">
+                                </div>
+                                <div>
+                                    <label for="deposit" class="block text-sm font-medium text-gray-700">청약통장 예치금 (만원)</label>
+                                    <input type="number" id="deposit" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="예: 250">
+                                </div>
+                                <div>
+                                    <label for="is-head" class="block text-sm font-medium text-gray-700">세대주 여부</label>
+                                    <select id="is-head" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                        <option>세대주</option>
+                                        <option>세대원</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button id="check-qualification-btn" class="mt-6 w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700 transition-colors">자격 확인하기</button>
+                            <div id="qualification-result" class="mt-6 p-4 rounded-md text-center font-semibold hidden"></div>
+                        </div>
+
+                        <div class="space-y-4 mt-10">
+                            <div class="accordion-item border border-gray-200 rounded-lg">
+                                <button class="accordion-header w-full flex justify-between items-center p-4 text-left font-semibold">
+                                    <span>🌟 특별공급 자격 요건 (요약)</span>
+                                    <span class="transform transition-transform duration-300">▼</span>
+                                </button>
+                                <div class="accordion-content">
+                                    <div class="p-4 border-t bg-gray-50 space-y-3 text-sm">
+                                        <p><strong>- 신혼부부 (66세대):</strong> 혼인 기간 7년 이내, 소득/자산 기준 충족, 청약통장 6개월 이상</p>
+                                        <p><strong>- 생애최초 (32세대):</strong> 세대원 전원 주택 소유 이력 없음, 5년 이상 소득세 납부, 소득/자산 기준 충족, 청약통장 6개월 이상(1순위)</p>
+                                        <p><strong>- 다자녀가구 (40세대):</strong> 만 19세 미만 자녀 2명 이상, 소득/자산 기준 충족, 청약통장 6개월 이상</p>
+                                        <p><strong>- 노부모부양 (11세대):</strong> 만 65세 이상 직계존속 3년 이상 부양, 무주택 세대주, 청약통장 6개월 이상(1순위)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="final" class="tab-content hidden section-fade-in">
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                         <h2 class="text-2xl font-bold mb-4 text-center">최종 정리 및 총평</h2>
+                         <p class="text-center text-gray-600 mb-8">지금까지 분석한 모든 내용을 바탕으로 부여 골드클래스의 핵심 장점과 단점을 요약하고, 어떤 분들에게 추천하는지 최종 의견을 제시합니다.</p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-green-50 border border-green-200 p-4 rounded-lg">
+                                <h3 class="font-bold text-lg mb-2 text-green-800">👍 장점</h3>
+                                <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                                    <li><strong>압도적인 비규제 혜택:</strong> 전매제한, 재당첨제한, 실거주 의무가 모두 없어 실거주는 물론 투자 관점에서도 접근이 자유롭습니다.</li>
+                                    <li><strong>합리적인 분양가:</strong> 주력 평형이 3~4억 원대로 형성되어 있어, 부여 및 인근 지역에서 신축 아파트를 고려하는 실수요자에게 매력적인 가격입니다.</li>
+                                    <li><strong>추첨제 위주 공급:</strong> 85㎡ 이하 60%, 85㎡ 초과 100%가 추첨제로 공급되어 청약 가점이 낮은 2030세대에게도 당첨의 기회가 열려 있습니다.</li>
+                                </ol>
+                            </div>
+                            <div class="bg-red-50 border border-red-200 p-4 rounded-lg">
+                                <h3 class="font-bold text-lg mb-2 text-red-800">👎 단점</h3>
+                                <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                                    <li><strong>광역 교통 정보 부족:</strong> 공고문 상 대도시로의 접근성이나 미래 교통 호재에 대한 정보가 부족합니다.</li>
+                                    <li><strong>주변 인프라 정보의 한계:</strong> 부여읍 중심에 위치하나, 공고문만으로는 구체적인 편의시설 정보를 파악하기 어렵습니다. 현장 답사가 필수적입니다.</li>
+                                    <li><strong>평면 정보 부족:</strong> 공고문에 평면도가 없어, 견본주택을 방문하지 않으면 내부 구조를 알기 어렵다는 점이 아쉽습니다.</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="mt-8 bg-blue-50 border border-blue-200 p-6 rounded-lg">
+                             <h3 class="font-bold text-lg mb-2 text-blue-800">[최종 의견]</h3>
+                             <p class="text-gray-700">이러한 특징을 종합해볼 때, <strong>[부여 골드클래스]</strong>는 <span class="font-semibold text-blue-700">비규제 지역의 장점을 활용해 실거주와 투자를 동시에 고려하고 싶은 충청권 거주 실수요자</span>에게 가장 매력적인 선택지가 될 것입니다. 특히 청약 가점이 낮아 고민이었던 젊은 세대나, 자유로운 자금 계획을 세우고 싶은 분들이라면 꼭 한번 눈여겨보시길 바랍니다.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <div id="footer-placeholder"></div>
+    <script src="/js/common.js" defer></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const tabs = document.querySelectorAll('.tab-button');
+    const contents = document.querySelectorAll('.tab-content');
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    const checkQualBtn = document.getElementById('check-qualification-btn');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = tab.dataset.tab;
+            
+            tabs.forEach(t => {
+                t.classList.remove('tab-active');
+                t.classList.add('tab-inactive');
+            });
+            tab.classList.remove('tab-inactive');
+            tab.classList.add('tab-active');
+
+            contents.forEach(content => {
+                if (content.id === target) {
+                    content.classList.remove('hidden');
+                    content.classList.add('section-fade-in');
+                } else {
+                    content.classList.add('hidden');
+                    content.classList.remove('section-fade-in');
+                }
+            });
+        });
+    });
+
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('span:last-child');
+            
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+                document.querySelectorAll('.accordion-header span:last-child').forEach(i => i.style.transform = 'rotate(0deg)');
+                content.style.maxHeight = content.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        });
+    });
+    
+    if(checkQualBtn) {
+        checkQualBtn.addEventListener('click', checkQualification);
+    }
+
+    function checkQualification() {
+        const residence = document.getElementById('residence').value;
+        const period = parseInt(document.getElementById('period').value, 10);
+        const deposit = parseInt(document.getElementById('deposit').value, 10);
+        const isHead = document.getElementById('is-head').value;
+
+        const resultDiv = document.getElementById('qualification-result');
+        let messages = [];
+        let isEligible = true;
+
+        if (residence === '기타 지역') {
+            isEligible = false;
+            messages.push('거주지 요건을 충족하지 않습니다. (부여군, 충남, 대전, 세종 거주자만 가능)');
+        }
+
+        if (isNaN(period) || period < 6) {
+            isEligible = false;
+            messages.push('청약통장 가입기간이 6개월 이상이어야 합니다.');
+        }
+
+        if (isNaN(deposit) || deposit < 200) {
+            isEligible = false;
+            messages.push('청약통장 예치금이 200만원 이상이어야 합니다. (85㎡ 이하 기준)');
+        }
+        
+        resultDiv.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+
+        if (isEligible) {
+            resultDiv.classList.add('bg-green-100', 'text-green-800');
+            let resultText = '🎉 축하합니다! 일반공급 1순위 자격에 해당합니다.';
+            if (residence !== '부여군') {
+                resultText += ' (단, 경쟁 시 부여군 거주자에게 우선 공급됩니다.)';
+            }
+            resultDiv.textContent = resultText;
+        } else {
+            resultDiv.classList.add('bg-red-100', 'text-red-800');
+            resultDiv.innerHTML = '아쉽지만 1순위 자격 요건을 충족하지 못했습니다. <br>' + messages.join('<br>');
+        }
+    }
+
+
+    const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom',
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        let label = context.dataset.label || '';
+                        if (label) {
+                            label += ': ';
+                        }
+                        if (context.parsed.y !== null) {
+                            label += context.formattedValue;
+                        }
+                         if(context.dataset.unit) {
+                            label += context.dataset.unit;
+                        }
+                        return label;
+                    }
+                }
+            }
+        },
+    };
+
+    const supplyCtx = document.getElementById('supplyChart')?.getContext('2d');
+    if (supplyCtx) {
+        new Chart(supplyCtx, {
+            type: 'bar',
+            data: {
+                labels: ['82㎡', '84㎡', '114㎡'],
+                datasets: [{
+                    label: '총 세대수',
+                    data: [211, 156, 46],
+                    backgroundColor: ['#60a5fa', '#3b82f6', '#1d4ed8'],
+                    borderColor: ['#60a5fa', '#3b82f6', '#1d4ed8'],
+                    borderWidth: 1,
+                    unit: '세대'
+                }]
+            },
+            options: chartOptions,
+        });
+    }
+
+    const paymentCtx = document.getElementById('paymentChart')?.getContext('2d');
+    if (paymentCtx) {
+        new Chart(paymentCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['계약금', '중도금', '잔금'],
+                datasets: [{
+                    label: '납부 비율',
+                    data: [10, 60, 30],
+                    backgroundColor: ['#fca5a5', '#ef4444', '#b91c1c'],
+                    hoverOffset: 4,
+                    unit: '%'
+                }]
+            },
+            options: chartOptions,
+        });
+    }
+
+});
+</script>
+
+</body>
+</html>
