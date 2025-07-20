@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>무등산 경남아너스빌 디원 - 분양 정보 포털</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="무등산 경남아너스빌 디원 아파트의 분양가, 입지, 평면도, 청약 자격 정보를 확인하고, 나만의 청약 자격을 진단해보세요.">
+    <meta name="keywords" content="무등산 경남아너스빌 디원, 광주 아파트 분양, 광주 동구 아파트, 산수동 아파트, 청약 정보, 분양가, 입지 분석, 우리의 일상로그">
+    <meta name="author" content="우리의 일상로그">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="무등산 경남아너스빌 디원 | 청약 정보 완벽 분석">
+    <meta property="og:description" content="분양가부터 입지, 평면도, 청약 자격까지. 인터랙티브 웹으로 쉽게 확인하고 나의 청약 자격을 진단해보세요.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ourvlog.github.io/apt/2025000310.html">
+    <meta property="og:image" content="https://placehold.co/1200x630/4A90E2/FFFFFF?text=무등산+경남아너스빌+디원">
+    <meta property="og:site_name" content="우리의 일상로그">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Forest -->
+    <!-- Application Structure Plan: The SPA is designed as a single-page, scrollable dashboard. The structure prioritizes user journey from high-level summary to deep-dive details. It starts with a quick overview and key highlights (pros). Then, it delves into interactive pricing, followed by a detailed tabbed section for location analysis. Unit types and application guides are presented in clean, collapsible formats (accordions) to manage information density. This top-down, progressive disclosure approach was chosen to prevent overwhelming the user, allowing them to explore sections based on their interest, which is more user-friendly than a rigid report structure. -->
+    <!-- Visualization & Content Choices:
+    - Supply Info -> Goal: Compare -> Viz: Horizontal Bar Chart (Chart.js) -> Interaction: Hover tooltips for exact numbers -> Justification: Easily compare unit counts for each type.
+    - Pricing Info -> Goal: Show Real Cost -> Viz: HTML Table -> Interaction: JS-powered toggle button to add balcony cost -> Justification: Interactively demonstrates the full financial commitment.
+    - Location Info -> Goal: Organize -> Viz: Tabbed Interface (HTML/JS) -> Interaction: Click tabs to switch content -> Justification: Segments detailed location analysis into logical, digestible topics (transport, school, etc.).
+    - Qualifications -> Goal: Organize -> Viz: Interactive Form (HTML/JS) -> Interaction: User input triggers eligibility check -> Justification: Provides personalized, immediate feedback on complex qualification rules, replacing static text.
+    - All other elements use structured HTML with Tailwind and Unicode icons to maintain the friendly, informative tone of the source report.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        :root {
+            --bg-main: #F8F7F4;
+            --bg-card: #FFFFFF;
+            --text-primary: #2c3e50;
+            --text-secondary: #5a6877;
+            --accent-primary: #4A90E2;
+            --accent-secondary: #50E3C2;
+            --border-color: #EAEAEA;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .bg-main { background-color: var(--bg-main); }
+        .bg-card { background-color: var(--bg-card); }
+        .text-primary { color: var(--text-primary); }
+        .text-secondary { color: var(--text-secondary); }
+        .accent-primary { color: var(--accent-primary); }
+        .bg-accent-primary { background-color: var(--accent-primary); }
+        .border-accent-primary { border-color: var(--accent-primary); }
+        .border-light { border-color: var(--border-color); }
+        .tab-button.active {
+            border-bottom: 2px solid var(--accent-primary);
+            color: var(--accent-primary);
+            font-weight: 700;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 250px;
+            max-height: 300px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 300px;
+                max-height: 350px;
+            }
+        }
+        .form-select, .form-input {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-main);
+            transition: border-color 0.2s;
+        }
+        .form-select:focus, .form-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+    </style>
+</head>
+<body class="bg-main text-primary">
+
+    <div id="header-placeholder"></div>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <section id="hero" class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 leading-tight">광주 동구의 새로운 중심, 숲세권과 학세권을 동시에!</h2>
+            <p class="text-lg md:text-xl text-secondary max-w-3xl mx-auto mb-8">
+                복잡한 모집 공고는 잊으세요. '무등산 경남아너스빌 디원'의 모든 것을 한눈에 파악하고 현명한 청약 결정을 내릴 수 있도록 핵심만 모아 정리했습니다.
+            </p>
+            <a href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2025000310&pblancNo=2025000310" target="_blank" rel="noopener noreferrer" class="inline-block bg-accent-primary text-white font-bold px-8 py-3 rounded-lg shadow-lg hover:bg-opacity-90 transition-transform transform hover:scale-105">
+                청약홈 공고 바로가기 🚀
+            </a>
+        </section>
+        
+        <section id="overview" class="mb-16">
+            <h3 class="text-2xl font-bold text-center mb-8">1. 한눈에 보는 핵심 정보 🗓️</h3>
+             <p class="text-center text-secondary mb-12 max-w-2xl mx-auto">이 섹션에서는 청약 신청 전 반드시 알아야 할 단지의 기본 정보와 전체 청약 일정을 정리했습니다. 중요한 날짜를 놓치지 않도록 달력에 꼭 표시해두세요.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-card p-6 rounded-xl shadow-lg">
+                    <h4 class="font-bold text-xl mb-4 text-center">단지 기본 정보</h4>
+                    <ul class="space-y-3 text-secondary">
+                        <li class="flex justify-between items-center"><span class="font-semibold text-primary">단지명:</span><span>무등산 경남아너스빌 디원</span></li>
+                        <li class="flex justify-between items-center"><span class="font-semibold text-primary">건설사:</span><span>에스엠스틸(주) 건설부문</span></li>
+                        <li class="flex justify-between items-center"><span class="font-semibold text-primary">위치:</span><span class="text-right">광주광역시 동구 산수동 산67-23번지 일원</span></li>
+                        <li class="flex justify-between items-center"><span class="font-semibold text-primary">총 세대수:</span><span>293세대 (5개동, 최고 20층)</span></li>
+                        <li class="flex justify-between items-center"><span class="font-semibold text-primary">입주 예정일:</span><span class="font-bold accent-primary">2028년 4월</span></li>
+                    </ul>
+                </div>
+                <div class="bg-card p-6 rounded-xl shadow-lg">
+                    <h4 class="font-bold text-xl mb-4 text-center">주요 청약 일정</h4>
+                    <table class="w-full text-left text-secondary">
+                        <tbody>
+                            <tr class="border-b border-light"><td class="py-2 font-semibold text-primary">모집 공고일</td><td class="text-right">2025년 7월 18일 (금)</td></tr>
+                            <tr class="border-b border-light"><td class="py-2 font-semibold text-primary">특별공급 접수</td><td class="text-right">2025년 7월 28일 (월)</td></tr>
+                            <tr class="border-b border-light"><td class="py-2 font-semibold text-primary">1순위 접수</td><td class="text-right">2025년 7월 29일 (화)</td></tr>
+                            <tr class="border-b border-light"><td class="py-2 font-semibold text-primary">당첨자 발표</td><td class="text-right font-bold accent-primary">2025년 8월 6일 (수)</td></tr>
+                            <tr><td class="pt-2 font-semibold text-primary">계약 체결</td><td class="text-right pt-2">25.08.18(월) ~ 20(수)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="mb-16">
+            <h3 class="text-2xl font-bold text-center mb-8">2. 사업개요 및 분양가 💰</h3>
+            <p class="text-center text-secondary mb-12 max-w-2xl mx-auto">총 293세대, 전용 84㎡ 단일 면적으로 공급되는 이곳의 가격 경쟁력은 어떨까요? 타입별 공급 세대수와 분양가를 확인하고, '발코니 확장비 포함' 버튼으로 실제 총 투자금을 계산해보세요.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div class="bg-card p-6 rounded-xl shadow-lg">
+                    <h4 class="font-bold text-xl mb-4 text-center">타입별 공급 세대수</h4>
+                    <div class="chart-container">
+                        <canvas id="supplyChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-card p-6 rounded-xl shadow-lg">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-bold text-xl">타입별 분양가 (최고가 기준)</h4>
+                        <button id="priceToggle" class="bg-accent-primary text-white text-xs px-3 py-1 rounded-full hover:bg-opacity-80 transition-all">발코니 확장비 포함 보기</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-secondary whitespace-nowrap">
+                            <thead>
+                                <tr class="border-b-2 border-light">
+                                    <th class="py-2 font-semibold text-primary">타입</th>
+                                    <th class="py-2 font-semibold text-primary">최고 분양가</th>
+                                    <th class="py-2 font-semibold text-primary">계약금(5%)</th>
+                                    <th class="py-2 font-semibold text-primary">중도금(60%)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="price84A" class="border-b border-light">
+                                    <td class="py-2 font-bold">84A</td>
+                                    <td class="py-2" data-base-price="559000000">5억 5,900만원</td>
+                                    <td class="py-2">2,795만원</td>
+                                    <td class="py-2 font-semibold accent-primary">무이자</td>
+                                </tr>
+                                <tr id="price84B" class="border-b border-light">
+                                    <td class="py-2 font-bold">84B</td>
+                                    <td class="py-2" data-base-price="553000000">5억 5,300만원</td>
+                                    <td class="py-2">2,765만원</td>
+                                    <td class="py-2 font-semibold accent-primary">무이자</td>
+                                </tr>
+                                <tr id="price84C">
+                                    <td class="py-2 font-bold">84C</td>
+                                    <td class="py-2" data-base-price="559000000">5억 5,900만원</td>
+                                    <td class="py-2">2,795만원</td>
+                                    <td class="py-2 font-semibold accent-primary">무이자</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-xs text-right mt-2 text-secondary">⚠️ 발코니 확장비(3,900만원) 및 유상옵션 비용 별도</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="location" class="mb-16">
+            <h3 class="text-2xl font-bold text-center mb-8">3. 입지 환경 분석: 이곳에 살아도 될까? 🗺️</h3>
+            <p class="text-center text-secondary mb-12 max-w-2xl mx-auto">아파트의 가치는 입지가 결정합니다. 교통, 학군, 생활 인프라, 그리고 미래 가치까지. '그래서 나에게 좋은가?'라는 관점에서 각 탭을 클릭해 꼼꼼히 살펴보세요.</p>
+            <div class="bg-card rounded-xl shadow-lg p-2 md:p-4">
+                <div class="border-b border-light flex justify-center">
+                    <button class="tab-button active py-2 px-4 text-secondary" data-tab="transport">🚇 교통</button>
+                    <button class="tab-button py-2 px-4 text-secondary" data-tab="school">🏫 학군/생활</button>
+                    <button class="tab-button py-2 px-4 text-secondary" data-tab="dev">🌳 환경/호재</button>
+                </div>
+                <div id="transport" class="tab-content p-6">
+                    <h4 class="font-bold text-lg mb-4">직장까지 얼마나 걸릴까?</h4>
+                    <ul class="space-y-4 text-secondary">
+                        <li class="flex items-start"><span class="text-xl mr-3">🚇</span><div><strong class="text-primary">지하철:</strong> 도보 역세권은 아니지만, 차량 5~10분 거리에 광주 1호선 남광주역, 학동·증심사입구역이 있어 대중교통 이용이 가능합니다.</div></li>
+                        <li class="flex items-start"><span class="text-xl mr-3">🚗</span><div><strong class="text-primary">도로망:</strong> 제2순환로 접근이 편리해 광주 시내외로 빠르게 이동할 수 있습니다. 상무지구 등 주요 업무지구까지 자차 20~30분대 출퇴근이 가능합니다.</div></li>
+                        <li class="flex items-start"><span class="text-xl mr-3">📈</span><div><strong class="text-primary">미래 호재:</strong> 광주 도시철도 2호선이 개통되면 지역 전체의 대중교통망이 개선되어 간접적인 수혜가 기대됩니다.</div></li>
+                    </ul>
+                </div>
+                <div id="school" class="tab-content p-6 hidden">
+                    <h4 class="font-bold text-lg mb-4">아이 키우고 살기 좋은가?</h4>
+                    <ul class="space-y-4 text-secondary">
+                        <li class="flex items-start"><span class="text-xl mr-3">🏫</span><div><strong class="text-primary">학군 (초품아):</strong> 단지 바로 옆에 <strong class="accent-primary">장원초등학교</strong>가 위치한 '초품아' 단지로, 자녀의 안전한 통학 환경이 보장됩니다. 주변에 충장중, 조대여중, 조대여고 등 우수 중·고교도 밀집해 있습니다.</div></li>
+                        <li class="flex items-start"><span class="text-xl mr-3">🛒</span><div><strong class="text-primary">생활 인프라:</strong> 롯데백화점, NC백화점 등 쇼핑시설과 전남대병원, 조선대병원 등 대형 의료시설을 차량 10분 내로 이용할 수 있어 생활이 편리합니다.</div></li>
+                    </ul>
+                </div>
+                <div id="dev" class="tab-content p-6 hidden">
+                    <h4 class="font-bold text-lg mb-4">주변 환경 및 개발 호재</h4>
+                    <ul class="space-y-4 text-secondary">
+                        <li class="flex items-start"><span class="text-xl mr-3">🌳</span><div><strong class="text-primary">자연 환경 (숲세권):</strong> 대한민국 대표 명산인 <strong class="accent-secondary">무등산 국립공원</strong>을 앞마당처럼 누릴 수 있는 쾌적한 '숲세권' 입지입니다. 푸른길공원, 산수공원도 가까워 도심 속 힐링 라이프가 가능합니다.</div></li>
+                        <li class="flex items-start"><span class="text-xl mr-3">🏗️</span><div><strong class="text-primary">개발 호재:</strong> 단지가 위치한 산수동 일대는 재개발 사업이 활발히 진행 중인 신흥 주거타운입니다. 향후 주거 환경 개선과 인프라 확충에 따른 가치 상승이 기대됩니다.</div></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="plans" class="mb-16">
+            <h3 class="text-2xl font-bold text-center mb-8">4. 단지 배치 및 평면도 분석 🧭</h3>
+            <p class="text-center text-secondary mb-12 max-w-2xl mx-auto">좋은 집의 기본은 효율적인 구조입니다. 남향 위주 배치로 채광을 극대화하고, 타입별 특화 설계를 통해 생활의 가치를 높였습니다. 각 타입의 특징을 비교해보세요.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-card p-6 rounded-xl shadow-lg text-center">
+                    <h4 class="font-bold text-xl mb-2">84A 타입 (162세대)</h4>
+                    <p class="text-secondary mb-4">가장 선호도 높은 <strong>4베이 판상형 구조</strong>로, 맞통풍과 채광이 우수합니다. 넉넉한 드레스룸과 팬트리 등 수납공간이 강점입니다.</p>
+                    <div class="bg-gray-100 h-40 flex items-center justify-center rounded-lg text-secondary">`[평면도 이미지 삽입]`</div>
+                </div>
+                <div class="bg-card p-6 rounded-xl shadow-lg text-center">
+                    <h4 class="font-bold text-xl mb-2">84B 타입 (64세대)</h4>
+                    <p class="text-secondary mb-4"><strong>타워형 구조</strong>의 장점을 살려 2면 개방으로 다양한 조망을 확보했습니다. 안방과 자녀 공간을 분리하여 프라이버시를 존중합니다.</p>
+                    <div class="bg-gray-100 h-40 flex items-center justify-center rounded-lg text-secondary">`[평면도 이미지 삽입]`</div>
+                </div>
+                <div class="bg-card p-6 rounded-xl shadow-lg text-center">
+                    <h4 class="font-bold text-xl mb-2">84C 타입 (67세대)</h4>
+                    <p class="text-secondary mb-4">84B 타입과 유사한 <strong>타워형 구조</strong>로 설계되어 개방감과 독립적인 공간 구성이 특징입니다. 실용적인 공간 배치가 돋보입니다.</p>
+                    <div class="bg-gray-100 h-40 flex items-center justify-center rounded-lg text-secondary">`[평면도 이미지 삽입]`</div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="application" class="mb-16">
+            <h3 class="text-2xl font-bold text-center mb-8">5. 청약 자격 완벽 정리: 나는 신청할 수 있을까? 🙋‍♀️🙋‍♂️</h3>
+             <p class="text-center text-secondary mb-12 max-w-2xl mx-auto">가장 복잡하게 느껴지는 청약 자격, 더 이상 어렵지 않습니다. 아래 정보를 입력하고 '자격 확인하기' 버튼을 눌러 나에게 맞는 청약 유형을 바로 확인해보세요!</p>
+            <div class="bg-card rounded-xl shadow-lg p-6 md:p-8">
+                <div id="checker-form" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div>
+                        <label for="residence" class="block text-sm font-medium text-primary mb-1">거주지</label>
+                        <select id="residence" class="form-select">
+                            <option value="gwangju_over_1y">광주광역시 1년 이상 거주</option>
+                            <option value="gwangju_under_1y">광주광역시 1년 미만 거주</option>
+                            <option value="jeonnam">전라남도 거주</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="is_household_head" class="block text-sm font-medium text-primary mb-1">세대주 여부</label>
+                        <select id="is_household_head" class="form-select">
+                            <option value="yes">예</option>
+                            <option value="no">아니오</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="housing_status" class="block text-sm font-medium text-primary mb-1">무주택 여부</label>
+                        <select id="housing_status" class="form-select">
+                            <option value="none">무주택</option>
+                            <option value="one">1주택</option>
+                            <option value="multiple">2주택 이상</option>
+                        </select>
+                    </div>
+                     <div>
+                        <label for="marital_status" class="block text-sm font-medium text-primary mb-1">혼인 여부 (7년 이내)</label>
+                        <select id="marital_status" class="form-select">
+                            <option value="no">미혼 또는 7년 초과</option>
+                            <option value="yes">기혼 (7년 이내)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="subscription_period" class="block text-sm font-medium text-primary mb-1">청약통장 가입기간 (개월)</label>
+                        <input type="number" id="subscription_period" class="form-input" placeholder="예: 12">
+                    </div>
+                    <div>
+                        <label for="subscription_deposit" class="block text-sm font-medium text-primary mb-1">청약통장 예치금 (만원)</label>
+                        <input type="number" id="subscription_deposit" class="form-input" placeholder="예: 300">
+                    </div>
+                     <div>
+                        <label for="num_children" class="block text-sm font-medium text-primary mb-1">만 19세 미만 자녀 수</label>
+                        <input type="number" id="num_children" class="form-input" placeholder="예: 2">
+                    </div>
+                     <div>
+                        <label for="first_time_buyer" class="block text-sm font-medium text-primary mb-1">세대원 모두 생애최초 주택 구매</label>
+                        <select id="first_time_buyer" class="form-select">
+                            <option value="yes">예</option>
+                            <option value="no">아니오</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="text-center mb-8">
+                    <button id="check-eligibility-btn" class="bg-accent-secondary text-white font-bold px-8 py-3 rounded-lg shadow-lg hover:bg-opacity-90 transition-transform transform hover:scale-105">
+                        나의 청약 자격 확인하기
+                    </button>
+                </div>
+                <div id="eligibility-results" class="bg-main p-6 rounded-lg min-h-[10rem] flex items-center justify-center">
+                    <p class="text-secondary">정보를 입력하고 '자격 확인하기' 버튼을 눌러주세요.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="summary" class="mb-16">
+            <h3 class="text-2xl font-bold text-center mb-8">6. 최종 정리 및 총평 ✍️</h3>
+            <p class="text-center text-secondary mb-12 max-w-2xl mx-auto">모든 정보를 종합하여 이 아파트의 핵심 장점과 단점을 요약했습니다. 과연 나에게 맞는 선택일지, 객관적인 시각으로 최종 판단을 내려보세요.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <div class="bg-card p-6 rounded-xl shadow-lg">
+                    <h4 class="font-bold text-xl mb-4 text-center text-green-500">👍 장점 3가지</h4>
+                    <ul class="space-y-3 list-disc list-inside text-secondary">
+                        <li><strong>초품아 & 숲세권:</strong> 장원초를 품은 학세권과 무등산의 쾌적함을 동시에 누릴 수 있는 최적의 입지.</li>
+                        <li><strong>합리적인 분양 조건:</strong> 5억대 분양가, 계약금 5%, 중도금 전액 무이자 혜택으로 자금 부담 완화.</li>
+                        <li><strong>비규제지역 프리미엄:</strong> 전매제한 6개월, 재당첨 제한 및 실거주 의무가 없어 투자 관점에서도 매력적.</li>
+                    </ul>
+                </div>
+                 <div class="bg-card p-6 rounded-xl shadow-lg">
+                    <h4 class="font-bold text-xl mb-4 text-center text-red-500">👎 단점 3가지</h4>
+                    <ul class="space-y-3 list-disc list-inside text-secondary">
+                        <li><strong>아쉬운 역세권:</strong> 도보로 이용 가능한 지하철역이 없어 대중교통 의존도가 높은 이에겐 아쉬움.</li>
+                        <li><strong>소규모 단지:</strong> 293세대로, 대단지 대비 커뮤니티 시설이나 관리비 측면에서 다소 불리할 수 있음.</li>
+                        <li><strong>별도 비용 부담:</strong> 발코니 확장비(3,900만원)와 유상 옵션 비용 추가로 실제 부담금은 더 높아짐.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bg-blue-50 border-l-4 border-accent-primary p-6 rounded-r-lg shadow-lg">
+                <h4 class="font-bold text-xl mb-2">최종 총평</h4>
+                <p class="text-secondary">이러한 특징을 종합해볼 때, **[무등산 경남아너스빌 디원]**은 **무등산의 쾌적한 자연환경 속에서 자녀를 안전하게 키우고 싶은 3040 실수요자**에게 가장 매력적인 선택지가 될 것입니다. 특히 비규제지역이라는 장점 덕분에 향후 시세 차익을 기대하는 투자자에게도 좋은 기회가 될 수 있습니다.</p>
+            </div>
+        </section>
+
+    </main>
+    
+    <div id="footer-placeholder"></div>
+    
+    <script src="/js/common.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const apartmentData = {
+                supply: {
+                    labels: ['84A 타입', '84B 타입', '84C 타입'],
+                    data: [162, 64, 67]
+                },
+                balcony_cost: 39000000,
+            };
+
+            function formatCurrency(num) {
+                const 억 = Math.floor(num / 100000000);
+                const 만 = Math.floor((num % 100000000) / 10000);
+                let result = '';
+                if (억 > 0) result += `${억}억 `;
+                if (만 > 0) result += `${만.toLocaleString()}만원`;
+                return result.trim() || '0원';
+            }
+
+            const ctx = document.getElementById('supplyChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: apartmentData.supply.labels,
+                    datasets: [{
+                        label: '공급 세대수',
+                        data: apartmentData.supply.data,
+                        backgroundColor: [
+                            'rgba(74, 144, 226, 0.6)',
+                            'rgba(80, 227, 194, 0.6)',
+                            'rgba(126, 211, 33, 0.6)',
+                        ],
+                        borderColor: [
+                            'rgba(74, 144, 226, 1)',
+                            'rgba(80, 227, 194, 1)',
+                            'rgba(126, 211, 33, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) { return `${context.raw} 세대`; }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: { display: true, text: '세대수' }
+                        }
+                    }
+                }
+            });
+
+            const priceToggleBtn = document.getElementById('priceToggle');
+            let showingBasePrice = true;
+            priceToggleBtn.addEventListener('click', () => {
+                showingBasePrice = !showingBasePrice;
+                document.querySelectorAll('#pricing tbody tr').forEach(row => {
+                    const priceCell = row.querySelector('td[data-base-price]');
+                    const basePrice = parseInt(priceCell.dataset.basePrice);
+                    if (showingBasePrice) {
+                        priceCell.textContent = formatCurrency(basePrice);
+                        priceToggleBtn.textContent = '발코니 확장비 포함 보기';
+                    } else {
+                        const totalPrice = basePrice + apartmentData.balcony_cost;
+                        priceCell.innerHTML = `${formatCurrency(totalPrice)} <span class="text-xs text-red-500">(+확장비)</span>`;
+                        priceToggleBtn.textContent = '기본 분양가 보기';
+                    }
+                });
+            });
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const tabId = button.dataset.tab;
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.id === tabId ? content.classList.remove('hidden') : content.classList.add('hidden');
+                    });
+                });
+            });
+
+            const checkEligibilityBtn = document.getElementById('check-eligibility-btn');
+            const resultsDiv = document.getElementById('eligibility-results');
+
+            checkEligibilityBtn.addEventListener('click', () => {
+                const residence = document.getElementById('residence').value;
+                const isHead = document.getElementById('is_household_head').value === 'yes';
+                const housing = document.getElementById('housing_status').value;
+                const marital = document.getElementById('marital_status').value === 'yes';
+                const period = parseInt(document.getElementById('subscription_period').value) || 0;
+                const deposit = (parseInt(document.getElementById('subscription_deposit').value) || 0) * 10000;
+                const children = parseInt(document.getElementById('num_children').value) || 0;
+                const firstTime = document.getElementById('first_time_buyer').value === 'yes';
+
+                let resultsHTML = '<div class="space-y-4 text-left w-full">';
+                
+                const depositNeeded = residence === 'jeonnam' ? 2000000 : 2500000;
+                const isFirstPriorityCore = isHead && period >= 6 && deposit >= depositNeeded && housing !== 'multiple';
+                
+                let general1st = { eligible: false, reasons: [] };
+                if (!isHead) general1st.reasons.push('세대주가 아님');
+                if (period < 6) general1st.reasons.push('청약통장 가입기간 6개월 미만');
+                if (deposit < depositNeeded) general1st.reasons.push(`예치금 부족 (필요: ${formatCurrency(depositNeeded)})`);
+                if (housing === 'multiple') general1st.reasons.push('2주택 이상 소유');
+                general1st.eligible = general1st.reasons.length === 0;
+                resultsHTML += createResultItem('일반공급 1순위', general1st.eligible, general1st.reasons);
+
+                let newlywed = { eligible: false, reasons: [] };
+                if (!marital) newlywed.reasons.push('혼인기간 7년 초과 또는 미혼');
+                if (housing !== 'none') newlywed.reasons.push('무주택이 아님');
+                if (period < 6) newlywed.reasons.push('청약통장 가입기간 6개월 미만');
+                newlywed.eligible = newlywed.reasons.length === 0;
+                resultsHTML += createResultItem('신혼부부 특별공급', newlywed.eligible, newlywed.reasons, '소득/자산 기준 별도 확인 필요');
+
+                let firstTimeBuyer = { eligible: false, reasons: [] };
+                if (!isFirstPriorityCore) firstTimeBuyer.reasons.push('일반공급 1순위 기본요건 미충족');
+                if (!firstTime) firstTimeBuyer.reasons.push('세대원 중 주택 소유 이력 있음');
+                firstTimeBuyer.eligible = firstTimeBuyer.reasons.length === 0;
+                resultsHTML += createResultItem('생애최초 특별공급', firstTimeBuyer.eligible, firstTimeBuyer.reasons, '5년 이상 소득세 납부 및 소득/자산 기준 별도 확인 필요');
+
+                let multiChild = { eligible: false, reasons: [] };
+                if (children < 2) multiChild.reasons.push('만 19세 미만 자녀 2명 미만');
+                if (housing !== 'none') multiChild.reasons.push('무주택이 아님');
+                if (period < 6) multiChild.reasons.push('청약통장 가입기간 6개월 미만');
+                multiChild.eligible = multiChild.reasons.length === 0;
+                resultsHTML += createResultItem('다자녀 특별공급', multiChild.eligible, multiChild.reasons, '소득/자산 기준 별도 확인 필요');
+
+                resultsHTML += '</div>';
+                resultsDiv.innerHTML = resultsHTML;
+            });
+
+            function createResultItem(title, eligible, reasons, note = '') {
+                const icon = eligible ? '<span class="text-green-500">✅</span>' : '<span class="text-red-500">❌</span>';
+                const statusText = eligible ? '신청 가능' : '신청 어려움';
+                const colorClass = eligible ? 'text-green-600' : 'text-red-600';
+                
+                let reasonHTML = '';
+                if (reasons.length > 0) {
+                    reasonHTML = `<ul class="text-xs text-secondary list-disc list-inside pl-2 mt-1">
+                        ${reasons.map(r => `<li>${r}</li>`).join('')}
+                    </ul>`;
+                }
+                
+                let noteHTML = '';
+                if (note) {
+                    noteHTML = `<p class="text-xs text-blue-500 mt-1">※ ${note}</p>`;
+                }
+
+                return `
+                    <div class="border-b border-light pb-3">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-bold text-lg">${icon} ${title}</h4>
+                            <span class="font-bold ${colorClass}">${statusText}</span>
+                        </div>
+                        ${reasonHTML}
+                        ${noteHTML}
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
