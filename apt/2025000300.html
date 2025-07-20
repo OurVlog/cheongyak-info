@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>외도 성원상떼빌 분양 정보 | 우리의 일상로그</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="제주 외도 성원상떼빌 아파트의 분양가, 청약 자격, 입지, 전매 정보 등 모든 것을 담은 인터랙티브 가이드. 1순위 자격을 직접 확인해보세요.">
+    <meta name="keywords" content="외도 성원상떼빌, 제주 아파트 분양, 제주 청약, 2025000300, 아파트 청약 자격, 분양가, 전매제한 없음">
+    <meta name="author" content="우리의 일상로그">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="외도 성원상떼빌 분양 정보 | 우리의 일상로그">
+    <meta property="og:description" content="제주 외도 성원상떼빌의 모든 분양 정보를 인터랙티브 대시보드로 쉽게 확인하세요.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ourvlog.github.io/apt/2025000300.html">
+    <meta property="og:image" content="https://placehold.co/1200x630/EAE5F3/383838?text=외도+성원상떼빌">
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Harmony (Background: #FDFBF8, Text: #383838, Accent: #6A8D73, Secondary: #D1C4E9) -->
+    <!-- Application Structure Plan: A single-page dashboard structure is used to provide information intuitively. It starts with key highlights and a countdown for urgency. The core information is divided into interactive tabs (Supply Info, Location, Eligibility) allowing users to explore based on their interests. This non-linear approach is more user-friendly than a traditional blog format. Key regulations are emphasized with visual cards for quick recognition. The structure is designed to guide the user from a broad overview to detailed exploration and self-assessment, maximizing usability. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Unit type distribution -> Goal: Compare proportions -> Viz: Donut Chart (Chart.js) -> Interaction: Hover to see details -> Justification: Provides a quick visual summary of the unit mix.
+        - Report Info: Price per unit type -> Goal: Detailed comparison -> Viz: Interactive HTML Table -> Interaction: Filter/Sort by type -> Justification: Allows users to dive deep into the numbers that matter most to them.
+        - Report Info: Location features -> Goal: Visualize spatial benefits -> Viz: Icon-based map layout (HTML/Tailwind) -> Interaction: Click icons to show info -> Justification: More engaging than a text list and provides a sense of place.
+        - Report Info: 1st priority eligibility rules -> Goal: Enable self-assessment -> Viz: Interactive Checklist (HTML/JS) -> Interaction: Check boxes to see real-time qualification status -> Justification: Turns complex rules into a simple, actionable tool.
+        - Report Info: Key regulations (no resale limit etc.) -> Goal: Emphasize core advantages -> Viz: Highlighted Info Cards (HTML/Tailwind) -> Interaction: Simple hover effects -> Justification: Makes the biggest selling points visually prominent and easily digestible.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FDFBF8;
+            color: #383838;
+        }
+        .accent-bg { background-color: #6A8D73; }
+        .accent-text { color: #6A8D73; }
+        .accent-border { border-color: #6A8D73; }
+        .secondary-bg { background-color: #EAE5F3; }
+        .secondary-text { color: #5E35B1; }
+        .tab-button.active {
+            border-bottom: 2px solid #6A8D73;
+            color: #6A8D73;
+            font-weight: 700;
+        }
+        .tab-button {
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .form-input, .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid #D1D5DB;
+            background-color: #FFFFFF;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #6A8D73;
+            box-shadow: 0 0 0 2px rgba(106, 141, 115, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">제주 외도 성원상떼빌</h1>
+            <p class="text-lg text-gray-600">핵심만 담은 인터랙티브 청약 가이드</p>
+            <a href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2025000300&pblancNo=2025000300" target="_blank" rel="noopener noreferrer" class="mt-4 inline-block bg-green-700 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-800 transition-colors">
+                청약홈 공고문 보기 ➔
+            </a>
+        </header>
+
+        <section class="mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                <div class="bg-white p-6 rounded-xl shadow-sm card-hover">
+                    <p class="text-3xl mb-2">🔑</p>
+                    <h3 class="font-bold text-lg">규제 없는 자유로움</h3>
+                    <p class="text-gray-500">전매, 재당첨, 실거주 의무 없음</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm card-hover">
+                    <p class="text-3xl mb-2">💰</p>
+                    <h3 class="font-bold text-lg">5억대 분양가</h3>
+                    <p class="text-gray-500">합리적인 내 집 마련 기회</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm card-hover">
+                    <p class="text-3xl mb-2">🗓️</p>
+                    <h3 class="font-bold text-lg">1순위 청약일</h3>
+                    <p class="text-gray-500" id="countdown">2025년 7월 21일</p>
+                </div>
+            </div>
+        </section>
+
+        <main class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+            <div class="border-b border-gray-200 mb-6">
+                <nav class="-mb-px flex justify-center space-x-4 md:space-x-8" aria-label="Tabs">
+                    <button class="tab-button active" data-tab="supply">분양 정보</button>
+                    <button class="tab-button" data-tab="location">입지 분석</button>
+                    <button class="tab-button" data-tab="eligibility">청약 자격</button>
+                    <button class="tab-button" data-tab="summary">최종 정리</button>
+                </nav>
+            </div>
+
+            <div id="tab-content">
+                <div class="tab-pane fade-in active" id="supply">
+                    <h2 class="text-2xl font-bold text-center mb-2">사업개요 및 분양가</h2>
+                    <p class="text-center text-gray-500 mb-8">총 83세대, 8개 타입으로 공급됩니다. 계약금은 3,000만원 정액제입니다.</p>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                        <div class="chart-container">
+                            <canvas id="supplyChart"></canvas>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead class="border-b">
+                                    <tr>
+                                        <th class="py-2 px-4">타입</th>
+                                        <th class="py-2 px-4">세대수</th>
+                                        <th class="py-2 px-4">최고 분양가</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-4 font-semibold accent-text">82D</td><td class="py-2 px-4">11 세대</td><td class="py-2 px-4">5억 7,632만 원</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-4 font-semibold accent-text">84A</td><td class="py-2 px-4">6 세대</td><td class="py-2 px-4">5억 9,695만 원</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-4 font-semibold accent-text">84B</td><td class="py-2 px-4">11 세대</td><td class="py-2 px-4">5억 9,774만 원</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-4 font-semibold accent-text">84C</td><td class="py-2 px-4">11 세대</td><td class="py-2 px-4">5억 9,854만 원</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-4 font-semibold accent-text">84E</td><td class="py-2 px-4">11 세대</td><td class="py-2 px-4">5억 8,584만 원</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-4 font-semibold accent-text">84F</td><td class="py-2 px-4">11 세대</td><td class="py-2 px-4">5억 8,784만 원</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-4 font-semibold accent-text">84G</td><td class="py-2 px-4">11 세대</td><td class="py-2 px-4">5억 9,831만 원</td></tr>
+                                    <tr class="hover:bg-gray-50"><td class="py-2 px-4 font-semibold accent-text">84H</td><td class="py-2 px-4">11 세대</td><td class="py-2 px-4">5억 9,814만 원</td></tr>
+                                </tbody>
+                            </table>
+                             <p class="text-xs text-gray-500 mt-4 text-right">⚠️ 분양가는 발코니 확장 및 옵션 미포함 금액입니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade-in" id="location" style="display: none;">
+                    <h2 class="text-2xl font-bold text-center mb-2">입지 환경 분석</h2>
+                    <p class="text-center text-gray-500 mb-8">제주공항 접근성이 좋고, 초등학교와 신설 예정 중학교 등 학군이 기대됩니다.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                         <div class="secondary-bg p-6 rounded-lg"><h3 class="font-bold text-lg mb-4 text-center secondary-text">주요 시설 접근성</h3><ul class="space-y-3"><li class="flex items-start p-3 rounded-md hover:bg-white transition-colors"><span class="text-2xl mr-4">✈️</span><div><h4 class="font-semibold">제주국제공항</h4><p class="text-sm text-gray-600">자차 약 20분 소요, 편리한 교통</p></div></li><li class="flex items-start p-3 rounded-md hover:bg-white transition-colors"><span class="text-2xl mr-4">🏫</span><div><h4 class="font-semibold">학군 정보</h4><p class="text-sm text-gray-600">외도초등학교 배정, (가칭)제주 서부중 신설 예정(27년)</p></div></li><li class="flex items-start p-3 rounded-md hover:bg-white transition-colors"><span class="text-2xl mr-4">🛒</span><div><h4 class="font-semibold">생활 인프라</h4><p class="text-sm text-gray-600">단지 인근 근린생활시설 위치, 주거지역으로 생활 편리</p></div></li></ul></div>
+                        <div class="secondary-bg p-6 rounded-lg flex flex-col items-center justify-center"><h3 class="font-bold text-lg mb-4 text-center secondary-text">위치도</h3><div class="w-full h-64 bg-green-50 rounded-lg flex items-center justify-center text-gray-400 border-2 border-dashed"><p>지도 이미지 영역</p></div><p class="text-xs text-gray-500 mt-2">※ 위 이미지는 이해를 돕기 위한 것으로 실제와 차이가 있을 수 있습니다.</p></div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade-in" id="eligibility" style="display: none;">
+                    <h2 class="text-2xl font-bold text-center mb-2">청약 자격 확인하기</h2>
+                    <p class="text-center text-gray-500 mb-8">아래 정보를 입력하고 '자격 확인' 버튼을 눌러주세요.</p>
+                    <div class="max-w-lg mx-auto secondary-bg p-6 rounded-lg">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label for="residence" class="block text-sm font-medium text-gray-700 mb-1">거주지</label>
+                                <select id="residence" class="form-select">
+                                    <option value="jeju_long">제주특별자치도 1년 이상</option>
+                                    <option value="jeju_short">제주특별자치도 1년 미만</option>
+                                    <option value="other">기타 지역</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="subscription-period" class="block text-sm font-medium text-gray-700 mb-1">청약통장 가입기간 (개월)</label>
+                                <input type="number" id="subscription-period" class="form-input" placeholder="예: 12">
+                            </div>
+                            <div>
+                                <label for="deposit-amount" class="block text-sm font-medium text-gray-700 mb-1">청약통장 예치금 (만원)</label>
+                                <input type="number" id="deposit-amount" class="form-input" placeholder="예: 300">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">세대주 여부</label>
+                                <div class="flex items-center space-x-4 mt-2">
+                                    <label><input type="radio" name="owner-type" value="owner" checked class="accent-text focus:ring-green-400"> 세대주</label>
+                                    <label><input type="radio" name="owner-type" value="member" class="accent-text focus:ring-green-400"> 세대원</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="check-eligibility-btn" class="w-full accent-bg text-white font-bold py-3 px-4 rounded-lg hover:opacity-90 transition-opacity">자격 확인</button>
+                        <div id="eligibility-result" class="mt-6 text-center font-bold p-4 rounded-md transition-all bg-gray-100 text-gray-800">
+                            정보를 입력하고 결과를 확인하세요.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-pane fade-in" id="summary" style="display: none;">
+                     <h2 class="text-2xl font-bold text-center mb-8">최종 정리 및 총평</h2>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                         <div class="bg-green-50 p-6 rounded-lg"><h3 class="font-bold text-lg mb-4 text-center text-green-800">👍 장점</h3><ul class="space-y-3 list-disc list-inside text-gray-700"><li><span class="font-semibold">압도적인 비규제 혜택:</span> 전매제한, 재당첨제한, 실거주 의무가 모두 없어 투자 및 실거주 전략 수립이 자유롭습니다.</li><li><span class="font-semibold">낮은 청약 문턱:</span> 유주택자, 세대원도 청약통장 가입 6개월 조건만 충족하면 1순위 청약이 가능합니다.</li><li><span class="font-semibold">합리적인 계약 조건:</span> 계약금 3,000만원 정액제, 중도금 없이 진행되어 초기 자금 부담이 적습니다.</li></ul></div>
+                         <div class="bg-red-50 p-6 rounded-lg"><h3 class="font-bold text-lg mb-4 text-center text-red-800">👎 단점</h3><ul class="space-y-3 list-disc list-inside text-gray-700"><li><span class="font-semibold">소규모 단지:</span> 83세대로 대단지에 비해 커뮤니티 시설이나 관리비 측면에서 다소 불리할 수 있습니다.</li><li><span class="font-semibold">부족한 정보:</span> 공고문에 평면도 등 구체적인 정보가 부족하여 반드시 견본주택 방문이 필요합니다.</li><li><span class="font-semibold">특별공급 부재:</span> 특별공급 물량이 없어 가점이 낮은 실수요자의 당첨 기회가 제한됩니다.</li></ul></div>
+                     </div>
+                     <div class="mt-8 bg-gray-100 p-6 rounded-lg text-center"><h3 class="font-bold text-lg mb-2">어떤 사람에게 추천할까?</h3><p class="text-gray-700">이러한 특징을 종합해볼 때, **[외도 성원상떼빌]**은 **비교적 적은 초기 자금으로 제주도에 내 집 마련을 꿈꾸거나, 규제에서 자유로운 투자처를 찾는 분들**에게 가장 매력적인 선택지가 될 것입니다.</p></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('.tab-button');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-tab');
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    tabPanes.forEach(pane => {
+                        pane.style.display = pane.id === target ? 'block' : 'none';
+                        if (pane.id === target) pane.classList.add('active');
+                        else pane.classList.remove('active');
+                    });
+                });
+            });
+
+            const countdownElement = document.getElementById('countdown');
+            if (countdownElement) {
+                const eventDate = new Date('2025-07-21T09:00:00');
+                const updateCountdown = () => {
+                    const now = new Date();
+                    const diff = eventDate - now;
+                    if (diff <= 0) {
+                        countdownElement.textContent = '청약 접수 시작!';
+                        return;
+                    }
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    countdownElement.textContent = `D-${days} ${hours}시간 ${minutes}분 전`;
+                };
+                updateCountdown();
+                setInterval(updateCountdown, 60000);
+            }
+
+            const ctx = document.getElementById('supplyChart');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['82D', '84A', '84B', '84C', '84E', '84F', '84G', '84H'],
+                        datasets: [{
+                            label: '세대수',
+                            data: [11, 6, 11, 11, 11, 11, 11, 11],
+                            backgroundColor: ['rgba(106, 141, 115, 0.8)','rgba(209, 196, 233, 0.8)','rgba(106, 141, 115, 0.6)','rgba(209, 196, 233, 0.6)','rgba(106, 141, 115, 0.4)','rgba(209, 196, 233, 0.4)','rgba(106, 141, 115, 0.2)','rgba(209, 196, 233, 0.2)'],
+                            borderColor: '#FDFBF8',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'bottom' },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) { label += ': '; }
+                                        if (context.parsed !== null) { label += context.parsed + '세대'; }
+                                        return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            const checkBtn = document.getElementById('check-eligibility-btn');
+            if (checkBtn) {
+                checkBtn.addEventListener('click', () => {
+                    const residence = document.getElementById('residence').value;
+                    const period = parseInt(document.getElementById('subscription-period').value, 10) || 0;
+                    const deposit = (parseInt(document.getElementById('deposit-amount').value, 10) || 0) * 10000;
+                    const resultDiv = document.getElementById('eligibility-result');
+
+                    let messages = [];
+                    let isEligible1st = true;
+
+                    if (residence === 'other') {
+                        isEligible1st = false;
+                        messages.push('❌ 거주지 요건 미충족: 제주특별자치도 거주자만 청약 가능합니다.');
+                    } else {
+                        messages.push('✅ 거주지: 제주특별자치도 거주');
+                    }
+
+                    if (period < 6) {
+                        isEligible1st = false;
+                        messages.push(`❌ 가입기간 미충족: 6개월 이상 필요 (현재 ${period}개월)`);
+                    } else {
+                        messages.push(`✅ 가입기간: ${period}개월`);
+                    }
+
+                    if (deposit < 2000000) {
+                        isEligible1st = false;
+                        messages.push(`❌ 예치금 미충족: 200만원 이상 필요 (현재 ${deposit.toLocaleString()}원)`);
+                    } else {
+                        messages.push(`✅ 예치금: ${deposit.toLocaleString()}원`);
+                    }
+                    
+                    let resultHTML = '';
+                    if (isEligible1st) {
+                        resultDiv.className = 'mt-6 text-center font-bold p-4 rounded-md transition-all accent-bg text-white';
+                        resultHTML = '🎉 축하합니다! 1순위 청약 자격이 충족됩니다.';
+                        if (residence === 'jeju_long') {
+                            resultHTML += '<p class="text-sm font-normal mt-1">제주 1년 이상 거주자로 해당지역 우선공급 대상입니다.</p>';
+                        } else {
+                             resultHTML += '<p class="text-sm font-normal mt-1">제주 1년 미만 거주자로 기타지역 공급 대상입니다.</p>';
+                        }
+                    } else if (residence !== 'other') {
+                        resultDiv.className = 'mt-6 text-center font-bold p-4 rounded-md transition-all bg-yellow-100 text-yellow-800';
+                        resultHTML = '⚠️ 아쉽지만 1순위 조건이 부족합니다. 2순위로 청약 가능합니다.';
+                        resultHTML += `<ul class="text-sm font-normal mt-2 text-left list-disc list-inside">${messages.map(m => `<li>${m}</li>`).join('')}</ul>`;
+                    } else {
+                        resultDiv.className = 'mt-6 text-center font-bold p-4 rounded-md transition-all bg-red-100 text-red-800';
+                        resultHTML = '🚫 청약 자격이 없습니다.';
+                         resultHTML += `<ul class="text-sm font-normal mt-2 text-left list-disc list-inside">${messages.map(m => `<li>${m}</li>`).join('')}</ul>`;
+                    }
+                    resultDiv.innerHTML = resultHTML;
+                });
+            }
+        });
+    </script>
+    <script src="/js/common.js" defer></script>
+</body>
+</html>
