@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Meta Tags -->
+    <title>북항 월드메르디앙 그랑블루 | 청약 정보, 분양가, 입지 분석</title>
+    <meta name="description" content="부산 북항 재개발 최대 수혜지, 북항 월드메르디앙 그랑블루의 분양가, 청약 자격, 전매 정보, 입지 분석 등 모든 정보를 인터랙티브 가이드로 확인하세요.">
+    <meta name="keywords" content="북항 월드메르디앙, 부산 청약, 북항 재개발, 부산 아파트 분양, 2025000031, 청약 자격, 분양가, 전매제한">
+    <meta name="author" content="우리의 일상로그">
+    <meta property="og:title" content="북항 월드메르디앙 그랑블루 | 인터랙티브 청약 가이드">
+    <meta property="og:description" content="부산 원도심 핵심, 북항 재개발 최대 수혜 아파트! 분양가부터 청약 자격까지 모든 정보를 한눈에 확인하고, 내 자격을 직접 진단해보세요.">
+    <meta property="og:url" content="https://ourvlog.github.io/apt/2025000031.html">
+    <meta property="og:type" content="website">
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: A single-page dashboard design was chosen to provide users with a comprehensive yet easily navigable overview. The structure begins with a scannable summary (Key Info, Schedule), followed by themed sections (Sales Info, Location, Eligibility, Summary). Navigation is facilitated by a sticky header. This non-linear structure is superior to a simple blog format because users can directly jump to the information they need most, such as pricing or eligibility, without scrolling through lengthy text. Interactive elements like charts, tabs, and accordions are used to present dense information in a digestible format, enhancing user engagement and understanding. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Unit Type Prices -> Goal: Compare -> Viz/Method: Chart.js Bar Chart -> Interaction: Hover tooltips for exact prices -> Justification: Visually highlights price differences more effectively than a table.
+        - Report Info: Location Details (Transport, Schools, Development) -> Goal: Organize -> Viz/Method: Tabbed HTML sections -> Interaction: Click to switch content -> Justification: Breaks down a large volume of text into manageable, user-selected topics.
+        - Report Info: Eligibility Criteria (Special/General) -> Goal: Organize -> Viz/Method: Interactive form -> Interaction: User input triggers result display -> Justification: Provides personalized feedback, making complex rules directly relevant to the user.
+        - Report Info: Pros & Cons -> Goal: Compare -> Viz/Method: Two-column HTML layout -> Interaction: Static view -> Justification: Facilitates direct side-by-side comparison for a quick summary.
+        - Library/Method: Chart.js for visualizations, vanilla JS for interactions, Tailwind CSS for layout. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 50vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 450px;
+            }
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #1e40af;
+            border-bottom-color: #1e40af;
+        }
+        .tab-button.active {
+            background-color: #2563eb;
+            color: white;
+        }
+        .eligibility-result {
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div id="header-placeholder"></div>
+
+    <main>
+        <section id="home" class="container mx-auto px-4 py-16 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 text-slate-900">북항 월드메르디앙 그랑블루</h1>
+            <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">부산 원도심의 심장, 북항 재개발의 최대 수혜지! 6개월 전매 가능한 핵심 입지를 인터랙티브 가이드로 분석해 보세요.</p>
+        </section>
+
+        <section class="container mx-auto px-4 pb-16">
+            <h2 class="text-3xl font-bold text-center mb-10 text-slate-900">한눈에 보는 핵심 정보 🗓️</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-lg flex flex-col">
+                    <h3 class="text-2xl font-bold mb-4 text-center">✅ 단지 기본 정보</h3>
+                    <div class="overflow-x-auto flex-grow">
+                        <table class="w-full text-left">
+                            <tbody>
+                                <tr class="border-b"><td class="py-2 font-semibold">단지명</td><td class="py-2">북항 월드메르디앙 그랑블루</td></tr>
+                                <tr class="border-b"><td class="py-2 font-semibold">건설사</td><td class="py-2">마조아종합건설(주)</td></tr>
+                                <tr class="border-b"><td class="py-2 font-semibold">위치</td><td class="py-2">부산광역시 동구 초량동 648-13번지 일원</td></tr>
+                                <tr class="border-b"><td class="py-2 font-semibold">총 세대수</td><td class="py-2">68세대 (특공 39, 일반 29)</td></tr>
+                                <tr><td class="py-2 font-semibold">입주 예정일</td><td class="py-2">2025년 8월</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                     <a href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2025000031&pblancNo=2025000031" target="_blank" class="mt-4 w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg text-center hover:bg-blue-700 transition-colors">청약 공고 바로가기 ↗</a>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-center">✅ 핵심 청약 일정</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <tbody>
+                                <tr class="border-b"><td class="py-2 font-semibold">모집 공고일</td><td class="py-2">2025.07.16.(수)</td></tr>
+                                <tr class="border-b"><td class="py-2 font-semibold">특별공급 접수</td><td class="py-2">2025.07.28.(월)</td></tr>
+                                <tr class="border-b"><td class="py-2 font-semibold">1순위 접수</td><td class="py-2">2025.07.29.(화)</td></tr>
+                                <tr class="border-b"><td class="py-2 font-semibold">당첨자 발표일</td><td class="py-2 font-bold text-blue-600">2025.08.05.(화)</td></tr>
+                                <tr><td class="py-2 font-semibold">계약 체결일</td><td class="py-2">2025.08.16.(토) ~ 08.18.(월)</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="info" class="bg-slate-100 py-20">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-4 text-slate-900">사업개요 및 분양가 💰</h2>
+                <p class="text-center text-slate-600 mb-10 max-w-3xl mx-auto">총 68세대, 지하 2층 ~ 지상 27층 규모로 구성됩니다. 중도금 없이 계약금 10%, 잔금 90% 조건이며, 타입별 분양가를 아래 표와 차트에서 확인해 보세요.</p>
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg mb-12">
+                    <h3 class="text-2xl font-bold mb-6">주택형별 공급 내용 및 분양가</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full min-w-[700px] text-left text-sm md:text-base">
+                            <thead class="bg-slate-50">
+                                <tr>
+                                    <th class="p-3 font-semibold">주택형</th>
+                                    <th class="p-3 font-semibold">총 세대수</th>
+                                    <th class="p-3 font-semibold">특별공급</th>
+                                    <th class="p-3 font-semibold">일반공급</th>
+                                    <th class="p-3 font-semibold">분양가(최고가)</th>
+                                    <th class="p-3 font-semibold">계약금(10%)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b"><td class="p-3 font-bold">70A</td><td class="p-3">23</td><td class="p-3">14</td><td class="p-3">9</td><td class="p-3">497,900,000원</td><td class="p-3">49,790,000원</td></tr>
+                                <tr class="border-b"><td class="p-3 font-bold">70B</td><td class="p-3">23</td><td class="p-3">14</td><td class="p-3">9</td><td class="p-3">507,100,000원</td><td class="p-3">50,710,000원</td></tr>
+                                <tr class="border-b"><td class="p-3 font-bold">70C</td><td class="p-3">20</td><td class="p-3">11</td><td class="p-3">9</td><td class="p-3">504,700,000원</td><td class="p-3">50,470,000원</td></tr>
+                                <tr class="border-b"><td class="p-3 font-bold">96A</td><td class="p-3">1</td><td class="p-3">0</td><td class="p-3">1</td><td class="p-3">663,700,000원</td><td class="p-3">66,370,000원</td></tr>
+                                <tr><td class="p-3 font-bold">142A</td><td class="p-3">1</td><td class="p-3">0</td><td class="p-3">1</td><td class="p-3">1,005,000,000원</td><td class="p-3">100,500,000원</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-2 text-center">타입별 분양가 비교</h3>
+                    <p class="text-center text-slate-500 mb-6 text-sm">차트의 막대에 마우스를 올려 정확한 금액을 확인하세요.</p>
+                    <div class="chart-container">
+                        <canvas id="priceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="location" class="py-20">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-4 text-slate-900">입지 환경 분석: 여기에 살아도 될까? 🗺️</h2>
+                <p class="text-center text-slate-600 mb-10 max-w-3xl mx-auto">청약의 핵심, '입지'를 교통, 학군/생활, 개발 호재 세 가지 관점에서 심층 분석했습니다. 탭을 클릭하여 자세한 내용을 확인해 보세요.</p>
+                <div class="bg-white rounded-xl shadow-lg p-2 md:p-4">
+                    <div id="tabs-container" class="flex flex-wrap justify-center border-b border-slate-200 mb-6">
+                        <button data-tab="transport" class="tab-button py-3 px-6 font-semibold text-slate-600 border-b-2 border-transparent hover:bg-slate-100 rounded-t-lg">🚇 교통</button>
+                        <button data-tab="infra" class="tab-button py-3 px-6 font-semibold text-slate-600 border-b-2 border-transparent hover:bg-slate-100 rounded-t-lg">🏫 학군/생활</button>
+                        <button data-tab="development" class="tab-button py-3 px-6 font-semibold text-slate-600 border-b-2 border-transparent hover:bg-slate-100 rounded-t-lg">✨ 개발 호재</button>
+                    </div>
+                    <div id="tab-content" class="p-4 md:p-6">
+                        <div id="transport-content" class="tab-panel space-y-4">
+                            <h4 class="text-xl font-bold">직장까지 얼마나 걸릴까?</h4>
+                            <p><strong>- 지하철:</strong> 부산 지하철 1호선 초량역을 이용할 수 있는 역세권 입지입니다. 1호선은 서면, 남포동, 연산동 등 부산의 핵심 지역을 모두 관통하는 황금 노선으로, 주요 업무 및 상업지구로의 접근성이 매우 뛰어납니다.</p>
+                            <p><strong>- 도로망:</strong> 중앙대로와 인접하여 부산역 KTX/SRT 이용이 편리하며, 수정터널을 통해 서부산권으로의 이동도 용이합니다. 시내외 어디로든 빠르게 연결되는 교통의 요지입니다.</p>
+                            <p><strong>- 미래 교통 호재 (⭐핵심⭐):</strong> 단지의 가치를 폭발시킬 가장 큰 요인! 북항 재개발 2단계 사업의 핵심 교통수단인 **트램(C-Bay-Park선)**이 계획되어 있습니다. 트램이 완공되면 단지 주변은 부산의 새로운 교통 허브로 거듭나며, 이는 자산 가치 상승으로 직결될 강력한 호재입니다.</p>
+                        </div>
+                        <div id="infra-content" class="tab-panel hidden space-y-4">
+                            <h4 class="text-xl font-bold">아이 키우고 살기 좋은가?</h4>
+                            <p><strong>- 학군:</strong> 배정 예정 초등학교는 <strong>동일중앙초등학교</strong>입니다. 또한, 부산중, 경남여중 등 오랜 전통을 자랑하는 명문 중학교들이 인근에 위치하여 우수한 교육 환경을 제공합니다.</p>
+                            <p><strong>- 생활 인프라:</strong> 부산의 원도심으로서 모든 인프라가 이미 완성되어 있습니다. 롯데백화점(광복점), 롯데마트 등 대형 쇼핑 시설은 물론, 초량전통시장, 관공서, 주요 병원들이 모두 가까워 편리하고 안정적인 생활을 누릴 수 있습니다.</p>
+                        </div>
+                        <div id="development-content" class="tab-panel hidden space-y-4">
+                           <h4 class="text-xl font-bold">미래 가치는?</h4>
+                            <p><strong>- 주변 환경:</strong> 단지 바로 옆 **초량천이 생태하천으로 복원**될 예정입니다. 도심 속에서 쾌적한 자연과 수변 공간을 누릴 수 있는, 그야말로 '힐링 라이프'가 가능해집니다.</p>
+                            <p><strong>- 개발 호재 (⭐초대형 호재⭐):</strong> 이 아파트의 가치를 논할 때 빼놓을 수 없는 것, 바로 **북항 재개발 사업**입니다. 여의도 공원의 몇 배에 달하는 거대한 부지에 국제적인 해양 비즈니스 허브, 오페라하우스, 마리나, 워터프런트 공원 등이 들어서는 국책 사업입니다. 완공 시 이곳은 부산의 새로운 중심이자 고급 주거지로 탈바꿈할 것이며, '북항 월드메르디앙 그랑블루'는 그 수혜를 직접적으로 받는 최대 수혜 단지 중 하나가 될 것입니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="eligibility" class="bg-slate-100 py-20">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-4 text-slate-900">1순위 청약 자격 진단 🙋‍♀️</h2>
+                <p class="text-center text-slate-600 mb-10 max-w-3xl mx-auto">아래 항목을 입력하고 '자격 확인' 버튼을 눌러 나의 일반공급 1순위 자격 여부를 미리 확인해보세요.</p>
+                <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+                    <div class="space-y-6">
+                        <div>
+                            <label for="residence" class="block text-lg font-semibold mb-2">1. 거주지</label>
+                            <select id="residence" class="w-full p-3 border border-slate-300 rounded-lg">
+                                <option value="busan">부산광역시</option>
+                                <option value="ulsan_gyeongnam">울산광역시 / 경상남도</option>
+                                <option value="etc">기타 지역</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="subscription-period" class="block text-lg font-semibold mb-2">2. 청약통장 가입 기간 (개월)</label>
+                            <input type="number" id="subscription-period" placeholder="예: 12" class="w-full p-3 border border-slate-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-lg font-semibold mb-2">3. 무주택 여부</label>
+                            <div class="flex space-x-4">
+                                <label><input type="radio" name="housing-status" value="none" class="mr-1"> 무주택</label>
+                                <label><input type="radio" name="housing-status" value="one" class="mr-1"> 1주택</label>
+                                <label><input type="radio" name="housing-status" value="many" class="mr-1"> 다주택</label>
+                            </div>
+                        </div>
+                         <button id="check-eligibility-btn" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors">자격 확인</button>
+                    </div>
+                    <div id="eligibility-result" class="mt-8 p-6 rounded-lg bg-slate-50 border border-slate-200 hidden">
+                        <h4 class="text-xl font-bold mb-2">📋 진단 결과</h4>
+                        <p id="result-text" class="text-lg"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="summary" class="py-20">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-10 text-slate-900">최종 정리 및 총평 ✍️</h2>
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <div class="bg-white p-6 rounded-xl border-l-4 border-green-500 shadow-lg">
+                        <h3 class="text-2xl font-bold mb-4 text-green-700">👍 장점 (Pros)</h3>
+                        <ul class="list-disc list-inside space-y-2 text-slate-700">
+                            <li><strong>압도적인 미래가치:</strong> 대한민국을 대표할 북항 재개발 사업의 최대 수혜지라는 점이 가장 큰 장점.</li>
+                            <li><strong>유연한 투자 환경:</strong> 전매제한 6개월, 재당첨 제한 및 실거주 의무 없음! 비규제지역의 장점을 모두 보유.</li>
+                            <li><strong>완성된 원도심 인프라:</strong> 교통, 쇼핑, 문화 등 이미 잘 갖춰진 부산 원도심의 편리한 생활 환경.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border-l-4 border-red-500 shadow-lg">
+                        <h3 class="text-2xl font-bold mb-4 text-red-700">👎 단점 (Cons)</h3>
+                        <ul class="list-disc list-inside space-y-2 text-slate-700">
+                            <li><strong>소규모 단지:</strong> 총 68세대로, 대단지에 비해 관리비가 다소 높고 커뮤니티 시설이 부족할 수 있음.</li>
+                            <li><strong>부족한 정보:</strong> 공고문에 단지 배치도, 평면도 등 상세 정보가 부족하여 직접 확인해야 하는 번거로움.</li>
+                            <li><strong>주변 환경 개선 필요:</strong> 북항 재개발 완성 전까지 주변의 노후한 환경이 일부 남아있을 수 있음.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-blue-50 border border-blue-200 p-8 rounded-xl shadow-lg text-center max-w-4xl mx-auto">
+                    <h3 class="text-2xl font-bold mb-4">👨‍⚖️ 최종 총평</h3>
+                    <p class="text-lg text-slate-800 leading-relaxed">이러한 특징을 종합해볼 때, **북항 월드메르디앙 그랑블루**는 <span class="font-bold text-blue-700">부산 원도심의 미래 가치, 특히 북항 재개발의 수혜를 선점하고 싶은 투자자 및 실거주자</span>에게 가장 매력적인 선택지가 될 것입니다. 특히 규제가 자유로워 청약 문턱이 낮고, 단기적인 시세 차익도 기대해 볼 수 있다는 점에서 20~40대 예비 청약자라면 반드시 관심을 가져야 할 단지입니다.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <div id="footer-placeholder"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const priceData = {
+                labels: ['70A', '70B', '70C', '96A', '142A'],
+                datasets: [{
+                    label: '타입별 최고 분양가 (원)',
+                    data: [497900000, 507100000, 504700000, 663700000, 1005000000],
+                    backgroundColor: [
+                        'rgba(59, 130, 246, 0.7)',
+                        'rgba(37, 99, 235, 0.7)',
+                        'rgba(29, 78, 216, 0.7)',
+                        'rgba(30, 64, 175, 0.7)',
+                        'rgba(30, 58, 138, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgb(59, 130, 246)',
+                        'rgb(37, 99, 235)',
+                        'rgb(29, 78, 216)',
+                        'rgb(30, 64, 175)',
+                        'rgb(30, 58, 138)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const priceChartCtx = document.getElementById('priceChart').getContext('2d');
+            new Chart(priceChartCtx, {
+                type: 'bar',
+                data: priceData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += new Intl.NumberFormat('ko-KR').format(context.parsed.y) + '원';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                             ticks: {
+                                callback: function(value, index, ticks) {
+                                    return (value / 100000000).toFixed(1) + '억';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const tabs = document.querySelectorAll('.tab-button');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(item => item.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    const target = tab.getAttribute('data-tab');
+
+                    tabPanels.forEach(panel => {
+                        if (panel.id === `${target}-content`) {
+                            panel.classList.remove('hidden');
+                        } else {
+                            panel.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+            tabs[0].click();
+            
+            const checkEligibilityBtn = document.getElementById('check-eligibility-btn');
+            checkEligibilityBtn.addEventListener('click', () => {
+                const residence = document.getElementById('residence').value;
+                const period = parseInt(document.getElementById('subscription-period').value, 10);
+                const housingStatus = document.querySelector('input[name="housing-status"]:checked');
+
+                const resultDiv = document.getElementById('eligibility-result');
+                const resultText = document.getElementById('result-text');
+                
+                let message = '';
+                let isEligible = false;
+
+                if (isNaN(period) || !housingStatus) {
+                    message = '모든 항목을 올바르게 입력해주세요.';
+                    resultDiv.classList.remove('bg-green-100', 'border-green-400', 'text-green-800');
+                    resultDiv.classList.add('bg-red-100', 'border-red-400', 'text-red-800');
+                } else {
+                    if (period >= 6) {
+                        if (residence === 'busan') {
+                            message = '축하합니다! 1순위 (부산시 우선공급) 청약 자격에 해당합니다.';
+                            isEligible = true;
+                        } else if (residence === 'ulsan_gyeongnam') {
+                            message = '1순위 (기타지역) 청약 자격에 해당합니다. 부산시 거주자에게 우선 공급 후 잔여 세대가 있을 경우 기회가 주어집니다.';
+                            isEligible = true;
+                        } else {
+                            message = '1순위 청약 자격 미충족: 해당 지역(부산, 울산, 경남) 거주자가 아닙니다.';
+                        }
+                    } else {
+                        message = '1순위 청약 자격 미충족: 청약통장 가입 기간이 6개월 미만입니다.';
+                    }
+                }
+
+                if (isEligible) {
+                    resultDiv.classList.remove('bg-red-100', 'border-red-400', 'text-red-800');
+                    resultDiv.classList.add('bg-green-100', 'border-green-400', 'text-green-800');
+                } else {
+                     resultDiv.classList.remove('bg-green-100', 'border-green-400', 'text-green-800');
+                    resultDiv.classList.add('bg-red-100', 'border-red-400', 'text-red-800');
+                }
+
+                resultText.textContent = message;
+                resultDiv.classList.remove('hidden');
+            });
+        });
+    </script>
+    <script src="/js/common.js" defer></script>
+</body>
+</html>
